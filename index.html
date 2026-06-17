@@ -849,7 +849,7 @@ const SASH_PRIZES = {
     emoji: '🎬',
     title: 'White Sash Prize',
     rewards: [
-      { icon:'🐼', text:'Watch Kung Fu Panda 1 with Dad' },
+      { icon:'🐼', text:'Watch Kung Fu Panda 1 with a Parent' },
       { icon:'🍣', text:'Special Shaolin Monk Meal — sushi or gyoza together' },
     ]
   },
@@ -857,7 +857,7 @@ const SASH_PRIZES = {
     emoji: '🏆',
     title: 'Yellow Sash Prize',
     rewards: [
-      { icon:'🐼', text:'Watch Kung Fu Panda 2 with Dad' },
+      { icon:'🐼', text:'Watch Kung Fu Panda 2 with a Parent' },
       { icon:'🥟', text:'Make dumplings together — warrior\'s feast' },
     ]
   }
@@ -2179,7 +2179,7 @@ function showCeremony(scrollId, beltAwarded, isSashPromo){
     const p = SASH_PRIZES[sashKey];
     if(!p) return '';
     return `<div class="cer-prize">
-      <div class="cer-prize-header">🎁 Your Prize — claim it with Dad!</div>
+      <div class="cer-prize-header">🎁 Your Prize — claim it with a Parent!</div>
       ${p.rewards.map(r=>`<div class="cer-prize-row"><span style="font-size:1.3rem">${r.icon}</span><span>${r.text}</span></div>`).join('')}
     </div>`;
   }
