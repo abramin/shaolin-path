@@ -77,6 +77,8 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .sash-badge.orange{background:rgba(255,109,0,.15);color:var(--orange-s);border:1px solid rgba(255,109,0,.35)}
 .sash-dot{width:8px;height:8px;border-radius:50%}
 .white .sash-dot{background:var(--white-s)}.yellow .sash-dot{background:var(--yellow-s)}.orange .sash-dot{background:var(--orange-s)}
+.nav-sound-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:4px 6px;border-radius:8px;transition:opacity var(--tr);opacity:.75}
+.nav-sound-btn:hover{opacity:1}
 .nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Nunito',sans-serif;font-weight:700}
 .nav-journal-btn:hover{border-color:var(--jade);color:var(--text)}
 
@@ -404,6 +406,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
       <span id="nav-sash-text">White Sash Novice</span>
     </div>
     <button class="nav-journal-btn" onclick="toggleSessionLog()">📜 Journal</button>
+    <button class="nav-sound-btn" id="nav-sound-btn" onclick="toggleMusic()" title="Toggle music">🔊</button>
   </div>
 </nav>
 
@@ -452,6 +455,59 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 </div>
 
 <script>
+/* ═══════════════════════════════════════════════════════
+   MUSIC
+═══════════════════════════════════════════════════════ */
+const MUSIC_TRACKS = ['assets/music/Bamboo Path.mp3','assets/music/Bamboo Path-2.mp3'];
+let musicIdx = 0;
+let musicMuted = localStorage.getItem('shaolin_mute') === '1';
+const musicAudio = new Audio();
+musicAudio.volume = 0.35;
+
+function musicNext(){
+  musicIdx = (musicIdx + 1) % MUSIC_TRACKS.length;
+  musicAudio.src = MUSIC_TRACKS[musicIdx];
+  if(!musicMuted) musicAudio.play().catch(()=>{});
+}
+musicAudio.addEventListener('ended', musicNext);
+
+function startMusic(){
+  if(musicAudio.src) return;
+  musicAudio.src = MUSIC_TRACKS[0];
+  if(!musicMuted) musicAudio.play().catch(()=>{});
+}
+
+function toggleMusic(){
+  musicMuted = !musicMuted;
+  localStorage.setItem('shaolin_mute', musicMuted ? '1' : '0');
+  const btn = document.getElementById('nav-sound-btn');
+  if(musicMuted){
+    musicAudio.pause();
+    if(btn) btn.textContent = '🔇';
+  } else {
+    if(!musicAudio.src) musicAudio.src = MUSIC_TRACKS[0];
+    musicAudio.play().catch(()=>{});
+    if(btn) btn.textContent = '🔊';
+  }
+}
+
+function updateSoundBtn(){
+  const btn = document.getElementById('nav-sound-btn');
+  if(btn) btn.textContent = musicMuted ? '🔇' : '🔊';
+}
+
+// Start on first user interaction (browsers block autoplay before gesture)
+let musicStarted = false;
+function onFirstInteraction(){
+  if(musicStarted) return;
+  musicStarted = true;
+  startMusic();
+  document.removeEventListener('click', onFirstInteraction);
+  document.removeEventListener('keydown', onFirstInteraction);
+}
+document.addEventListener('click', onFirstInteraction);
+document.addEventListener('keydown', onFirstInteraction);
+
 /* ═══════════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════════ */
@@ -898,7 +954,7 @@ function showView(name){
   el.classList.remove('hidden');
   requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
   window.scrollTo(0,0);
-  if(name!=='welcome') document.getElementById('top-nav').classList.remove('hidden');
+  if(name!=='welcome'){ document.getElementById('top-nav').classList.remove('hidden'); updateSoundBtn(); }
 }
 
 function goHome(){
