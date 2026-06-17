@@ -76,8 +76,13 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .sash-badge.white{background:rgba(220,220,220,.1);color:var(--white-s);border:1px solid rgba(220,220,220,.22)}
 .sash-badge.yellow{background:rgba(255,184,0,.15);color:var(--yellow-s);border:1px solid rgba(255,184,0,.35)}
 .sash-badge.orange{background:rgba(255,109,0,.15);color:var(--orange-s);border:1px solid rgba(255,109,0,.35)}
+.sash-badge.green{background:rgba(68,204,68,.15);color:#44cc44;border:1px solid rgba(68,204,68,.35)}
+.sash-badge.blue{background:rgba(34,136,255,.15);color:#2288ff;border:1px solid rgba(34,136,255,.35)}
+.sash-badge.brown{background:rgba(192,112,48,.15);color:#c07030;border:1px solid rgba(192,112,48,.35)}
+.sash-badge.black{background:rgba(110,110,110,.15);color:#aaaaaa;border:1px solid rgba(110,110,110,.35)}
 .sash-dot{width:8px;height:8px;border-radius:50%}
 .white .sash-dot{background:var(--white-s)}.yellow .sash-dot{background:var(--yellow-s)}.orange .sash-dot{background:var(--orange-s)}
+.green .sash-dot{background:#44cc44}.blue .sash-dot{background:#2288ff}.brown .sash-dot{background:#c07030}.black .sash-dot{background:#aaaaaa}
 .nav-path-btn{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px 8px;border-radius:8px;color:var(--text-muted);font-family:'Bangers',cursive;letter-spacing:.05em;transition:color var(--tr)}
 .nav-path-btn:hover{color:var(--text)}
 .nav-sound-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:4px 6px;border-radius:8px;transition:opacity var(--tr);opacity:.75}
@@ -90,6 +95,8 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .path-zone-banner.white{background:rgba(224,224,224,.08);border:1px solid rgba(255,255,255,.12);color:var(--text-muted)}
 .path-zone-banner.yellow{background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.3);color:var(--gold)}
 .path-zone-banner.orange{background:rgba(255,109,0,.1);border:1px solid rgba(255,109,0,.3);color:#ff8c40}
+.path-zone-banner.green{background:rgba(68,204,68,.08);border:1px solid rgba(68,204,68,.3);color:#44cc44}
+.path-zone-banner.blue{background:rgba(34,136,255,.08);border:1px solid rgba(34,136,255,.3);color:#2288ff}
 .path-connector{width:2px;height:28px;background:linear-gradient(to bottom,var(--jade),transparent);margin:0 auto 0 36px;opacity:.4}
 .path-node{display:flex;align-items:flex-start;gap:14px;padding:12px 14px;border-radius:var(--r);cursor:pointer;transition:background var(--tr);border:1.5px solid transparent;margin-bottom:4px}
 .path-node:hover{background:rgba(255,255,255,.04);border-color:var(--wood-l)}
@@ -129,6 +136,10 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .rank-circle.white{background:rgba(224,224,224,.1);color:var(--white-s)}
 .rank-circle.yellow{background:rgba(255,184,0,.15);color:var(--yellow-s);box-shadow:0 0 16px rgba(255,184,0,.3)}
 .rank-circle.orange{background:rgba(255,109,0,.15);color:var(--orange-s);box-shadow:0 0 16px rgba(255,109,0,.3)}
+.rank-circle.green{background:rgba(68,204,68,.15);color:#44cc44;box-shadow:0 0 16px rgba(68,204,68,.3)}
+.rank-circle.blue{background:rgba(34,136,255,.15);color:#2288ff;box-shadow:0 0 16px rgba(34,136,255,.3)}
+.rank-circle.brown{background:rgba(192,112,48,.15);color:#c07030;box-shadow:0 0 16px rgba(192,112,48,.3)}
+.rank-circle.black{background:rgba(110,110,110,.15);color:#aaaaaa;box-shadow:0 0 16px rgba(110,110,110,.25)}
 .rank-info{flex:1;min-width:0}
 .rank-greeting{font-family:'Bangers',cursive;font-size:.9rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .rank-monk-name{font-family:'Bangers',cursive;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--text);margin-bottom:3px;letter-spacing:.05em}
@@ -138,6 +149,10 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .prog-fill.white-p{background:linear-gradient(90deg,#aaa,#e8e8e8)}
 .prog-fill.yellow-p{background:linear-gradient(90deg,#e8a000,var(--gold-l))}
 .prog-fill.orange-p{background:linear-gradient(90deg,var(--gold),var(--orange-s))}
+.prog-fill.green-p{background:linear-gradient(90deg,#2a8a2a,#44cc44)}
+.prog-fill.blue-p{background:linear-gradient(90deg,#1155cc,#2288ff)}
+.prog-fill.brown-p{background:linear-gradient(90deg,#7a4020,#c07030)}
+.prog-fill.black-p{background:linear-gradient(90deg,#333,#888)}
 .prog-label{font-size:.88rem;color:var(--text-dim);margin-top:6px;font-weight:600}
 .rank-quote{font-style:italic;color:var(--text-muted);font-size:.95rem;border-left:3px solid var(--jade);padding-left:14px;max-width:200px;flex-shrink:0;font-weight:600}
 .section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px}
@@ -837,33 +852,40 @@ const FORM_STEPS = [
 /* ═══════════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════════ */
-const BELT_ORDER = ['yellow','orange','black'];
+const BELT_ORDER = ['yellow','orange','green','blue','brown','black'];
 const BELT_SESSIONS = 3;
+
+// Maps each earned belt to the beltDays training tier key
+const BELT_TIER = {
+  yellow:'yellow', orange:'yellow',   // Foundation tier
+  green:'orange',  blue:'orange',     // Warrior tier
+  brown:'black',   black:'black',     // Master tier
+};
+
+// Scrolls needed at each belt level (4 then 8 within each tier)
+const BELT_THRESHOLD = {
+  yellow:4, orange:8,
+  green:4,  blue:8,
+  brown:4,  black:8,
+};
+
 const BELT_META = {
-  yellow:{ emoji:'🟡', label:'Yellow Belt', color:'#ffb800', title:'Foundation' },
-  orange:{ emoji:'🟠', label:'Orange Belt', color:'#ff6d00', title:'Warrior' },
-  black: { emoji:'⚫', label:'Black Belt',  color:'#333',    title:'Master' }
+  white:  { emoji:'⚪', label:'White Belt',  color:'#e0e0e0', title:'Beginner'     },
+  yellow: { emoji:'🟡', label:'Yellow Belt', color:'#ffcc00', title:'Foundation I'  },
+  orange: { emoji:'🟠', label:'Orange Belt', color:'#ff7700', title:'Foundation II' },
+  green:  { emoji:'🟢', label:'Green Belt',  color:'#44cc44', title:'Warrior I'     },
+  blue:   { emoji:'🔵', label:'Blue Belt',   color:'#2288ff', title:'Warrior II'    },
+  brown:  { emoji:'🟤', label:'Brown Belt',  color:'#c07030', title:'Master I'      },
+  black:  { emoji:'⚫', label:'Black Belt',  color:'#555555', title:'Master II'     },
 };
 
 const BELT_PRIZES = {
-  yellow: {
-    rewards: [
-      { icon:'🐼', text:'Watch Kung Fu Panda 1 with a Parent' },
-      { icon:'🍣', text:'Special Shaolin Monk Meal — sushi or gyoza together' },
-    ]
-  },
-  orange: {
-    rewards: [
-      { icon:'🐼', text:'Watch Kung Fu Panda 2 with a Parent' },
-      { icon:'🥟', text:'Make dumplings together — warrior\'s feast' },
-    ]
-  },
-  black: {
-    rewards: [
-      { icon:'🎌', text:'Watch all three Kung Fu Panda films in one sitting' },
-      { icon:'🍜', text:'Choose any restaurant for a special celebration dinner' },
-    ]
-  }
+  yellow: { rewards: [{ icon:'🥟', text:'Gyoza night — you choose the dipping sauce!' }] },
+  orange: { rewards: [{ icon:'🐼', text:'Watch Kung Fu Panda 1 with a Parent' }, { icon:'🍣', text:'Special Shaolin Monk Meal — sushi or gyoza together' }] },
+  green:  { rewards: [{ icon:'🎯', text:'Choose a fun activity for the whole family' }] },
+  blue:   { rewards: [{ icon:'🐼', text:'Watch Kung Fu Panda 2 with a Parent' }, { icon:'🥟', text:'Make dumplings together — warrior\'s feast' }] },
+  brown:  { rewards: [{ icon:'🎮', text:'A special gaming session — your choice of game' }] },
+  black:  { rewards: [{ icon:'🎌', text:'Watch all three Kung Fu Panda films in one sitting' }, { icon:'🍜', text:'Choose any restaurant for a special celebration dinner' }] },
 };
 
 const DEFAULT_SCROLLS = {};
@@ -897,12 +919,12 @@ function loadState(){
       if(!sp){ state.scrollProgress[s.id] = {...DEFAULT_SCROLLS[s.id]}; return; }
       if(!sp.beltDays) sp.beltDays = {yellow:sp.practiceDays||[],orange:[],black:[]};
       BELT_ORDER.forEach(b=>{ if(!sp.beltDays[b]) sp.beltDays[b]=[]; });
-      // Migrate old earnedBelts into global state.belt
+      // Migrate old earnedBelts or old 3-belt state.belt into new 7-belt system
       if(sp.earnedBelts){
         const eb = sp.earnedBelts;
-        if(eb.includes('black') && (!state.belt || BELT_ORDER.indexOf(state.belt)<2)) state.belt='black';
-        else if(eb.includes('orange') && (!state.belt || BELT_ORDER.indexOf(state.belt)<1)) state.belt='orange';
-        else if(eb.includes('yellow') && !state.belt) state.belt='yellow';
+        if(eb.includes('black') && (!state.belt || BELT_ORDER.indexOf(state.belt)<5)) state.belt='black';
+        else if(eb.includes('orange') && (!state.belt || BELT_ORDER.indexOf(state.belt)<3)) state.belt='blue';
+        else if(eb.includes('yellow') && (!state.belt || BELT_ORDER.indexOf(state.belt)<1)) state.belt='orange';
         delete sp.earnedBelts;
       }
     });
@@ -942,32 +964,46 @@ function playCeremony(){
    HELPERS
 ═══════════════════════════════════════════════════════ */
 function getWorkingBelt(){
-  if(state.belt==='black') return 'black';
-  if(state.belt==='orange') return 'black';
-  if(state.belt==='yellow') return 'orange';
-  return 'yellow';
+  if(!state.belt) return 'yellow';
+  const idx = BELT_ORDER.indexOf(state.belt);
+  if(idx >= BELT_ORDER.length-1) return 'black';
+  return BELT_ORDER[idx+1];
 }
+function getWorkingTrainingTier(){ return BELT_TIER[getWorkingBelt()]; }
 function getWorkingBeltIdx(){ return BELT_ORDER.indexOf(getWorkingBelt()); }
 function getMaxBeltTier(){
-  if(state.belt==='orange'||state.belt==='black') return 2;
-  if(state.belt==='yellow') return 1;
+  if(['blue','brown','black'].includes(state.belt)) return 2;
+  if(['orange','green'].includes(state.belt)) return 1;
   return 0;
 }
 
 function getRank(){
-  if(state.belt==='black')  return {rank:'black', title:'Black Belt Master',    emoji:'⚫',quote:'"The journey makes the master."'};
-  if(state.belt==='orange') return {rank:'orange',title:'Orange Belt Disciple', emoji:'🟠',quote:'"Discipline is the highest form of self-respect."'};
-  if(state.belt==='yellow') return {rank:'yellow',title:'Yellow Belt Student',  emoji:'🟡',quote:'"The cup is filling with wisdom."'};
-  return                          {rank:'white', title:'Novice of the Path',   emoji:'⚪',quote:'"Every master was once a beginner."'};
+  const b = state.belt || 'white';
+  const bm = BELT_META[b];
+  const quotes = {
+    white: '"Every master was once a beginner."',
+    yellow:'"One foot on the path — keep walking."',
+    orange:'"Foundation complete — the temple doors open wider."',
+    green: '"The student becomes the practitioner."',
+    blue:  '"Discipline shapes the warrior within."',
+    brown: '"Strength and wisdom walk together."',
+    black: '"The journey makes the master."',
+  };
+  return { rank:b, title:`${bm.label}`, emoji:bm.emoji, quote:quotes[b] };
 }
 
-function scrollsReadyAt(beltKey){
-  return SCROLLS.filter(s=>(state.scrollProgress[s.id]?.beltDays?.[beltKey]||[]).length>=BELT_SESSIONS).length;
+function scrollsReadyAt(trainingTier){
+  return SCROLLS.filter(s=>(state.scrollProgress[s.id]?.beltDays?.[trainingTier]||[]).length>=BELT_SESSIONS).length;
 }
 function allReadyForBelt(){
-  return state.belt!=='black' && scrollsReadyAt(getWorkingBelt())===SCROLLS.length;
+  if(state.belt==='black') return false;
+  const wb = getWorkingBelt();
+  return scrollsReadyAt(BELT_TIER[wb]) >= BELT_THRESHOLD[wb];
 }
-function getCompletedCount(){ return scrollsReadyAt(getWorkingBelt()); }
+function getCompletedCount(){
+  const wb = getWorkingBelt();
+  return Math.min(scrollsReadyAt(BELT_TIER[wb]), BELT_THRESHOLD[wb]);
+}
 
 function getCurrentScrollId(){
   const sp = SCROLLS.find(s=>state.scrollProgress[s.id]?.status==='active');
@@ -1036,18 +1072,19 @@ function renderPathView(){
   const el = document.getElementById('path-content');
   if(!el) return;
   const wb = getWorkingBelt();
+  const tier = getWorkingTrainingTier();
   const bm = BELT_META[wb];
   let markedCurrent = false;
   function resolvedState(id){
     const sp = state.scrollProgress[id]||{};
-    const days = (sp.beltDays?.[wb]||[]).length;
+    const days = (sp.beltDays?.[tier]||[]).length;
     if(days >= BELT_SESSIONS) return 'reached';
     if(!markedCurrent){ markedCurrent = true; return 'current'; }
     return 'ahead';
   }
   function sessionPips(id){
     const sp = state.scrollProgress[id]||{};
-    const days = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
+    const days = Math.min((sp.beltDays?.[tier]||[]).length, BELT_SESSIONS);
     return Array.from({length:BELT_SESSIONS},(_,i)=>
       `<span style="font-size:.8rem">${i<days?'🌟':'⬜'}</span>`
     ).join('');
@@ -1055,7 +1092,7 @@ function renderPathView(){
   function nodeHTML(scroll){
     const st = resolvedState(scroll.id);
     const sp = state.scrollProgress[scroll.id]||{};
-    const days = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
+    const days = Math.min((sp.beltDays?.[tier]||[]).length, BELT_SESSIONS);
     return `<div class="path-node" onclick="goToScroll(${scroll.id});showView('scroll')">
       <div class="path-node-icon ${st}">${scroll.emoji}</div>
       <div class="path-node-info">
@@ -1070,9 +1107,8 @@ function renderPathView(){
   }
   const connector = `<div class="path-connector"></div>`;
   const zones = [
-    {rank:'white', nextRank:'yellow', emoji:'⚪',label:'Yellow Belt Training',  scrollIds:[1,2,3],req:'Complete 3 practice sessions in each scroll'},
-    {rank:'yellow',nextRank:'orange', emoji:'🟡',label:'Orange Belt Training',  scrollIds:[4,5,6],req:'Earn your Yellow Belt first'},
-    {rank:'orange',nextRank:'black',  emoji:'🟠',label:'Black Belt Training',   scrollIds:[7,8],  req:'Earn your Orange Belt first'},
+    {rank:'white',  emoji:'⚪', label:'Foundation — Yellow Belt', scrollIds:[1,2,3,4], req:'Complete 3 sessions per scroll · earn Yellow Belt at 4 scrolls', awardBelt:'yellow'},
+    {rank:'yellow', emoji:'🟡', label:'Foundation — Orange Belt', scrollIds:[5,6,7,8], req:'Complete Foundation training · earn Orange Belt at all 8 scrolls', awardBelt:'orange'},
   ];
   const r = getRank();
   let html = `<div class="path-title">⛩️ THE PATH OF THE YOUNG MONK</div>
@@ -1080,9 +1116,9 @@ function renderPathView(){
       You are: <strong style="color:var(--jade)">${r.emoji} ${r.title}</strong>
     </div>`;
   zones.forEach((zone, zi) => {
-    const prize = BELT_PRIZES[zone.nextRank];
+    const prize = BELT_PRIZES[zone.awardBelt];
     const prizeHtml = prize ? `<div class="path-prize">
-      <div class="path-prize-header">🎁 Earn ${BELT_META[zone.nextRank].emoji} ${BELT_META[zone.nextRank].label} to unlock</div>
+      <div class="path-prize-header">🎁 ${BELT_META[zone.awardBelt].emoji} ${BELT_META[zone.awardBelt].label} prize</div>
       ${prize.rewards.map(r=>`<div class="path-prize-row"><span class="path-prize-icon">${r.icon}</span><span>${r.text}</span></div>`).join('')}
     </div>` : '';
     html += `<div class="path-zone">
@@ -1099,10 +1135,27 @@ function renderPathView(){
     html += `</div>`;
     if(zi < zones.length-1) html += connector;
   });
+  const warriorUnlocked = ['orange','green','blue','brown','black'].includes(state.belt);
+  const masterUnlocked  = ['blue','brown','black'].includes(state.belt);
+
+  html += connector;
+  html += `<div class="path-zone" style="${warriorUnlocked?'':'opacity:.5'}">
+    <div class="path-zone-banner green"><span>🟢</span><span>Warrior Training — Green &amp; Blue Belt</span>${warriorUnlocked?'':' 🔒'}</div>
+    <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px;padding-left:4px">${warriorUnlocked?'Harder techniques · same 8 scrolls · earn Green Belt at 4, Blue Belt at 8':'Earn Orange Belt to unlock Warrior training'}</div>
+    ${warriorUnlocked?'':BELT_PRIZES.green.rewards.map(r=>`<div class="path-prize-row" style="padding:4px 0"><span class="path-prize-icon">${r.icon}</span><span style="font-size:.8rem;color:var(--text-dim)">${r.text}</span></div>`).join('')}
+  </div>`;
+
+  html += connector;
+  html += `<div class="path-zone" style="${masterUnlocked?'':'opacity:.4'}">
+    <div class="path-zone-banner blue"><span>🔵</span><span>Master Training — Brown &amp; Black Belt</span>${masterUnlocked?'':' 🔒'}</div>
+    <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px;padding-left:4px">${masterUnlocked?'The hardest level · earn Brown Belt at 4, Black Belt at all 8':'Earn Blue Belt to unlock Master training'}</div>
+  </div>`;
+
+  html += connector;
   html += `<div class="path-summit">
     <span class="path-summit-emoji">🏯</span>
-    <div class="path-summit-title">The Summit — ⚫ Black Belt Master</div>
-    <div class="path-summit-desc">All eight scrolls mastered at every level.<br>The Shaolin path is yours.</div>
+    <div class="path-summit-title">⚫ Black Belt Master</div>
+    <div class="path-summit-desc">All eight scrolls at Master level.<br>The summit of the Shaolin path.</div>
   </div>`;
   el.innerHTML = html;
 }
@@ -1149,7 +1202,7 @@ function renderDashboard(){
       <div class="rank-monk-name">${esc(state.monkName)}</div>
       <div class="rank-title-txt">${r.title}</div>
       <div class="prog-track"><div class="prog-fill ${progClass}" style="width:${pct}%"></div></div>
-      <div class="prog-label">${done} of 8 scrolls ready for ${BELT_META[getWorkingBelt()].emoji} ${BELT_META[getWorkingBelt()].label}</div>
+      <div class="prog-label">${done} of ${BELT_THRESHOLD[getWorkingBelt()]} scrolls ready for ${BELT_META[getWorkingBelt()].emoji} ${BELT_META[getWorkingBelt()].label}</div>
     </div>
     <div class="rank-quote">${r.quote}</div>
   `;
@@ -1157,10 +1210,12 @@ function renderDashboard(){
   const grid = document.getElementById('scrolls-grid');
   grid.innerHTML = '';
   const wb = getWorkingBelt();
+  const tier = BELT_TIER[wb];
   const bm = BELT_META[wb];
+  const threshold = BELT_THRESHOLD[wb];
   SCROLLS.forEach(scroll=>{
     const sp = state.scrollProgress[scroll.id] || {beltDays:{yellow:[],orange:[],black:[]}};
-    const wbDays = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
+    const wbDays = Math.min((sp.beltDays?.[tier]||[]).length, BELT_SESSIONS);
     const ready = wbDays >= BELT_SESSIONS;
     const mastered = state.belt==='black' && ready;
 
@@ -1256,8 +1311,9 @@ function renderCurrentSlide(id, dir){
   if(!scroll) return;
 
   const wb = getWorkingBelt();
-  const wbIdx = BELT_ORDER.indexOf(wb);
   const bm = BELT_META[wb];
+  const trainingTier = getWorkingTrainingTier();
+  const wbIdx = ['yellow','orange','black'].indexOf(trainingTier);
   const level = scroll.levels?.[wbIdx];
   const practices = level ? level.practices : scroll.practices;
   const interactiveNote = level?.interactiveNote || '';
@@ -1362,8 +1418,9 @@ function renderInlineActions(id){
   const sp = state.scrollProgress[id];
   if(!sp) return;
   const wb = getWorkingBelt();
+  const tier = BELT_TIER[wb];
   const bm = BELT_META[wb];
-  const wbDays = sp.beltDays?.[wb]||[];
+  const wbDays = sp.beltDays?.[tier]||[];
   const today = new Date().toISOString().split('T')[0];
   const practicedToday = wbDays.includes(today);
   const count = Math.min(wbDays.length, BELT_SESSIONS);
@@ -1414,9 +1471,11 @@ function renderBeltBar(id){
   const scroll = SCROLLS.find(s=>s.id===id);
   if(!scroll) return;
   const wb = getWorkingBelt();
+  const tier = BELT_TIER[wb];
   const bm = BELT_META[wb];
-  const done = scrollsReadyAt(wb);
-  const total = SCROLLS.length;
+  const threshold = BELT_THRESHOLD[wb];
+  const done = Math.min(scrollsReadyAt(tier), threshold);
+  const total = threshold;
 
   const bar = document.getElementById('complete-bar');
   bar.classList.remove('hidden');
@@ -1434,7 +1493,7 @@ function renderBeltBar(id){
 
   hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap">
     ${beltPips}
-    <span style="font-size:.82rem;color:var(--text-muted)">${bm.emoji} Training · ${done}/${total} scrolls ready</span>
+    <span style="font-size:.82rem;color:var(--text-muted)">${bm.emoji} ${bm.label} · ${done}/${total} scrolls ready</span>
   </span>`;
   action.innerHTML = '';
 }
@@ -1443,10 +1502,10 @@ function logPracticeDay(id){
   const today = new Date().toISOString().split('T')[0];
   const sp = state.scrollProgress[id];
   if(!sp) return;
-  const wb = getWorkingBelt();
+  const tier = getWorkingTrainingTier();
   if(!sp.beltDays) sp.beltDays = {yellow:[],orange:[],black:[]};
-  if(sp.beltDays[wb].includes(today)) return;
-  sp.beltDays[wb].push(today);
+  if(sp.beltDays[tier].includes(today)) return;
+  sp.beltDays[tier].push(today);
   logSession(id,'practiced');
   saveState();
   renderBeltBar(id);
