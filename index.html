@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Path of the Young Monk — Shaolin Temple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e1c0a;
+  --bg-panel:#162812;
+  --bg-card:#1e3618;
+  --bg-card-h:#264520;
+  --text:#f4ead8;
+  --text-muted:#c8e0a8;
+  --text-dim:#7aaa60;
+  --red:#e8392b;
+  --red-glow:rgba(232,57,43,0.3);
+  --gold:#ffb800;
+  --gold-l:#ffd54f;
+  --gold-glow:rgba(255,184,0,0.3);
+  --jade:#52c050;
+  --jade-glow:rgba(82,192,80,0.25);
+  --wood:#2a4820;
+  --wood-l:#3a5a2e;
+  --r:10px;--rl:18px;--tr:0.3s ease;
+  --white-s:#e8e8e8;--yellow-s:#ffb800;--orange-s:#ff6d00;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:17px;line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 70%,rgba(82,192,80,0.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 10%,rgba(255,184,0,0.06) 0%,transparent 45%),radial-gradient(ellipse at 50% 90%,rgba(232,57,43,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--wood);border-radius:3px}
+.hidden{display:none!important}
+h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
+
+/* === TRANSITIONS === */
+.view{position:relative;z-index:1;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;pointer-events:none}
+.view.visible{opacity:1;transform:translateY(0);pointer-events:all}
+
+/* === WELCOME === */
+#view-welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px}
+.welcome-gate{max-width:480px;width:100%;text-align:center}
+.temple-sym{font-size:80px;display:block;margin-bottom:4px;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.welcome-gate h1{font-family:'Bangers',cursive;font-size:clamp(2rem,6vw,3rem);color:var(--gold);margin-bottom:4px;letter-spacing:.06em;text-shadow:0 0 30px rgba(255,184,0,.4)}
+.welcome-sub{color:var(--text-muted);font-style:italic;margin-bottom:32px;font-size:1.1rem;font-weight:600}
+.welcome-gate p{color:var(--text-muted);margin-bottom:16px;font-size:1.1rem;line-height:1.85;font-weight:400}
+.divider{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--jade),transparent);margin:24px auto}
+.name-form{display:flex;flex-direction:column;gap:14px;align-items:center}
+.name-form label{font-family:'Bangers',cursive;font-size:1rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
+.name-input{width:100%;padding:16px 22px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
+.name-input:focus{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-glow)}
+.name-input::placeholder{color:var(--text-dim)}
+
+/* === BUTTONS === */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border:none;border-radius:var(--r);font-family:'Bangers',cursive;font-size:1rem;letter-spacing:.06em;cursor:pointer;transition:all var(--tr);text-decoration:none;white-space:nowrap;line-height:1}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 20px var(--red-glow)}
+.btn-primary:hover{background:#f04030;box-shadow:0 6px 28px rgba(232,57,43,.5);transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#1a0e00;box-shadow:0 4px 20px var(--gold-glow)}
+.btn-gold:hover{background:var(--gold-l);box-shadow:0 6px 28px rgba(255,184,0,.5);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text-muted);border:2px solid var(--wood-l)}
+.btn-outline:hover{border-color:var(--jade);color:var(--text)}
+.btn-sm{padding:8px 16px;font-size:.88rem}
+.btn-lg{padding:17px 34px;font-size:1.15rem}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* === TOP NAV === */
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(14,28,10,.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--wood);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-brand{display:flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none}
+.nav-brand-icon{font-size:1.4rem}
+.nav-brand-text{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--gold);letter-spacing:.08em}
+.nav-right{display:flex;align-items:center;gap:10px}
+.sash-badge{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:.9rem;font-family:'Bangers',cursive;letter-spacing:.05em;transition:all var(--tr)}
+.sash-badge.white{background:rgba(220,220,220,.1);color:var(--white-s);border:1px solid rgba(220,220,220,.22)}
+.sash-badge.yellow{background:rgba(255,184,0,.15);color:var(--yellow-s);border:1px solid rgba(255,184,0,.35)}
+.sash-badge.orange{background:rgba(255,109,0,.15);color:var(--orange-s);border:1px solid rgba(255,109,0,.35)}
+.sash-dot{width:8px;height:8px;border-radius:50%}
+.white .sash-dot{background:var(--white-s)}.yellow .sash-dot{background:var(--yellow-s)}.orange .sash-dot{background:var(--orange-s)}
+.nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Nunito',sans-serif;font-weight:700}
+.nav-journal-btn:hover{border-color:var(--jade);color:var(--text)}
+
+/* === DASHBOARD === */
+#view-dashboard{min-height:100vh}
+.dash-inner{max-width:900px;margin:0 auto;padding:32px 20px 80px}
+.rank-banner{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);padding:28px 32px;margin-bottom:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.rank-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;flex-shrink:0;position:relative}
+.rank-circle::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid currentColor;opacity:.4}
+.rank-circle.white{background:rgba(224,224,224,.1);color:var(--white-s)}
+.rank-circle.yellow{background:rgba(255,184,0,.15);color:var(--yellow-s);box-shadow:0 0 16px rgba(255,184,0,.3)}
+.rank-circle.orange{background:rgba(255,109,0,.15);color:var(--orange-s);box-shadow:0 0 16px rgba(255,109,0,.3)}
+.rank-info{flex:1;min-width:0}
+.rank-greeting{font-family:'Bangers',cursive;font-size:.9rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.rank-monk-name{font-family:'Bangers',cursive;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--text);margin-bottom:3px;letter-spacing:.05em}
+.rank-title-txt{font-size:1rem;color:var(--text-muted);margin-bottom:14px;font-weight:600}
+.prog-track{height:10px;background:var(--wood);border-radius:5px;overflow:hidden;max-width:300px}
+.prog-fill{height:100%;border-radius:5px;transition:width 1.2s ease}
+.prog-fill.white-p{background:linear-gradient(90deg,#aaa,#e8e8e8)}
+.prog-fill.yellow-p{background:linear-gradient(90deg,#e8a000,var(--gold-l))}
+.prog-fill.orange-p{background:linear-gradient(90deg,var(--gold),var(--orange-s))}
+.prog-label{font-size:.88rem;color:var(--text-dim);margin-top:6px;font-weight:600}
+.rank-quote{font-style:italic;color:var(--text-muted);font-size:.95rem;border-left:3px solid var(--jade);padding-left:14px;max-width:200px;flex-shrink:0;font-weight:600}
+.section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.section-title{font-family:'Bangers',cursive;font-size:1rem;color:var(--jade);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.section-hdr::after{content:'';flex:1;height:2px;background:var(--wood)}
+.scrolls-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.scroll-card{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);padding:24px;cursor:pointer;transition:all var(--tr);position:relative;overflow:hidden}
+.scroll-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--rl) var(--rl) 0 0;background:var(--wood);transition:background var(--tr)}
+.scroll-card.active{border-color:rgba(232,57,43,.6);background:linear-gradient(135deg,rgba(232,57,43,.08),var(--bg-card));box-shadow:0 0 28px var(--red-glow),0 6px 20px rgba(0,0,0,.3)}
+.scroll-card.active::before{background:var(--red)}
+.scroll-card.complete{border-color:rgba(255,184,0,.4)}
+.scroll-card.complete::before{background:var(--gold)}
+.scroll-card.locked{opacity:.35;cursor:not-allowed}
+.scroll-card:not(.locked):hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.scroll-card:not(.locked):not(.active):hover{border-color:var(--jade)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.card-emoji{font-size:2.2rem;line-height:1}
+.card-status{font-size:.78rem;font-family:'Bangers',cursive;letter-spacing:.06em;padding:3px 9px;border-radius:12px}
+.st-active{background:var(--red-glow);color:var(--red);border:1px solid rgba(232,57,43,.3)}
+.st-complete{background:var(--gold-glow);color:var(--gold);border:1px solid rgba(255,184,0,.3)}
+.st-locked{color:var(--text-dim)}
+.st-new{background:rgba(82,192,80,.2);color:var(--jade);border:1.5px solid rgba(82,192,80,.5)}
+.inline-progress-row{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:4px}
+.card-num{font-family:'Bangers',cursive;font-size:.82rem;color:var(--text-dim);letter-spacing:.08em;margin-bottom:5px}
+.card-name{font-family:'Bangers',cursive;font-size:1.15rem;color:var(--text);margin-bottom:6px;line-height:1.25;letter-spacing:.04em}
+.scroll-card.locked .card-name{color:var(--text-dim)}
+.card-skill{font-size:.93rem;color:var(--text-muted);font-style:italic;line-height:1.45;font-weight:600}
+.card-date{font-size:.82rem;color:var(--text-dim);margin-top:10px;font-weight:600}
+.card-progress{margin-top:10px;font-size:.88rem;display:flex;align-items:center;gap:6px}
+.card-progress span{color:var(--text-dim);font-family:'Bangers',cursive;font-size:.82rem;letter-spacing:.04em}
+
+/* === SESSION MODAL === */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--bg-panel);border:2px solid var(--wood-l);border-radius:var(--rl);padding:32px;max-width:480px;width:100%;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.modal-ttl{font-family:'Bangers',cursive;font-size:1.4rem;color:var(--gold);margin-bottom:4px;letter-spacing:.06em}
+.modal-sub{color:var(--text-muted);font-size:1rem;margin-bottom:22px;font-weight:600}
+.session-modes{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.smode-card{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;gap:16px;text-align:left}
+.smode-card:hover{border-color:var(--jade);background:var(--bg-card-h);transform:translateX(3px)}
+.smode-time{font-family:'Bangers',cursive;font-size:1.6rem;color:var(--red);min-width:55px;flex-shrink:0;letter-spacing:.04em}
+.smode-name{font-family:'Bangers',cursive;font-size:1.05rem;color:var(--text);margin-bottom:3px;letter-spacing:.04em}
+.smode-desc{font-size:.9rem;color:var(--text-muted);font-weight:600}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-dim);font-size:1.3rem;cursor:pointer;padding:4px 8px;transition:color var(--tr)}
+.modal-close:hover{color:var(--text)}
+
+/* === SCROLL DETAIL === */
+#view-scroll{min-height:100vh}
+.scroll-inner{max-width:700px;margin:0 auto;padding:30px 20px 110px}
+.scroll-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:.95rem;cursor:pointer;margin-bottom:26px;transition:color var(--tr);background:none;border:none;padding:0;font-family:'Nunito',sans-serif;font-weight:700}
+.scroll-back:hover{color:var(--jade)}
+.scroll-hero{text-align:center;margin-bottom:36px}
+.scroll-hero .sh-emoji{font-size:4.5rem;display:block;margin-bottom:10px;animation:float 4s ease-in-out infinite}
+.sh-num{font-family:'Bangers',cursive;font-size:.9rem;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.scroll-hero h2{font-family:'Bangers',cursive;font-size:clamp(1.8rem,5vw,2.6rem);color:var(--gold);margin-bottom:10px;letter-spacing:.05em;text-shadow:0 0 24px rgba(255,184,0,.3)}
+.skill-tag{display:inline-block;background:var(--red-glow);border:1px solid rgba(232,57,43,.25);border-radius:20px;padding:4px 16px;font-size:.95rem;color:var(--red);font-style:italic;font-weight:700}
+.s-section{margin-bottom:30px}
+.s-label{font-family:'Bangers',cursive;font-size:.9rem;color:var(--jade);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.s-label::after{content:'';flex:1;height:2px;background:var(--wood)}
+.story-box{font-style:italic;color:var(--text-muted);line-height:1.9;font-size:1.05rem;padding:20px 22px;background:var(--bg-card);border-radius:var(--r);border-left:4px solid var(--jade);font-weight:600}
+.prac-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.prac-list li{padding:13px 17px;background:var(--bg-card);border-radius:var(--r);border:1px solid var(--wood-l);font-size:1rem;color:var(--text);line-height:1.65;display:flex;gap:12px;align-items:flex-start;font-weight:600}
+.prac-list li::before{content:'🥋';font-size:.85rem;margin-top:2px;flex-shrink:0}
+.real-life-box{background:var(--bg-card);border:2px solid rgba(255,184,0,.35);border-radius:var(--r);padding:20px;position:relative}
+.real-life-box::before{content:'⚡ REAL-LIFE POWER';font-family:'Bangers',cursive;font-size:.85rem;color:var(--gold);letter-spacing:.12em;display:block;margin-bottom:10px}
+.real-life-box p{color:var(--text-muted);font-style:italic;font-size:1rem;line-height:1.75;font-weight:600}
+.roleplay-box{background:linear-gradient(135deg,rgba(82,192,80,.08),transparent);border:2px solid rgba(82,192,80,.25);border-radius:var(--r);padding:20px}
+.roleplay-box::before{content:'🎭 ABBOT SAYS';font-family:'Bangers',cursive;font-size:.85rem;color:var(--jade);letter-spacing:.12em;display:block;margin-bottom:10px}
+.roleplay-box p{color:var(--text-muted);font-style:italic;font-size:1rem;line-height:1.75;font-weight:600}
+
+/* === BOTTOM COMPLETE BAR === */
+.complete-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(14,28,10,.98);backdrop-filter:blur(12px);border-top:2px solid var(--wood-l);padding:15px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:150;flex-wrap:wrap}
+.cbar-info{font-size:.95rem;color:var(--text-muted);font-weight:600}
+.cbar-info strong{color:var(--text);font-family:'Bangers',cursive;font-size:1rem;display:block;margin-bottom:2px;letter-spacing:.04em}
+.already-done-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Bangers',cursive;font-size:.95rem;color:var(--gold);padding:7px 16px;border:2px solid rgba(255,184,0,.35);border-radius:20px;background:var(--gold-glow);letter-spacing:.04em}
+
+/* === BREATHING TIMER === */
+.breathing-timer{text-align:center;padding:30px 20px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);margin-bottom:14px}
+.breathing-phase-txt{font-family:'Bangers',cursive;font-size:1.3rem;color:var(--text);margin-bottom:2px;min-height:1.6em;transition:color .3s;letter-spacing:.06em}
+.breathing-count-txt{font-size:3.5rem;font-family:'Bangers',cursive;color:var(--gold);margin-bottom:2px;min-height:4rem;line-height:1;text-shadow:0 0 20px rgba(255,184,0,.4)}
+.breathing-rounds-txt{font-size:.95rem;color:var(--text-muted);margin-bottom:20px;min-height:1.2em;font-weight:700}
+.timer-ctrls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.breathing-done-msg{font-family:'Bangers',cursive;color:var(--jade);font-size:1.2rem;margin:10px 0 0;letter-spacing:.04em}
+
+/* === STANCE TIMER === */
+.stance-timer{text-align:center;padding:30px 20px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);margin-bottom:14px}
+.stance-ring-wrap{display:inline-block;position:relative;margin-bottom:18px}
+.stance-status-txt{font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:.08em;margin-bottom:6px;min-height:1.8rem;transition:color .3s}
+.stance-status-txt.idle{color:var(--text-muted)}
+.stance-status-txt.holding{color:var(--red);animation:pulse-r 1s ease-in-out infinite}
+.stance-status-txt.done{color:var(--jade)}
+@keyframes pulse-r{0%,100%{opacity:1}50%{opacity:.45}}
+.stance-countdown-txt{font-size:3.2rem;font-family:'Bangers',cursive;color:var(--text);margin-bottom:2px}
+.stance-target-txt{font-size:.95rem;color:var(--text-muted);margin-bottom:3px;font-weight:700}
+.stance-best-txt{font-size:.88rem;color:var(--text-dim);margin-bottom:20px;font-weight:700}
+.stance-setup-txt{color:var(--text-muted);font-style:italic;font-size:1rem;margin-bottom:22px;line-height:1.75;font-weight:600}
+
+/* === FIVE ANIMALS === */
+.animals-prompt{text-align:center;font-family:'Bangers',cursive;font-size:1.2rem;color:var(--gold);margin-bottom:20px;letter-spacing:.05em}
+.animals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-bottom:22px}
+.animal-card{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--r);padding:16px 10px;text-align:center;cursor:pointer;transition:all var(--tr)}
+.animal-card:hover{border-color:var(--jade);background:var(--bg-card-h);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.animal-card.selected{border-color:var(--gold);background:var(--bg-card-h);box-shadow:0 0 22px var(--gold-glow)}
+.animal-em{font-size:2.6rem;display:block;margin-bottom:8px}
+.animal-nm{font-family:'Bangers',cursive;font-size:.95rem;color:var(--text);margin-bottom:4px;letter-spacing:.04em}
+.animal-pw{font-size:.82rem;color:var(--jade);font-style:italic;font-weight:700}
+.animal-detail{background:var(--bg-card);border:2px solid rgba(255,184,0,.3);border-radius:var(--r);padding:20px;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.animal-detail h4{font-family:'Bangers',cursive;color:var(--gold);margin-bottom:12px;font-size:1.2rem;letter-spacing:.04em}
+.animal-detail p{color:var(--text-muted);font-size:1rem;line-height:1.75;margin-bottom:8px;font-weight:600}
+.animal-feel{font-style:italic;color:var(--jade);font-size:.95rem;font-weight:700}
+
+/* === CUP === */
+.cup-section{text-align:center}
+.cup-intro{color:var(--text-muted);font-size:1rem;font-style:italic;margin-bottom:18px;font-weight:600}
+.emotion-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+.etag{padding:6px 15px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:20px;font-size:.9rem;color:var(--text-muted);cursor:pointer;transition:all var(--tr);font-weight:700}
+.etag:hover{border-color:var(--red);color:var(--text)}
+.etag.added{background:rgba(232,57,43,.15);border-color:rgba(232,57,43,.4);color:var(--red)}
+.cup-mantra{font-style:italic;color:var(--text-muted);font-size:1rem;margin-top:18px;padding:16px 20px;background:var(--bg-card);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;display:none;text-align:left;font-weight:600;line-height:1.75}
+.cup-mantra.vis{display:block;animation:fadein .4s ease}
+.cup-reset-btn{margin-top:14px}
+
+/* === MINDFULNESS === */
+.mindful-section{text-align:center;padding:28px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl)}
+.bell-btn{font-size:3rem;background:none;border:3px solid var(--wood-l);border-radius:50%;width:110px;height:110px;cursor:pointer;transition:all var(--tr);display:inline-flex;align-items:center;justify-content:center;margin-bottom:20px}
+.bell-btn:hover{border-color:var(--gold);box-shadow:0 0 32px var(--gold-glow);transform:scale(1.07)}
+.bell-btn.ringing{animation:bell-r .55s ease;border-color:var(--gold);box-shadow:0 0 40px var(--gold-glow)}
+@keyframes bell-r{0%,100%{transform:rotate(0)}15%{transform:rotate(9deg)}45%{transform:rotate(-9deg)}75%{transform:rotate(4deg)}95%{transform:rotate(-4deg)}}
+.mindful-guide{color:var(--text-muted);font-style:italic;font-size:1.05rem;line-height:1.9;min-height:65px;max-width:440px;margin:0 auto;font-weight:600}
+.mindful-tap{font-family:'Bangers',cursive;font-size:.88rem;color:var(--text-dim);letter-spacing:.1em;margin-bottom:18px}
+
+/* === KINDNESS === */
+.metta-section{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);padding:28px;text-align:center}
+.metta-intro{color:var(--text-muted);font-size:1rem;font-style:italic;margin-bottom:24px;line-height:1.8;font-weight:600}
+.metta-input-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+.metta-lbl{font-size:.9rem;color:var(--text-dim);font-family:'Bangers',cursive;letter-spacing:.06em;min-width:110px;text-align:right}
+.metta-inp{background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;text-align:left;min-width:140px;outline:none;padding:3px 4px}
+.metta-text-area{margin-top:22px;padding:20px;background:var(--bg-panel);border-radius:var(--r);text-align:left;border-left:3px solid rgba(255,184,0,.35)}
+.metta-line{font-size:1rem;color:var(--text-muted);line-height:2.3;font-style:italic;font-weight:600}
+.metta-line .mname{color:var(--gold);font-style:normal;font-family:'Bangers',cursive;letter-spacing:.04em}
+
+/* === FORM STEPPER === */
+.form-stepper{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--rl);overflow:hidden}
+.form-prog-bar{height:5px;background:var(--wood)}
+.form-prog-fill{height:100%;background:var(--red);transition:width .4s ease}
+.form-step-body{padding:32px;text-align:center}
+.fs-num{font-family:'Bangers',cursive;font-size:.88rem;color:var(--text-dim);letter-spacing:.14em;margin-bottom:8px}
+.fs-em{font-size:3.5rem;display:block;margin-bottom:14px}
+.fs-name{font-family:'Bangers',cursive;font-size:1.6rem;color:var(--gold);margin-bottom:12px;letter-spacing:.04em}
+.fs-desc{color:var(--text-muted);font-size:1rem;line-height:1.85;max-width:400px;margin:0 auto 28px;font-weight:600}
+.form-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 26px;border-top:2px solid var(--wood)}
+.form-step-dots{display:flex;gap:7px}
+.fsdot{width:8px;height:8px;border-radius:50%;background:var(--wood);transition:background var(--tr)}
+.fsdot.active{background:var(--red)}
+.fsdot.done{background:var(--jade)}
+
+/* === VOW BUILDER === */
+.vow-builder{background:var(--bg-card);border:2px solid rgba(255,184,0,.28);border-radius:var(--rl);padding:30px}
+.vb-title{font-family:'Bangers',cursive;color:var(--gold);font-size:1.2rem;letter-spacing:.06em;margin-bottom:6px}
+.vb-intro{color:var(--text-muted);font-size:1rem;font-style:italic;margin-bottom:24px;line-height:1.8;font-weight:600}
+.vow-field{margin-bottom:20px}
+.vow-lbl{font-size:.88rem;color:var(--text-dim);font-family:'Bangers',cursive;letter-spacing:.08em;margin-bottom:7px;display:block}
+.vow-inp{width:100%;padding:12px 16px;background:var(--bg-panel);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:600;outline:none;transition:border-color var(--tr),box-shadow var(--tr);resize:none}
+.vow-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-glow)}
+.sig-area{margin-top:24px;text-align:center}
+.sig-line-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sig-line{flex:1;height:1px;background:var(--gold);opacity:.35}
+.sig-label{font-family:'Bangers',cursive;font-size:.82rem;color:var(--text-dim);letter-spacing:.1em}
+.monk-name-display{font-family:'Bangers',cursive;color:var(--gold);font-size:1.2rem;margin-bottom:6px;letter-spacing:.04em}
+
+/* === CEREMONY === */
+#ceremony-overlay{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.particles-canvas{position:absolute;inset:0;pointer-events:none}
+.ceremony-inner{text-align:center;max-width:460px;width:100%;position:relative;z-index:2}
+.cer-em{font-size:6rem;display:block;margin-bottom:16px;animation:cerpop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cerpop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.cer-label{font-family:'Bangers',cursive;font-size:1rem;color:var(--red);letter-spacing:.3em;text-transform:uppercase;margin-bottom:12px;animation:fiu .5s .2s both}
+.cer-title{font-family:'Bangers',cursive;font-size:clamp(1.8rem,6vw,3rem);color:var(--gold);margin-bottom:8px;animation:fiu .5s .3s both;letter-spacing:.05em;text-shadow:0 0 30px rgba(255,184,0,.5)}
+.cer-skill{color:var(--text-muted);font-style:italic;margin-bottom:30px;animation:fiu .5s .4s both;font-size:1.05rem;font-weight:600}
+.cer-promo{background:var(--bg-card);border:2px solid var(--gold);border-radius:var(--rl);padding:24px;margin-bottom:30px;animation:fiu .5s .5s both}
+.cer-promo-label{font-family:'Bangers',cursive;font-size:.88rem;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.cer-promo-title{font-family:'Bangers',cursive;font-size:1.6rem;color:var(--text);margin-bottom:6px;letter-spacing:.04em}
+.cer-promo-desc{font-size:.95rem;color:var(--text-muted);font-style:italic;font-weight:600}
+.cer-vows{background:var(--bg-card);border:1px solid rgba(255,184,0,.3);border-radius:var(--r);padding:20px;margin-bottom:26px;text-align:left;animation:fiu .5s .5s both}
+.cer-vow-line{font-style:italic;color:var(--text-muted);font-size:.95rem;line-height:2.2;border-left:3px solid var(--gold);padding-left:14px;margin-bottom:8px;font-weight:600}
+@keyframes fiu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* === SESSION LOG === */
+#session-log-drawer{position:fixed;right:0;top:0;bottom:0;width:min(380px,100vw);background:var(--bg-panel);border-left:2px solid var(--wood-l);z-index:300;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;padding:24px}
+#session-log-drawer.open{transform:translateX(0)}
+.drawer-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.drawer-ttl{font-family:'Bangers',cursive;font-size:1.3rem;color:var(--gold);letter-spacing:.05em}
+.drawer-close{background:none;border:none;color:var(--text-dim);font-size:1.3rem;cursor:pointer;transition:color var(--tr)}
+.drawer-close:hover{color:var(--text)}
+.streak-box{background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--r);padding:16px;text-align:center;margin-bottom:20px}
+.streak-num{font-family:'Bangers',cursive;font-size:2.8rem;color:var(--red);display:block;text-shadow:0 0 16px var(--red-glow)}
+.streak-lbl{font-size:.9rem;color:var(--text-muted);font-family:'Bangers',cursive;letter-spacing:.08em}
+.log-entries{display:flex;flex-direction:column;gap:10px}
+.log-entry{background:var(--bg-card);border:1px solid var(--wood-l);border-radius:var(--r);padding:13px 15px}
+.log-entry-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.log-sname{font-family:'Bangers',cursive;font-size:.95rem;color:var(--text);letter-spacing:.04em}
+.log-date{font-size:.82rem;color:var(--text-dim);font-weight:600}
+.log-type{font-size:.88rem;color:var(--text-muted);font-style:italic;font-weight:600}
+.log-type.completed{color:var(--gold)}
+.log-empty{text-align:center;color:var(--text-dim);font-size:.95rem;font-style:italic;padding:32px 0;font-weight:600}
+
+/* === SESSION TIMER ROW === */
+.session-timer-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:10px 16px;background:var(--bg-card);border:1px solid var(--wood-l);border-radius:var(--r);flex-wrap:wrap}
+.session-timer-label{font-family:'Bangers',cursive;font-size:.88rem;color:var(--text-dim);letter-spacing:.06em}
+.session-timer-val{font-family:'Bangers',cursive;font-size:1.4rem;color:var(--gold);min-width:3rem;letter-spacing:.04em}
+.session-timer-hint{font-size:.82rem;color:var(--text-dim);font-style:italic;font-weight:600;margin-left:auto}
+
+/* === PRACTICE PROGRESS === */
+.practice-stamps{display:inline-flex;gap:4px;align-items:center;margin-right:10px}
+.practice-stamp{font-size:1.1rem;line-height:1}
+.practice-count{font-family:'Bangers',cursive;font-size:.9rem;color:var(--text-muted);letter-spacing:.04em;vertical-align:middle}
+.practiced-today-badge{display:inline-flex;align-items:center;font-family:'Bangers',cursive;font-size:.88rem;color:var(--jade);padding:6px 14px;border:2px solid rgba(82,192,80,.35);border-radius:20px;background:var(--jade-glow);letter-spacing:.04em}
+
+/* === SLIDE SYSTEM === */
+.slide-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;gap:10px;border-bottom:1px solid var(--wood-l);margin-bottom:20px}
+.sh-mini{display:flex;align-items:center;gap:8px;overflow:hidden}
+.sh-mini-emoji{font-size:1.3rem;flex-shrink:0}
+.sh-mini-name{font-family:'Bangers',cursive;font-size:.9rem;color:var(--text-muted);letter-spacing:.04em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh-timer-mini{font-family:'Bangers',cursive;font-size:1rem;color:var(--gold);white-space:nowrap;flex-shrink:0}
+.slide-stage{min-height:50vh;padding-bottom:20px}
+.slide-nav-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;margin-bottom:16px;border-top:1px solid var(--wood-l);gap:8px}
+.slide-dots-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
+.slide-dots{display:flex;gap:10px;align-items:center}
+.sdot{width:9px;height:9px;border-radius:50%;background:var(--wood-l);cursor:pointer;transition:background var(--tr),transform var(--tr),opacity var(--tr);flex-shrink:0}
+.sdot.active{background:var(--gold);transform:scale(1.45)}
+.sdot.done{background:var(--jade);opacity:.65}
+.slide-label-txt{font-family:'Bangers',cursive;font-size:.82rem;color:var(--text-dim);letter-spacing:.07em}
+.slide-anim-fwd{animation:sldFwd .22s ease-out}
+.slide-anim-back{animation:sldBack .22s ease-out}
+@keyframes sldFwd{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes sldBack{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+/* === BELT SYSTEM === */
+.belt-active-badge{display:inline-flex;align-items:center;gap:7px;font-family:'Bangers',cursive;font-size:.95rem;color:var(--gold);padding:6px 14px;border:2px solid rgba(255,184,0,.35);border-radius:20px;background:rgba(255,184,0,.07);letter-spacing:.05em;margin-bottom:12px}
+.belt-note{background:rgba(255,184,0,.06);border-left:3px solid rgba(255,184,0,.4);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:.9rem;color:var(--text-muted)}
+.belt-pips-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.belt-pip{font-size:.88rem;font-family:'Bangers',cursive;letter-spacing:.04em;padding:4px 10px;border-radius:12px;transition:opacity var(--tr)}
+.belt-pip.earned{background:rgba(255,184,0,.18);color:var(--gold);border:1.5px solid rgba(255,184,0,.5)}
+.belt-pip.working{background:rgba(255,109,0,.12);color:#ff6d00;border:1.5px dashed rgba(255,109,0,.5);opacity:.85}
+.belt-pip.dim{opacity:.25;color:var(--text-dim);border:1.5px solid rgba(255,255,255,.1)}
+.belt-stamps-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.88rem}
+.card-belts{display:flex;gap:5px;margin-top:8px;align-items:center}
+.card-belt-pip{font-size:.75rem;padding:2px 7px;border-radius:10px;font-family:'Bangers',cursive;letter-spacing:.03em}
+.card-belt-pip.earned{background:rgba(255,184,0,.2);color:var(--gold);border:1px solid rgba(255,184,0,.4)}
+.card-belt-pip.working{background:rgba(255,109,0,.1);color:#ff6d00;border:1px dashed rgba(255,109,0,.4)}
+.card-belt-pip.dim{opacity:.25;color:var(--text-dim);border:1px solid rgba(255,255,255,.1)}
+.stance-challenge-note{background:rgba(255,109,0,.1);border:1.5px solid rgba(255,109,0,.35);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;font-size:.9rem;color:#ff8c40;font-weight:700}
+.breath478-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:140px;height:140px;margin:0 auto 16px}
+.breath478-circle{width:130px;height:130px;border-radius:50%;background:var(--jade);transition:transform .4s ease,background .4s ease;transform:scale(1);position:absolute}
+.breath478-label{position:relative;font-family:'Bangers',cursive;font-size:1.2rem;color:#fff;z-index:1;pointer-events:none;letter-spacing:.08em;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.form-timed{text-align:center;padding:10px 0}
+.ft-intro{font-size:.92rem;color:var(--text-muted);margin-bottom:14px}
+.ft-steps-list{text-align:left;display:inline-block;margin:0 auto 16px;font-size:.9rem;color:var(--text-muted);line-height:1.8}
+.ft-display{font-family:'Bangers',cursive;font-size:3rem;color:var(--gold);letter-spacing:.05em;margin:10px 0}
+.ft-best{font-family:'Bangers',cursive;font-size:1rem;color:var(--jade);margin-bottom:12px;letter-spacing:.04em}
+.form-reveal summary{cursor:pointer;margin-top:8px;display:inline-flex;align-items:center;gap:4px}
+.form-reveal .fs-desc{margin-top:8px}
+.st-yellow{background:rgba(255,184,0,.2);color:var(--gold);border:1.5px solid rgba(255,184,0,.5)}
+.st-orange{background:rgba(255,109,0,.2);color:#ff6d00;border:1.5px solid rgba(255,109,0,.5)}
+/* === RESPONSIVE === */
+@media(max-width:600px){
+  .rank-banner{flex-direction:column;text-align:center;align-items:center}
+  .rank-quote{max-width:100%}
+  .prog-track{max-width:100%}
+  .complete-bar{justify-content:center;text-align:center}
+  .top-nav{padding:10px 14px}
+  .metta-lbl{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ WELCOME ═══════════════ -->
+<div id="view-welcome" class="view">
+  <div class="welcome-gate">
+    <span class="temple-sym">⛩️</span>
+    <h1>The Path of the Young Monk</h1>
+    <p class="welcome-sub">A Shaolin Temple Curriculum</p>
+    <div class="divider"></div>
+    <p>The gates of the Shaolin Temple stand before you. Beyond them lies a path of eight scrolls — each one a real skill you will carry for life.</p>
+    <p>Before you enter, the Abbot must know your name.</p>
+    <div class="divider"></div>
+    <div class="name-form">
+      <label for="monk-name-input">What shall the monks call you?</label>
+      <input type="text" id="monk-name-input" class="name-input" placeholder="Enter your name..." maxlength="30" autocomplete="off">
+      <button class="btn btn-primary btn-lg" onclick="handleNameSubmit()">Enter the Temple</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOP NAV ═══════════════ -->
+<nav id="top-nav" class="top-nav hidden">
+  <div class="nav-brand" onclick="goHome()">
+    <span class="nav-brand-icon">⛩️</span>
+    <span class="nav-brand-text">Shaolin Path</span>
+  </div>
+  <div class="nav-right">
+    <div id="nav-sash-badge" class="sash-badge white">
+      <span class="sash-dot"></span>
+      <span id="nav-sash-text">White Sash Novice</span>
+    </div>
+    <button class="nav-journal-btn" onclick="toggleSessionLog()">📜 Journal</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="view-dashboard" class="view hidden">
+  <div class="dash-inner">
+    <div id="rank-banner" class="rank-banner"></div>
+    <div class="section-hdr"><span class="section-title">The Eight Scrolls</span></div>
+    <div id="scrolls-grid" class="scrolls-grid"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ SCROLL DETAIL ═══════════════ -->
+<div id="view-scroll" class="view hidden">
+  <div class="scroll-inner">
+    <button class="scroll-back" onclick="goHome()">← Back to Temple</button>
+    <div id="scroll-detail-content"></div>
+  </div>
+  <div class="complete-bar hidden" id="complete-bar">
+    <div class="cbar-info">
+      <strong id="cbar-scroll-name"></strong>
+      <span id="cbar-hint">Practice the exercises above when you are ready.</span>
+    </div>
+    <div id="cbar-action"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ CEREMONY ═══════════════ -->
+<div id="ceremony-overlay" class="hidden">
+  <canvas class="particles-canvas" id="particles-canvas"></canvas>
+  <div class="ceremony-inner" id="ceremony-inner"></div>
+</div>
+
+<!-- ═══════════════ SESSION LOG DRAWER ═══════════════ -->
+<div id="session-log-drawer">
+  <div class="drawer-hdr">
+    <span class="drawer-ttl">Temple Journal</span>
+    <button class="drawer-close" onclick="toggleSessionLog()">✕</button>
+  </div>
+  <div class="streak-box">
+    <span id="streak-num" class="streak-num">0</span>
+    <span class="streak-lbl">Day Streak 🔥</span>
+  </div>
+  <div id="log-entries" class="log-entries"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+const SCROLLS = [
+  {
+    id:1, emoji:'🏔️', name:'The Breath of the Mountain', skill:'Breathing to calm down when frustrated',
+    story:'Even the greatest Shaolin masters begin with one breath. The mountain does not move when the storm hits — it breathes. Still. Patient. Unshakeable. The storm always passes.',
+    practices:[
+      'Learn box breathing: breathe IN for 4 counts, HOLD for 4, breathe OUT for 4, HOLD for 4',
+      'Sit like a monk — cross-legged, hands on knees, eyes soft and low',
+      'Complete 3 full rounds to finish one training session',
+      'Challenge: can you do all three rounds without fidgeting?'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Learn box breathing: breathe IN for 4 counts, HOLD for 4, breathe OUT for 4, HOLD for 4',
+          'Sit like a monk — cross-legged, hands on knees, eyes soft and low',
+          'Complete 3 full rounds to finish one training session',
+          'Challenge: can you do all three rounds without fidgeting?'
+        ], interactiveNote:'Standard box breathing: 4-4-4-4 pattern · 3 rounds' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Extend the box: breathe IN for 5, HOLD for 5, breathe OUT for 5, HOLD for 5',
+          'Complete 5 full rounds — feel how the longer holds deepen the calm',
+          'Notice: can you feel your heartbeat slowing as you breathe?',
+          'Challenge: breathe so quietly that no one in the room would know'
+        ], interactiveNote:'Extended box breathing: 5-5-5-5 pattern · 5 rounds' },
+      { belt:'black', subtitle:'Master', practices:[
+          '4-7-8 breathing: breathe IN for 4 counts, HOLD for 7, breathe slowly OUT for 8',
+          'The long exhale activates the body\'s natural calming response — it is science and kung fu in one',
+          'Complete 5 full cycles — this technique is used by doctors, soldiers, and monks',
+          'Master this pattern and you can calm yourself anywhere, anytime, in any storm'
+        ], interactiveNote:'Advanced 4-7-8 breathing: inhale 4 · hold 7 · exhale 8 · 5 rounds' }
+    ],
+    roleplay:'"Brother [Name], the Abbot has called a wind test. Sit still as the mountain." Then do the breathing together.',
+    realLifeLink:'When something at school makes you want to shout or cry — the mountain breath is your first weapon.',
+    type:'breathing'
+  },
+  {
+    id:2, emoji:'🏮', name:'The Empty Cup', skill:'Recognising emotions without being controlled by them',
+    story:'A monk\'s mind is like a cup. When it fills with anger, there is no room for thinking clearly. The monk learns to notice the cup is full — before it spills.',
+    practices:[
+      'Name the feeling out loud: "My cup is filling with... frustration / embarrassment / anger"',
+      'Body check: where do you feel it? Stomach? Fists? Face?',
+      'The monk\'s response: name it, don\'t fight it — "I see you, anger. You are not me."',
+      'Practice letting the cup empty by breathing slowly, three times'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Name the feeling out loud: "My cup is filling with... frustration / embarrassment / anger"',
+          'Body check: where do you feel it? Stomach? Fists? Face?',
+          'The monk\'s response: name it, don\'t fight it — "I see you, anger. You are not me."',
+          'Practice letting the cup empty by breathing slowly, three times'
+        ], interactiveNote:'Click 3 or more emotions to fill the cup, then practice emptying it' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Name 5 or more emotions — dig deeper than just "angry" or "sad"',
+          'For each emotion: where exactly do you feel it in your body? What shape is it?',
+          'Speak the mantra for each named emotion before emptying the cup',
+          'Notice: does naming the emotion make it feel smaller or bigger?'
+        ], interactiveNote:'Name 5+ emotions, feel each one in your body, then say the mantra for each before emptying' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Look beneath the surface: what is the ROOT feeling hiding underneath anger or frustration?',
+          'Is it actually fear? Loneliness? Feeling disrespected? Unfairness? Dig until you find it.',
+          'Sit with the root emotion for 2 full minutes — breathe, don\'t fight it',
+          'The monk who knows the root of the emotion controls it — it does not control him'
+        ], interactiveNote:'Find the root emotion beneath the surface, then sit with it for 2 full minutes before emptying' }
+    ],
+    roleplay:'Click the emotions below to fill the cup, then practice emptying it.',
+    realLifeLink:'When a hard moment happens, say to yourself: "My cup is filling. I\'m the monk. I choose what happens next."',
+    type:'cup'
+  },
+  {
+    id:3, emoji:'🐴', name:'The Iron Horse', skill:'Physical self-discipline and body confidence',
+    story:'The Shaolin stance — Ma Bu, the Horse Stance — is the foundation of all kung fu. It looks simple. It is hard. Holding it teaches the mind that the body is stronger than it thinks.',
+    practices:[
+      'Stand with feet wide apart, knees bent, back straight, arms out or fists at hips — this is Ma Bu',
+      'Start with 30 seconds. Add 10 seconds each session.',
+      'Count breaths instead of seconds — it helps you stay calm',
+      'When it burns: "The monk does not run from discomfort. He breathes through it."'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Stand with feet wide apart, knees bent, back straight, arms out or fists at hips — this is Ma Bu',
+          'Start with 30 seconds. Add 10 seconds each session.',
+          'Count breaths instead of seconds — it helps you stay calm',
+          'When it burns: "The monk does not run from discomfort. He breathes through it."'
+        ], interactiveNote:'Hold the standard horse stance until the timer completes' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Hold the Ma Bu stance for at least 60 seconds',
+          'Eagle Arms challenge: stretch both arms wide at shoulder height and hold them throughout',
+          'The added arm challenge trains your legs AND core and shoulders simultaneously',
+          'When your arms want to drop: "The monk chooses to hold."'
+        ], interactiveNote:'Eagle Arms — hold arms outstretched at shoulder height throughout the stance' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Hold the Ma Bu stance for at least 90 seconds',
+          'Once steady: close your eyes — balance comes entirely from your inner stillness',
+          'Without sight, you feel every small shift in your body and learn to correct it',
+          'This is the deepest form of the Iron Horse — body and mind united as one'
+        ], interactiveNote:'Eyes Closed — after finding your balance, close your eyes and hold' }
+    ],
+    roleplay:'"Today you face the Iron Horse Trial. The Abbot is watching." Watch seriously and nod with approval when he holds it.',
+    realLifeLink:'When something hard happens — a test, being left out — remember: you held the Iron Horse. Your body is tougher than the problem.',
+    type:'stance'
+  },
+  {
+    id:4, emoji:'🐉', name:'The Five Animals', skill:'Expressing energy physically and learning to focus',
+    story:'Shaolin kung fu is built on five animals. Each has a power. The monk learns to move like each one — and knows which power to call on when he needs it most.',
+    practices:[
+      'Learn one animal per session — spend 5 minutes moving like that animal',
+      'Ask yourself before you begin: which animal do I need today?',
+      'Move fully — use your whole body, not just your arms'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Learn one animal per session — spend 5 minutes moving like that animal',
+          'Ask yourself before you begin: which animal do I need today?',
+          'Move fully — use your whole body, not just your arms',
+          'After practising: does the animal\'s power feel like it is in your body?'
+        ], interactiveNote:'Choose one animal and spend this session exploring its movement fully' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Practice two animals back-to-back — feel the contrast between their energies',
+          'Think of a real situation coming up this week. Which animal do you need for it?',
+          'Spend 5 minutes as that animal before the situation happens — train the feeling in your body',
+          'Notice: does moving like the animal change how you feel about the challenge?'
+        ], interactiveNote:'Choose two animals — practice each, then transition between them and feel the shift' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Create your personal sequence: choose 3 animals and arrange them in an order that feels right',
+          'Perform each animal for at least 2 minutes, flowing smoothly from one to the next',
+          'Give your sequence a name — this is YOUR technique, your personal kung fu',
+          'Perform the full sequence for the Abbot when ready'
+        ], interactiveNote:'Design a 3-animal sequence — choose, practise each, then flow through them in order' }
+    ],
+    roleplay:'"Which animal does Brother [Name] need today?" Let him choose based on how he is feeling. Angry? Tiger. Anxious? Crane. Scattered? Snake.',
+    realLifeLink:'Before a hard situation at school, ask yourself: which animal do I need right now? Then move like it for 30 seconds.',
+    type:'animals'
+  },
+  {
+    id:5, emoji:'🕯️', name:'The Wall of No Mind', skill:'Simple mindfulness and present-moment awareness',
+    story:'Monks train until movement happens without thinking — this is called Wu Wei, or "no mind." A worried monk is thinking about yesterday or tomorrow. The present moment is always peaceful.',
+    practices:[
+      'Sit quietly for 2–3 minutes. Just notice sounds. Don\'t name them — just hear.',
+      '1 minute with eyes open: pick one object and look at it as if you\'ve never seen anything before',
+      'When the bell rings: freeze and return completely to the present'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Sit quietly for 2–3 minutes. Just notice sounds. Don\'t name them — just hear.',
+          '1 minute with eyes open: pick one object and look at it as if you\'ve never seen anything before',
+          'When the bell rings: freeze and return completely to the present'
+        ], interactiveNote:'Ring the bell 3–4 times — freeze completely and return to the present each time' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Sit for 3 full minutes focusing only on the sensation of breathing — in and out',
+          'When your mind wanders — and it will — gently bring it back without frustration',
+          'Ring the bell periodically: notice how many thoughts appeared since the last bell',
+          'The warrior does not fight thoughts — he watches them pass like clouds'
+        ], interactiveNote:'Focus on the breath between bells — when the bell rings, count how many thoughts drifted in' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Sit for 5 full minutes without moving',
+          'Travel through four layers: listen to sounds → feel the breath → scan the body → watch your thoughts',
+          'After each layer, return to the breath as your home base',
+          'The master\'s mind is not empty — it is still, while everything passes through it'
+        ], interactiveNote:'5-minute practice: use bells to mark transitions between sounds → breath → body → thoughts' }
+    ],
+    roleplay:'Ring the bell below. He must freeze and return to the present moment. Repeat 3–4 times.',
+    realLifeLink:'When your brain is spinning at school — bring it back. What can you hear right now? What can you feel? The present moment is your temple.',
+    type:'mindfulness'
+  },
+  {
+    id:6, emoji:'🌸', name:'The Way of Kindness', skill:'Buddhist ethics, compassion, and treating others well',
+    story:'The Shaolin monks do not fight to hurt — they fight to protect. The greatest warrior is the one who makes enemies into friends. And the hardest person to be kind to is yourself.',
+    practices:[
+      'Practice Metta (loving-kindness): quietly say — "May I be happy. May [friend] be happy. May [difficult person] be happy."',
+      'Ask: who is hard to be kind to right now? Why might they act that way?',
+      'Remember: anyone can be mean back. Only a monk can choose differently.'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Practice Metta (loving-kindness): quietly say — "May I be happy. May [friend] be happy. May [difficult person] be happy."',
+          'Ask: who is hard to be kind to right now? Why might they act that way?',
+          'Remember: anyone can be mean back. Only a monk can choose differently.'
+        ], interactiveNote:'Fill in the names below and read the full Metta practice aloud together' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Think of a real moment this week when you were unkind — or when someone was unkind to you',
+          'Ask: what was that person actually feeling inside? What were they afraid of?',
+          'Ask: what would the monk have done differently in that exact moment?',
+          'This is harder than any physical technique — this is the real kung fu'
+        ], interactiveNote:'Do the Metta practice, then discuss the real moment — what would the monk have done?' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Think of the person who is hardest to like. Say the Metta practice for them — 7 full times.',
+          'Write your personal kindness vow: one specific promise about how you will treat others',
+          'This week: do one act of kindness for someone who has not been kind to you',
+          'A monk who can be kind to his enemy has truly mastered this scroll'
+        ], interactiveNote:'Say the Metta for your most difficult person — 7 full times, meaning every word' }
+    ],
+    roleplay:'Discuss one real moment from this week where kindness was hard. What would the monk have done?',
+    realLifeLink:'The monk who is kind even when someone is unkind to him — that is true strength. Anyone can be mean back. Only a monk can choose differently.',
+    type:'kindness'
+  },
+  {
+    id:7, emoji:'🥋', name:'The Form', skill:'A short kung fu sequence known by heart',
+    story:'Every monk learns a form — a sequence of moves practiced until it becomes part of him. The form is his own. He performs it when called upon. It is proof of everything he has learned.',
+    practices:[
+      'Work through the 8-step form below — one step at a time',
+      'Repeat until you know it without thinking',
+      'Perform it for the Abbot when ready — he will watch formally and applaud'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Work through the 8-step form below — one step at a time',
+          'Read each instruction carefully before performing the move',
+          'Repeat until you know it without thinking',
+          'Perform it for the Abbot when ready — he will watch formally and applaud'
+        ], interactiveNote:'Guided mode — full instructions shown for every move' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Perform the complete form from memory — only the move name is shown',
+          'If you forget a move, use "Show Instructions" — but try without it first',
+          'True warriors carry the form in their body, not their mind',
+          'Aim to complete the full form without revealing a single instruction'
+        ], interactiveNote:'Memory mode — see move name only; instructions are hidden unless you reveal them' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Time yourself performing the complete form — opening bow to closing bow',
+          'Smooth and powerful is the goal — not just fast',
+          'Record your time and try to improve it each session',
+          'When the full form flows in under 90 seconds with power — the form is truly yours'
+        ], interactiveNote:'Timed mode — perform the complete form, timer runs, record your best time' }
+    ],
+    roleplay:'"The Abbot has asked Brother [Name] to demonstrate his form before the temple." Sit formally and watch with full attention. Applaud after.',
+    realLifeLink:'Whenever you feel small or unsure of yourself — remember: you have a form. You trained. You know something most people don\'t.',
+    type:'form'
+  },
+  {
+    id:8, emoji:'📜', name:"The Disciple's Vow", skill:'Commitment, identity, and personal values',
+    story:'When a monk is ready, he takes his vows. He chooses his monk name. He speaks aloud what he stands for. He is no longer a novice — he is a Disciple of the Shaolin Temple.',
+    practices:[
+      'Choose your monk name — a quality, an animal, or a Chinese name (Wei = power, Jing = calm, Long = dragon)',
+      'Write your three vows below — simple, your own words, from the heart',
+      'Sign them. The Abbot witnesses. This is a real ceremony.',
+      'You are now an Orange Sash Disciple.'
+    ],
+    levels:[
+      { belt:'yellow', subtitle:'Foundation', practices:[
+          'Choose your monk name — a quality, an animal, or a Chinese name (Wei = power, Jing = calm, Long = dragon)',
+          'Write your three vows below — simple, your own words, from the heart',
+          'Sign them. The Abbot witnesses.',
+          'Read them aloud together once — slowly and with intention'
+        ], interactiveNote:'Write your three vows and choose your monk name — take your time' },
+      { belt:'orange', subtitle:'Warrior', practices:[
+          'Recite all three vows from memory — without looking at the page',
+          'For each vow: give one example of how you have actually kept it this week',
+          'If a vow has been broken: that is not failure — it is information. How will you do better?',
+          'A vow kept imperfectly is worth more than one never tried'
+        ], interactiveNote:'Read your vows, then cover them and try to recite from memory — test yourself' },
+      { belt:'black', subtitle:'Master', practices:[
+          'Perform the full vow ceremony: light a candle if possible',
+          'Recite all three vows aloud, slowly and formally, while the Abbot witnesses',
+          'The Abbot may ask: "Do you understand what these vows cost you?" Answer honestly.',
+          'Sign the vows again with today\'s date — this is a living ceremony, renewed each time you return'
+        ], interactiveNote:'Full ceremony — perform the vow reading formally with a candle and witness' }
+    ],
+    roleplay:'Make this ceremony real. Light a candle. Read the vows aloud together. The Abbot bows in respect.',
+    realLifeLink:'Your vows are not rules — they are who you have decided to be. Return to them when things are hard.',
+    type:'vows'
+  }
+];
+
+const ANIMALS = [
+  {emoji:'🐯',name:'Tiger',power:'Courage',movement:'Strong forward punches, stomping steps',desc:'The Tiger teaches you to face what frightens you. Stomp your feet. Punch the air with both fists, slow and powerful. Feel your courage rise.',feel:'Use Tiger when you feel angry or scared and need to be brave.'},
+  {emoji:'🐆',name:'Leopard',power:'Quickness',movement:'Fast, sharp, precise strikes',desc:'The Leopard teaches speed and sharpness. Make quick, precise movements — rapid punches, fast footwork. Your mind becomes quick too.',feel:'Use Leopard when you feel scattered and need to focus fast.'},
+  {emoji:'🐉',name:'Dragon',power:'Calm Strength',movement:'Slow, flowing circular arms',desc:'The Dragon moves slowly — but is the most powerful. Let your arms flow in wide, slow circles. Breathe deeply. Strength without tension.',feel:'Use Dragon when you feel wound up and need to slow down.'},
+  {emoji:'🐍',name:'Snake',power:'Patience',movement:'Slow, precise fingertip strikes',desc:'The Snake never rushes. Extend one hand forward slowly and deliberately — fingers together, precise. Every movement has purpose. Nothing is wasted.',feel:'Use Snake when you feel impatient or need deep concentration.'},
+  {emoji:'🦅',name:'Crane',power:'Stillness',movement:'Balance on one leg, arms spread wide',desc:'Stand on one leg. Spread your arms slowly like great wings. Find the point where your body becomes completely steady. Hold it.',feel:'Use Crane when you feel anxious and need inner stillness.'}
+];
+
+const FORM_STEPS = [
+  {name:'Opening Bow',emoji:'🙏',desc:'Stand straight and tall. Place your right fist into your left open palm in front of your chest. Bow slowly and with intention. This signals the form has begun.'},
+  {name:'Horse Stance',emoji:'🐴',desc:'Step your feet wide apart — wider than your shoulders. Bend your knees as if sitting on an invisible horse. Back straight. Fists at your hips. Take three slow breaths. This is your foundation.'},
+  {name:'Tiger Punch — Right',emoji:'🐯',desc:'From horse stance — slowly draw your right fist back to your hip. Then drive it forward powerfully. Kiai (shout) if you feel it. Return slowly. Feel it in your whole body.'},
+  {name:'Tiger Punch — Left',emoji:'🐯',desc:'Return to horse stance. Draw your left fist back to your hip. Drive it forward with equal power. Equal strength on both sides. A balanced monk is a strong monk.'},
+  {name:'Crane Balance — Right',emoji:'🦅',desc:'Shift all your weight onto your right foot. Slowly lift your left knee. Spread both arms wide like great wings. Find your stillness. Hold for three slow breaths.'},
+  {name:'Snake Strike',emoji:'🐍',desc:'Lower your foot gently. Bring both hands together, then slowly extend your right hand forward — fingers together, palm sideways. The snake does not rush. Be precise.'},
+  {name:'Dragon Circle',emoji:'🐉',desc:'Both arms rise from your sides and flow in a slow, wide circle — like smoke in the wind. Breathe in as they rise. Breathe out as they fall. Repeat twice. This is the most powerful movement because it is the calmest.'},
+  {name:'Closing Bow',emoji:'🙏',desc:'Return to standing. Feet together. Right fist into left open palm. Bow slowly and deeply. The form is complete. You have earned this bow.'}
+];
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+const BELT_ORDER = ['yellow','orange','black'];
+const BELT_SESSIONS = 3;
+const BELT_META = {
+  yellow:{ emoji:'🟡', label:'Yellow Belt', color:'#ffb800', title:'Foundation' },
+  orange:{ emoji:'🟠', label:'Orange Belt', color:'#ff6d00', title:'Warrior' },
+  black: { emoji:'⚫', label:'Black Belt',  color:'#333',    title:'Master' }
+};
+
+const DEFAULT_SCROLLS = {};
+SCROLLS.forEach((s,i) => {
+  DEFAULT_SCROLLS[s.id] = {status:'active', earnedBelts:[], beltDays:{yellow:[],orange:[],black:[]}};
+});
+
+let state = {
+  monkName:'', scrollProgress:{...DEFAULT_SCROLLS},
+  ironHorseBest:0, ironHorseTarget:30, formTimedBest:0,
+  sessions:[], vows:{1:'',2:'',3:''}, monkAltName:''
+};
+
+let pendingScrollId = null;
+let stopParticles = null;
+let formStep = 0;
+let scrollSlide = 0;
+const SLIDE_LABELS = ['Learn','Train','Apply'];
+const scrollTimer = {interval:null, startTime:null};
+
+function loadState(){
+  try{
+    const saved = localStorage.getItem('shaolin_state');
+    if(saved) state = {...state,...JSON.parse(saved)};
+    if(!state.scrollProgress) state.scrollProgress = {...DEFAULT_SCROLLS};
+    if(!state.sessions) state.sessions = [];
+    if(!state.vows) state.vows = {1:'',2:'',3:''};
+    if(!state.formTimedBest) state.formTimedBest = 0;
+    SCROLLS.forEach(s=>{
+      const sp = state.scrollProgress[s.id];
+      if(!sp){ state.scrollProgress[s.id] = {...DEFAULT_SCROLLS[s.id]}; return; }
+      // Migrate old 'complete' status to yellow belt earned
+      if(sp.status === 'complete'){
+        sp.status = 'active';
+        if(!sp.earnedBelts) sp.earnedBelts = ['yellow'];
+        if(!sp.beltDays) sp.beltDays = {yellow:sp.practiceDays||[],orange:[],black:[]};
+      }
+      if(sp.status==='locked') sp.status='active';
+      if(!sp.earnedBelts) sp.earnedBelts = [];
+      if(!sp.beltDays) sp.beltDays = {yellow:sp.practiceDays||[],orange:[],black:[]};
+      BELT_ORDER.forEach(b=>{ if(!sp.beltDays[b]) sp.beltDays[b]=[]; });
+    });
+  } catch(e){}
+}
+
+function saveState(){
+  try{ localStorage.setItem('shaolin_state', JSON.stringify(state)); } catch(e){}
+}
+
+/* ═══════════════════════════════════════════════════════
+   AUDIO
+═══════════════════════════════════════════════════════ */
+function playBell(freq=830, duration=2.2){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(freq*0.5, ctx.currentTime+duration);
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+duration);
+    osc.type='sine'; osc.start(); osc.stop(ctx.currentTime+duration);
+  } catch(e){}
+}
+
+function playComplete(){
+  playBell(660, 1); setTimeout(()=>playBell(880,1.5), 300);
+}
+
+function playCeremony(){
+  [440,554,659].forEach((f,i)=>setTimeout(()=>playBell(f,2),i*200));
+}
+
+/* ═══════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════ */
+function getCurrentBeltIdx(id){
+  const earned = state.scrollProgress[id]?.earnedBelts||[];
+  for(let i=BELT_ORDER.length-1;i>=0;i--){ if(earned.includes(BELT_ORDER[i])) return i; }
+  return -1;
+}
+function getMaxBeltTier(){
+  const yc = SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+  if(yc>=8) return 2;
+  if(yc>=4) return 1;
+  return 0;
+}
+function getWorkingBeltIdx(id){
+  const next = Math.min(getCurrentBeltIdx(id)+1, BELT_ORDER.length-1);
+  return Math.min(next, getMaxBeltTier());
+}
+function getWorkingBelt(id){ return BELT_ORDER[getWorkingBeltIdx(id)]; }
+
+function getRank(){
+  const yellowCount = SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+  if(yellowCount>=8) return {rank:'orange',title:'Orange Sash Disciple',emoji:'🟠',quote:'"The journey makes the master."'};
+  if(yellowCount>=4) return {rank:'yellow',title:'Yellow Sash Student',emoji:'🟡',quote:'"The cup is filling with wisdom."'};
+  return {rank:'white',title:'White Sash Novice',emoji:'⚪',quote:'"Every master was once a beginner."'};
+}
+
+function getCompletedCount(){
+  return SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+}
+
+function getCurrentScrollId(){
+  const sp = SCROLLS.find(s=>state.scrollProgress[s.id]?.status==='active');
+  return sp ? sp.id : null;
+}
+
+function formatDate(dateStr){
+  if(!dateStr) return '';
+  try{
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  } catch(e){ return ''; }
+}
+
+function getStreak(){
+  if(!state.sessions.length) return 0;
+  const dates = [...new Set(state.sessions.map(s=>s.date.split('T')[0]))].sort().reverse();
+  const today = new Date().toISOString().split('T')[0];
+  if(dates[0]!==today){
+    const yesterday = new Date(Date.now()-86400000).toISOString().split('T')[0];
+    if(dates[0]!==yesterday) return 0;
+  }
+  let streak=1;
+  for(let i=1;i<dates.length;i++){
+    const diff = (new Date(dates[i-1]) - new Date(dates[i])) / 86400000;
+    if(diff===1) streak++;
+    else break;
+  }
+  return streak;
+}
+
+function logSession(scrollId, type){
+  state.sessions.unshift({date:new Date().toISOString(),scrollId,type});
+  if(state.sessions.length>100) state.sessions.length=100;
+  saveState();
+}
+
+/* ═══════════════════════════════════════════════════════
+   VIEW MANAGEMENT
+═══════════════════════════════════════════════════════ */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>{
+    v.classList.remove('visible');
+    v.classList.add('hidden');
+  });
+  const el = document.getElementById('view-'+name);
+  if(!el) return;
+  el.classList.remove('hidden');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
+  window.scrollTo(0,0);
+  if(name!=='welcome') document.getElementById('top-nav').classList.remove('hidden');
+}
+
+function goHome(){
+  stopAllTimers();
+  showView('dashboard');
+  renderDashboard();
+}
+
+/* ═══════════════════════════════════════════════════════
+   WELCOME
+═══════════════════════════════════════════════════════ */
+function handleNameSubmit(){
+  const val = document.getElementById('monk-name-input').value.trim();
+  if(!val){ document.getElementById('monk-name-input').focus(); return; }
+  state.monkName = val;
+  saveState();
+  document.getElementById('top-nav').classList.remove('hidden');
+  updateNavSash();
+  showView('dashboard');
+  renderDashboard();
+}
+
+document.getElementById('monk-name-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter') handleNameSubmit();
+});
+
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════════════════════════ */
+function updateNavSash(){
+  const r = getRank();
+  const badge = document.getElementById('nav-sash-badge');
+  const txt = document.getElementById('nav-sash-text');
+  badge.className = 'sash-badge '+r.rank;
+  txt.textContent = r.title;
+}
+
+function renderDashboard(){
+  updateNavSash();
+  const done = getCompletedCount();
+  const r = getRank();
+  const pct = (done/8)*100;
+  const progClass = r.rank+'-p';
+  document.getElementById('rank-banner').innerHTML = `
+    <div class="rank-circle ${r.rank}">${r.emoji}</div>
+    <div class="rank-info">
+      <div class="rank-greeting">Welcome back, Monk</div>
+      <div class="rank-monk-name">${esc(state.monkName)}</div>
+      <div class="rank-title-txt">${r.title}</div>
+      <div class="prog-track"><div class="prog-fill ${progClass}" style="width:${pct}%"></div></div>
+      <div class="prog-label">${done} of 8 Yellow Belts earned</div>
+    </div>
+    <div class="rank-quote">${r.quote}</div>
+  `;
+
+  const grid = document.getElementById('scrolls-grid');
+  grid.innerHTML = '';
+  SCROLLS.forEach(scroll=>{
+    const sp = state.scrollProgress[scroll.id] || {status:'active',earnedBelts:[],beltDays:{yellow:[],orange:[],black:[]}};
+    const earned = sp.earnedBelts||[];
+    const wbIdx = getWorkingBeltIdx(scroll.id);
+    const wb = BELT_ORDER[wbIdx];
+    const wbDays = (sp.beltDays?.[wb]||[]).length;
+    const allEarned = earned.length === BELT_ORDER.length;
+    const hasYellow = earned.includes('yellow');
+    const totalDays = BELT_ORDER.reduce((n,b)=>(sp.beltDays?.[b]||[]).length+n,0);
+
+    const card = document.createElement('div');
+    let cardClass = 'scroll-card ';
+    let statusEl = '';
+    if(allEarned){
+      cardClass += 'complete';
+      statusEl = '<span class="card-status st-complete">⚫ Mastered</span>';
+    } else if(earned.includes('orange')){
+      cardClass += 'complete';
+      statusEl = `<span class="card-status st-orange">🟠 Orange Belt</span>`;
+    } else if(hasYellow){
+      cardClass += 'complete';
+      statusEl = `<span class="card-status st-yellow">🟡 Yellow Belt</span>`;
+    } else if(totalDays>0){
+      cardClass += 'active';
+      statusEl = '<span class="card-status st-active">IN PROGRESS</span>';
+    } else {
+      cardClass += 'active';
+      statusEl = '<span class="card-status st-new">NEW</span>';
+    }
+    card.className = cardClass;
+
+    const beltPips = BELT_ORDER.map(b=>{
+      let cls = 'card-belt-pip ';
+      if(earned.includes(b)) cls+='earned';
+      else if(b===wb) cls+='working';
+      else cls+='dim';
+      return `<span class="${cls}">${BELT_META[b].emoji}</span>`;
+    }).join('');
+    const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>i<wbDays?'🌟':'⬜').join('');
+    let progressEl = `
+      <div class="card-belts">${beltPips}</div>
+      ${!allEarned?`<div class="card-progress">${stamps} <span>${wbDays}/${BELT_SESSIONS} for ${BELT_META[wb].emoji}</span></div>`:''}
+    `;
+
+    card.innerHTML = `
+      <div class="card-top"><span class="card-emoji">${scroll.emoji}</span>${statusEl}</div>
+      <div class="card-num">Scroll ${scroll.id}</div>
+      <div class="card-name">${scroll.name}</div>
+      <div class="card-skill">${scroll.skill}</div>
+      ${progressEl}
+    `;
+    card.addEventListener('click',()=>goToScroll(scroll.id));
+    grid.appendChild(card);
+  });
+}
+
+function goToScroll(id){
+  pendingScrollId = id;
+  logSession(id,'started');
+  renderScrollDetail(id);
+  showView('scroll');
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL DETAIL
+═══════════════════════════════════════════════════════ */
+function renderScrollDetail(id){
+  stopAllTimers();
+  formStep = 0;
+  scrollSlide = 0;
+  const scroll = SCROLLS.find(s=>s.id===id);
+  if(!scroll) return;
+
+  const content = document.getElementById('scroll-detail-content');
+  content.innerHTML = `
+    <div class="slide-header">
+      <div class="sh-mini">
+        <span class="sh-mini-emoji">${scroll.emoji}</span>
+        <span class="sh-mini-name">Scroll ${scroll.id} · ${scroll.name}</span>
+      </div>
+      <div class="sh-timer-mini">⏱ <span id="scroll-elapsed">0:00</span></div>
+    </div>
+    <div class="slide-stage" id="slide-stage"></div>
+    <div class="slide-nav-bar" id="slide-nav-bar"></div>
+  `;
+
+  renderCurrentSlide(id, 'fwd');
+  startScrollTimer();
+  renderBeltBar(id);
+}
+
+function renderCurrentSlide(id, dir){
+  const scroll = SCROLLS.find(s=>s.id===id);
+  if(!scroll) return;
+
+  const wbIdx = getWorkingBeltIdx(id);
+  const wb = BELT_ORDER[wbIdx];
+  const bm = BELT_META[wb];
+  const level = scroll.levels?.[wbIdx];
+  const practices = level ? level.practices : scroll.practices;
+  const interactiveNote = level?.interactiveNote || '';
+  const total = SLIDE_LABELS.length;
+
+  // Nav bar
+  const navBar = document.getElementById('slide-nav-bar');
+  if(navBar){
+    const dots = SLIDE_LABELS.map((_,i)=>
+      `<span class="sdot ${i===scrollSlide?'active':i<scrollSlide?'done':''}" onclick="jumpToSlide(${id},${i})" title="${SLIDE_LABELS[i]}"></span>`
+    ).join('');
+    navBar.innerHTML = `
+      <button class="btn btn-outline btn-sm" onclick="goPrevSlide(${id})" ${scrollSlide===0?'disabled style="opacity:.3"':''}>← Back</button>
+      <div class="slide-dots-wrap">
+        <div class="slide-dots">${dots}</div>
+        <div class="slide-label-txt">${SLIDE_LABELS[scrollSlide]}</div>
+      </div>
+      ${scrollSlide===total-1?'<span style="width:80px"></span>':`<button class="btn btn-primary btn-sm" onclick="goNextSlide(${id})">Next →</button>`}
+    `;
+  }
+
+  // Slide content
+  const stage = document.getElementById('slide-stage');
+  if(!stage) return;
+
+  let html = '';
+  switch(scrollSlide){
+    case 0: // LEARN — story + practice list
+      html = `
+        <div class="scroll-hero">
+          <span class="sh-emoji">${scroll.emoji}</span>
+          <div class="sh-num">Scroll ${scroll.id} of 8</div>
+          <h2>${scroll.name}</h2>
+          <span class="skill-tag">${scroll.skill}</span>
+        </div>
+        <div class="s-section">
+          <div class="s-label">The Story</div>
+          <div class="story-box">${scroll.story}</div>
+        </div>
+        <div class="s-section">
+          <div class="belt-active-badge">${bm.emoji} Working toward ${bm.label} &middot; ${bm.title}</div>
+          <div class="s-label">Practice</div>
+          <ul class="prac-list">${practices.map(p=>`<li>${p}</li>`).join('')}</ul>
+          ${interactiveNote?`<div class="belt-note" style="margin-top:14px"><strong>${bm.emoji} Focus:</strong> ${interactiveNote}</div>`:''}
+        </div>
+      `;
+      break;
+    case 1: // TRAIN — interactive + inline log action
+      html = `
+        <div class="s-section" id="interactive-section"></div>
+        <div id="inline-log-actions" style="margin-top:24px;text-align:center;padding-bottom:8px"></div>
+      `;
+      break;
+    case 2: // APPLY — roleplay + real-life + inline belt progress + return
+      html = `
+        <div class="s-section">
+          <div class="roleplay-box"><p>${scroll.roleplay.replace(/\[Name\]/g,state.monkName||'[Name]')}</p></div>
+        </div>
+        <div class="s-section">
+          <div class="real-life-box"><p>${scroll.realLifeLink}</p></div>
+        </div>
+        <div id="inline-log-actions" style="margin-top:24px;text-align:center;padding-bottom:8px"></div>
+        <div style="text-align:center;margin-top:12px;padding-bottom:8px">
+          <button class="btn btn-outline" onclick="goHome()">← Return to Temple</button>
+        </div>
+      `;
+      break;
+  }
+
+  stage.className = 'slide-stage slide-anim-'+(dir==='back'?'back':'fwd');
+  stage.innerHTML = html;
+
+  if(scrollSlide===1) renderInteractive(scroll, wbIdx);
+  renderInlineActions(id);
+}
+
+function goNextSlide(id){
+  if(scrollSlide >= SLIDE_LABELS.length-1) return;
+  stopInteractiveTimers();
+  scrollSlide++;
+  renderCurrentSlide(id,'fwd');
+}
+
+function goPrevSlide(id){
+  if(scrollSlide <= 0) return;
+  stopInteractiveTimers();
+  scrollSlide--;
+  renderCurrentSlide(id,'back');
+}
+
+function jumpToSlide(id, idx){
+  if(idx===scrollSlide) return;
+  stopInteractiveTimers();
+  const dir = idx > scrollSlide ? 'fwd' : 'back';
+  scrollSlide = idx;
+  renderCurrentSlide(id, dir);
+}
+
+function renderInlineActions(id){
+  const el = document.getElementById('inline-log-actions');
+  if(!el) return;
+  const sp = state.scrollProgress[id];
+  if(!sp) return;
+  const earned = sp.earnedBelts||[];
+  const allEarned = earned.length === BELT_ORDER.length;
+  const wb = getWorkingBelt(id);
+  const bm = BELT_META[wb];
+  const wbDays = sp.beltDays?.[wb]||[];
+  const today = new Date().toISOString().split('T')[0];
+  const practicedToday = wbDays.includes(today);
+  const count = wbDays.length;
+  const ready = count >= BELT_SESSIONS;
+
+  const pipIcons = BELT_ORDER.map(b=>{
+    const op = earned.includes(b)?'1': b===wb?'0.7':'0.2';
+    return `<span style="opacity:${op};font-size:1.15rem">${BELT_META[b].emoji}</span>`;
+  }).join('<span style="color:var(--wood-l);margin:0 3px">·</span>');
+
+  const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>
+    `<span class="practice-stamp ${i<count?'done':''}">${i<count?'🌟':'⬜'}</span>`
+  ).join('');
+
+  let html = `<div class="inline-progress-row">
+    ${pipIcons}
+    <span class="practice-stamps">${stamps}</span>
+    <span class="practice-count">${count}/${BELT_SESSIONS} ${allEarned?'mastered':bm.emoji}</span>
+  </div>`;
+
+  if(allEarned){
+    html += `<div class="practiced-today-badge" style="margin-top:10px">⚫ All belts mastered!</div>`;
+  } else if(ready){
+    html += `<button class="btn btn-gold btn-lg" style="margin-top:12px" onclick="handleAwardBelt(${id})">🏅 Award ${bm.label} (Abbot only)</button>`;
+  } else if(practicedToday){
+    html += `<div class="practiced-today-badge" style="margin-top:10px">✓ Practised today — come back tomorrow!</div>`;
+  } else {
+    html += `<button class="btn btn-primary btn-lg" style="margin-top:12px" onclick="logPracticeDay(${id})">✓ Log Today's Practice</button>`;
+  }
+  el.innerHTML = html;
+}
+
+function stopInteractiveTimers(){
+  if(breathing.running||breathing.paused){ breathing.running=false; breathing.paused=false; cancelAnimationFrame(breathing.animFrame); }
+  if(breathing478.running) breathing478Clear();
+  if(stance.running){ stance.running=false; cancelAnimationFrame(stance.animFrame); }
+  if(formTimed.running){ formTimed.running=false; clearInterval(formTimed.interval); }
+}
+
+function startScrollTimer(){
+  if(scrollTimer.interval) clearInterval(scrollTimer.interval);
+  scrollTimer.startTime = Date.now();
+  scrollTimer.interval = setInterval(()=>{
+    const secs = Math.floor((Date.now()-scrollTimer.startTime)/1000);
+    const m = Math.floor(secs/60), s = secs%60;
+    const el = document.getElementById('scroll-elapsed');
+    if(el) el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  }, 1000);
+}
+
+function renderBeltBar(id){
+  const scroll = SCROLLS.find(s=>s.id===id);
+  if(!scroll) return;
+  const sp = state.scrollProgress[id]||{};
+  const earned = sp.earnedBelts||[];
+  const wbIdx = getWorkingBeltIdx(id);
+  const wb = BELT_ORDER[wbIdx];
+  const bm = BELT_META[wb];
+  const wbDays = sp.beltDays?.[wb]||[];
+  const today = new Date().toISOString().split('T')[0];
+  const practicedToday = wbDays.includes(today);
+  const count = wbDays.length;
+  const ready = count >= BELT_SESSIONS;
+  const allEarned = earned.length === BELT_ORDER.length;
+
+  const bar = document.getElementById('complete-bar');
+  bar.classList.remove('hidden');
+  document.getElementById('cbar-scroll-name').textContent = scroll.name;
+
+  const hint = document.getElementById('cbar-hint');
+  const action = document.getElementById('cbar-action');
+
+  const pipIcons = BELT_ORDER.map(b=>{
+    const op = earned.includes(b)?'1': b===wb?'0.65':'0.2';
+    return `<span style="opacity:${op};font-size:1rem">${BELT_META[b].emoji}</span>`;
+  }).join('<span style="color:var(--wood-l);margin:0 2px">·</span>');
+
+  const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>
+    `<span class="practice-stamp ${i<count?'done':''}">${i<count?'🌟':'⬜'}</span>`
+  ).join('');
+
+  if(allEarned){
+    hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px">${pipIcons}<span style="color:var(--gold);font-family:'Bangers',cursive;letter-spacing:.04em">All belts mastered!</span></span>`;
+  } else {
+    hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap">${pipIcons}<span class="practice-stamps">${stamps}</span><span style="font-size:.82rem;color:var(--text-muted)">${count}/${BELT_SESSIONS} ${bm.emoji}</span></span>`;
+  }
+  action.innerHTML = '';
+}
+
+function logPracticeDay(id){
+  const today = new Date().toISOString().split('T')[0];
+  const sp = state.scrollProgress[id];
+  if(!sp) return;
+  const wb = getWorkingBelt(id);
+  if(!sp.beltDays) sp.beltDays = {yellow:[],orange:[],black:[]};
+  if(sp.beltDays[wb].includes(today)) return;
+  sp.beltDays[wb].push(today);
+  logSession(id,'practiced');
+  saveState();
+  renderBeltBar(id);
+  renderInlineActions(id);
+  playBell(660, 0.8);
+}
+
+function renderInteractive(scroll, lvl){
+  const sec = document.getElementById('interactive-section');
+  sec.innerHTML = `<div class="s-label">Interactive Practice</div>`;
+  const wrap = document.createElement('div');
+  sec.appendChild(wrap);
+
+  switch(scroll.type){
+    case 'breathing': renderBreathing(wrap, lvl||0); break;
+    case 'cup':       renderCup(wrap); break;
+    case 'stance':    renderStance(wrap, lvl||0); break;
+    case 'animals':   renderAnimals(wrap); break;
+    case 'mindfulness': renderMindfulness(wrap); break;
+    case 'kindness':  renderKindness(wrap); break;
+    case 'form':      renderForm(wrap, lvl||0); break;
+    case 'vows':      renderVows(wrap); break;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   BREATHING TIMER
+═══════════════════════════════════════════════════════ */
+const breathing = {running:false,paused:false,round:1,total:3,elapsed:0,cycleTime:16,phaseDuration:4,phases:['Breathe IN','HOLD','Breathe OUT','HOLD'],lastTs:null,animFrame:null};
+const BREATHING478_PHASES = [
+  {label:'Breathe IN',dur:4,color:'#52c050',scale:'1.3'},
+  {label:'HOLD...',   dur:7,color:'#ffb800',scale:'1.3'},
+  {label:'Breathe OUT',dur:8,color:'#e8392b',scale:'0.8'}
+];
+const breathing478 = {running:false,interval:null,round:1,phaseIdx:0,count:0};
+
+function renderBreathing(wrap, lvl){
+  if(lvl >= 2){ renderBreathing478(wrap); return; }
+  const pd = lvl >= 1 ? 5 : 4;
+  const tot = lvl >= 1 ? 5 : 3;
+  breathing.total = tot; breathing.cycleTime = pd*4; breathing.phaseDuration = pd;
+  wrap.innerHTML = `
+    <div class="breathing-timer">
+      <div style="display:inline-block;margin-bottom:16px">
+        <svg id="b-svg" width="200" height="200" viewBox="0 0 200 200">
+          <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <text x="100" y="40" text-anchor="middle" font-family="Bangers,cursive" font-size="13" fill="#52c050" letter-spacing="3">IN</text>
+          <text x="168" y="108" text-anchor="start" font-family="Bangers,cursive" font-size="11" fill="#52c050" letter-spacing="2">HOLD</text>
+          <text x="100" y="174" text-anchor="middle" font-family="Bangers,cursive" font-size="13" fill="#52c050" letter-spacing="3">OUT</text>
+          <text x="28" y="108" text-anchor="end" font-family="Bangers,cursive" font-size="11" fill="#52c050" letter-spacing="2">HOLD</text>
+          <rect id="b-box" x="48" y="48" width="104" height="104" rx="4" fill="none" stroke="#2a4820" stroke-width="2"/>
+          <circle id="b-dot" cx="48" cy="48" r="8" fill="#ffb800" filter="url(#glow)" opacity="0"/>
+        </svg>
+      </div>
+      <div class="breathing-phase-txt" id="b-phase">Ready to begin</div>
+      <div class="breathing-count-txt" id="b-count">—</div>
+      <div class="breathing-rounds-txt" id="b-rounds">${tot} rounds total${lvl>=1?' · '+pd+'-count breathing':''}</div>
+      <div class="timer-ctrls">
+        <button class="btn btn-primary" id="b-start-btn" onclick="breathingStart()">Start</button>
+        <button class="btn btn-outline btn-sm" onclick="breathingReset()" id="b-reset-btn">Reset</button>
+      </div>
+      <div class="breathing-done-msg hidden" id="b-done-msg">${tot===3?'Three':'Five'} rounds complete — well done, monk! 🙏</div>
+    </div>
+  `;
+}
+
+function renderBreathing478(wrap){
+  wrap.innerHTML = `
+    <div class="breathing-timer">
+      <div class="breath478-wrap">
+        <div id="b478-circle" class="breath478-circle"></div>
+        <div class="breath478-label">4·7·8</div>
+      </div>
+      <div class="breathing-phase-txt" id="b-phase">Ready to begin</div>
+      <div class="breathing-count-txt" id="b-count">—</div>
+      <div class="breathing-rounds-txt" id="b-rounds">5 rounds · 4-7-8 breathing</div>
+      <div class="timer-ctrls">
+        <button class="btn btn-primary" id="b-start-btn" onclick="breathing478Start()">Start</button>
+        <button class="btn btn-outline btn-sm" onclick="breathing478Reset()">Reset</button>
+      </div>
+      <div class="breathing-done-msg hidden" id="b-done-msg">Five rounds complete — master level, monk! 🙏</div>
+    </div>
+  `;
+}
+
+function breathing478Start(){
+  if(breathing478.running){ breathing478Clear(); el_btn('b-start-btn','Start'); return; }
+  breathing478.running=true; breathing478.round=1; breathing478.phaseIdx=0;
+  document.getElementById('b-done-msg')?.classList.add('hidden');
+  el_btn('b-start-btn','Stop');
+  breathing478Next();
+}
+function breathing478Next(){
+  if(!breathing478.running) return;
+  const p=BREATHING478_PHASES[breathing478.phaseIdx];
+  const circle=document.getElementById('b478-circle');
+  if(circle){circle.style.background=p.color;circle.style.transform='scale('+p.scale+')';}
+  el('b-phase',p.label);
+  breathing478.count=p.dur; el('b-count',String(breathing478.count));
+  el('b-rounds',`Round ${breathing478.round} of 5`);
+  clearInterval(breathing478.interval);
+  breathing478.interval=setInterval(()=>{
+    breathing478.count--;
+    el('b-count',String(Math.max(0,breathing478.count)));
+    if(breathing478.count<=0){
+      clearInterval(breathing478.interval);
+      breathing478.phaseIdx++;
+      if(breathing478.phaseIdx>=BREATHING478_PHASES.length){
+        breathing478.phaseIdx=0; breathing478.round++;
+        if(breathing478.round>5){
+          breathing478.running=false;
+          const c=document.getElementById('b478-circle');
+          if(c){c.style.background='var(--jade)';c.style.transform='scale(1)';}
+          el('b-phase','Complete!'); el('b-count','✓'); el('b-rounds','All 5 rounds done');
+          el_btn('b-start-btn','Practice Again');
+          document.getElementById('b-done-msg')?.classList.remove('hidden');
+          playComplete(); return;
+        }
+      }
+      breathing478Next();
+    }
+  },1000);
+}
+function breathing478Clear(){
+  clearInterval(breathing478.interval); breathing478.interval=null; breathing478.running=false;
+}
+function breathing478Reset(){
+  breathing478Clear(); breathing478.round=1; breathing478.phaseIdx=0; breathing478.count=0;
+  const c=document.getElementById('b478-circle');
+  if(c){c.style.background='var(--jade)';c.style.transform='scale(1)';}
+  el('b-phase','Ready to begin'); el('b-count','—'); el('b-rounds','5 rounds · 4-7-8 breathing');
+  el_btn('b-start-btn','Start');
+  document.getElementById('b-done-msg')?.classList.add('hidden');
+}
+
+function breathingStart(){
+  if(breathing.running&&!breathing.paused){ breathingPause(); return; }
+  if(breathing.paused){ breathingResume(); return; }
+  breathing.running=true; breathing.paused=false;
+  breathing.round=1; breathing.elapsed=0; breathing.lastTs=null;
+  document.getElementById('b-done-msg')?.classList.add('hidden');
+  const dot = document.getElementById('b-dot');
+  if(dot) dot.style.opacity='1';
+  const btn = document.getElementById('b-start-btn');
+  if(btn) btn.textContent='Pause';
+  breathing.animFrame = requestAnimationFrame(breathingTick);
+}
+
+function breathingPause(){
+  breathing.paused=true;
+  cancelAnimationFrame(breathing.animFrame);
+  const btn = document.getElementById('b-start-btn');
+  if(btn) btn.textContent='Resume';
+}
+
+function breathingResume(){
+  breathing.paused=false;
+  breathing.lastTs=null;
+  const btn = document.getElementById('b-start-btn');
+  if(btn) btn.textContent='Pause';
+  breathing.animFrame = requestAnimationFrame(breathingTick);
+}
+
+function breathingReset(){
+  breathing.running=false; breathing.paused=false;
+  cancelAnimationFrame(breathing.animFrame);
+  breathing.elapsed=0; breathing.round=1; breathing.lastTs=null;
+  const dot=document.getElementById('b-dot'); if(dot){dot.setAttribute('cx','48');dot.setAttribute('cy','48');dot.style.opacity='0';}
+  const box=document.getElementById('b-box'); if(box) box.setAttribute('stroke','#2a4820');
+  el('b-phase','Ready to begin'); el('b-count','—'); el('b-rounds',`${breathing.total} rounds total`);
+  el_btn('b-start-btn','Start');
+  document.getElementById('b-done-msg')?.classList.add('hidden');
+}
+
+function breathingTick(ts){
+  if(!breathing.running||breathing.paused) return;
+  if(!breathing.lastTs) breathing.lastTs=ts;
+  breathing.elapsed += (ts-breathing.lastTs)/1000;
+  breathing.lastTs=ts;
+
+  if(breathing.elapsed>=breathing.cycleTime){
+    breathing.elapsed-=breathing.cycleTime;
+    breathing.round++;
+    if(breathing.round>breathing.total){
+      breathing.running=false;
+      playComplete();
+      el('b-phase','Complete!'); el('b-count','✓'); el('b-rounds',`All ${breathing.total} rounds done`);
+      el_btn('b-start-btn','Practice Again');
+      document.getElementById('b-done-msg')?.classList.remove('hidden');
+      const dot=document.getElementById('b-dot'); if(dot) dot.style.opacity='0';
+      return;
+    }
+  }
+
+  const t = breathing.elapsed/breathing.cycleTime;
+  const phaseIdx = Math.floor(t*4);
+  const phaseFrac = (t*4)%1;
+  const pd = breathing.phaseDuration||4;
+  const count = Math.ceil(phaseFrac*pd)||pd;
+  const colors=['#ffb800','#52c050','#ffb800','#52c050'];
+
+  const [cx,cy] = bDotPos(t);
+  const dot=document.getElementById('b-dot'); if(dot){dot.setAttribute('cx',cx);dot.setAttribute('cy',cy);}
+  const box=document.getElementById('b-box'); if(box) box.setAttribute('stroke',colors[phaseIdx]);
+  el('b-phase',breathing.phases[phaseIdx]);
+  el('b-count',String(count));
+  el('b-rounds',`Round ${breathing.round} of ${breathing.total}`);
+
+  breathing.animFrame = requestAnimationFrame(breathingTick);
+}
+
+function bDotPos(t){
+  const m=48,s=104;
+  const pos=(t*4)%4;
+  const phase=Math.floor(pos), frac=pos%1;
+  switch(phase){
+    case 0: return [m+frac*s, m];
+    case 1: return [m+s, m+frac*s];
+    case 2: return [m+s-frac*s, m+s];
+    case 3: return [m, m+s-frac*s];
+    default: return [m,m];
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CUP ANIMATION
+═══════════════════════════════════════════════════════ */
+const EMOTIONS = ['Anger','Frustration','Embarrassment','Sadness','Fear','Jealousy','Anxiety','Confusion','Disappointment','Worry'];
+let cupFill=0, cupEmotions=[];
+
+function renderCup(wrap){
+  cupFill=0; cupEmotions=[];
+  wrap.innerHTML = `
+    <div class="cup-section">
+      <p class="cup-intro">Click emotions to fill the cup. When you can name what's inside, you can begin to empty it.</p>
+      <div style="display:inline-block;margin-bottom:16px">
+        <svg id="cup-svg" width="140" height="180" viewBox="0 0 140 180">
+          <defs><clipPath id="cup-clip"><path d="M25 40 Q20 40 22 160 Q22 168 70 170 Q118 168 118 160 Q120 40 115 40 Z"/></clipPath></defs>
+          <rect id="cup-liquid" x="22" y="170" width="96" height="0" clip-path="url(#cup-clip)" fill="rgba(232,57,43,0.6)" rx="2"/>
+          <path d="M25 40 Q20 40 22 160 Q22 168 70 170 Q118 168 118 160 Q120 40 115 40 Z" fill="none" stroke="#3a5a2e" stroke-width="2.5"/>
+          <path d="M25 40 Q40 32 70 30 Q100 32 115 40" fill="none" stroke="#3a5a2e" stroke-width="2.5"/>
+          <text x="70" y="108" text-anchor="middle" font-family="Bangers,cursive" font-size="11" fill="#5a4830" id="cup-label">empty</text>
+        </svg>
+      </div>
+      <div class="emotion-tags" id="etags">
+        ${EMOTIONS.map(e=>`<span class="etag" data-emotion="${e}" onclick="addEmotion('${e}')">${e}</span>`).join('')}
+      </div>
+      <button class="btn btn-outline btn-sm cup-reset-btn" onclick="emptyCup()">Empty the Cup 🌬️</button>
+      <div class="cup-mantra" id="cup-mantra">
+        <strong style="font-family:'Bangers',cursive;color:var(--gold);font-size:.82rem">The Monk Speaks:</strong><br>
+        <span id="cup-mantra-text"></span>
+      </div>
+    </div>
+  `;
+}
+
+function addEmotion(name){
+  if(cupEmotions.includes(name)) return;
+  cupEmotions.push(name);
+  const tag = document.querySelector(`.etag[data-emotion="${name}"]`);
+  if(tag) tag.classList.add('added');
+  cupFill = Math.min(100, cupFill+12);
+  updateCupSVG();
+  if(cupEmotions.length>=3){
+    const mantraEl = document.getElementById('cup-mantra');
+    const txt = document.getElementById('cup-mantra-text');
+    if(mantraEl&&txt){
+      txt.textContent = `"I see you, ${cupEmotions.slice(0,-1).join(', ')} and ${cupEmotions[cupEmotions.length-1]}. You are visitors. You are not me. I am the monk. I choose what happens next."`;
+      mantraEl.classList.add('vis');
+    }
+  }
+}
+
+function updateCupSVG(){
+  const liquid = document.getElementById('cup-liquid');
+  const lbl = document.getElementById('cup-label');
+  if(!liquid) return;
+  const maxH=128, y=170;
+  const h=(cupFill/100)*maxH;
+  liquid.setAttribute('height', h);
+  liquid.setAttribute('y', y-h);
+  if(lbl) lbl.textContent = cupFill>=90?'FULL':cupFill>=50?'filling...':cupFill>0?`${Math.round(cupFill)}%`:'empty';
+}
+
+function emptyCup(){
+  cupFill=0; cupEmotions=[];
+  document.querySelectorAll('.etag').forEach(t=>t.classList.remove('added'));
+  const mantra=document.getElementById('cup-mantra'); if(mantra) mantra.classList.remove('vis');
+  updateCupSVG();
+  playBell(440,1.5);
+}
+
+/* ═══════════════════════════════════════════════════════
+   IRON HORSE STANCE TIMER
+═══════════════════════════════════════════════════════ */
+const stance = {running:false,elapsed:0,lastTs:null,animFrame:null,effectiveTarget:30};
+
+function renderStance(wrap, lvl){
+  const base = state.ironHorseTarget||30;
+  let target, challengeNote='';
+  if(lvl>=2){ target=Math.max(90,base); challengeNote='👁 Eyes Closed — once you find your balance, close your eyes and hold from within.'; }
+  else if(lvl>=1){ target=Math.max(60,base); challengeNote='🦅 Eagle Arms — hold both arms outstretched at shoulder height throughout the stance.'; }
+  else { target=base; }
+  stance.effectiveTarget=target;
+  const best = state.ironHorseBest||0;
+  wrap.innerHTML = `
+    <div class="stance-timer">
+      ${challengeNote?`<div class="stance-challenge-note">${challengeNote}</div>`:''}
+      <div class="stance-ring-wrap">
+        <svg id="s-svg" width="180" height="180" viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="76" fill="none" stroke="#2a4820" stroke-width="8"/>
+          <circle id="s-ring" cx="90" cy="90" r="76" fill="none" stroke="#e8392b" stroke-width="8"
+            stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="477.5"
+            transform="rotate(-90 90 90)"/>
+          <text x="90" y="83" text-anchor="middle" font-family="Bangers,cursive" font-size="14" fill="#7aaa60" letter-spacing="2">TARGET</text>
+          <text id="s-target-txt" x="90" y="108" text-anchor="middle" font-family="Bangers,cursive" font-size="26" fill="#ffb800">${target}s</text>
+        </svg>
+      </div>
+      <div class="stance-status-txt idle" id="s-status">Ready — take your stance</div>
+      <div class="stance-countdown-txt" id="s-countdown">0s</div>
+      <div class="stance-target-txt" id="s-target-info">Target: ${target} seconds</div>
+      <div class="stance-best-txt" id="s-best">${best>0?`Personal best: ${best}s`:'No record yet — set one today!'}</div>
+      <p class="stance-setup-txt">Feet wide, knees bent, back straight, fists at hips.<br>Press Start and hold the stance.</p>
+      <div class="timer-ctrls">
+        <button class="btn btn-primary" id="s-start-btn" onclick="stanceStart()">Start</button>
+        <button class="btn btn-outline btn-sm" onclick="stanceReset()">Reset</button>
+      </div>
+    </div>
+  `;
+}
+
+function stanceStart(){
+  if(stance.running){ stanceStop(true); return; }
+  stance.running=true; stance.elapsed=0; stance.lastTs=null;
+  el('s-status','HOLD!'); document.getElementById('s-status').className='stance-status-txt holding';
+  el_btn('s-start-btn','Stop');
+  stance.animFrame = requestAnimationFrame(stanceTick);
+}
+
+function stanceTick(ts){
+  if(!stance.running) return;
+  if(!stance.lastTs) stance.lastTs=ts;
+  stance.elapsed+=(ts-stance.lastTs)/1000;
+  stance.lastTs=ts;
+  const target=stance.effectiveTarget||state.ironHorseTarget||30;
+  const pct=Math.min(1,stance.elapsed/target);
+  const circ=477.5;
+  const ring=document.getElementById('s-ring');
+  if(ring) ring.setAttribute('stroke-dashoffset', circ-(circ*pct));
+  el('s-countdown', Math.floor(stance.elapsed)+'s');
+  if(stance.elapsed>=target){ stanceStop(false); return; }
+  stance.animFrame=requestAnimationFrame(stanceTick);
+}
+
+function stanceStop(manual){
+  stance.running=false;
+  cancelAnimationFrame(stance.animFrame);
+  const secs=Math.floor(stance.elapsed);
+  const target=stance.effectiveTarget||state.ironHorseTarget||30;
+  const achieved=secs>=target;
+
+  if(secs>state.ironHorseBest){ state.ironHorseBest=secs; }
+  if(achieved){
+    state.ironHorseTarget=target+10;
+    el('s-status','TARGET REACHED!');
+    document.getElementById('s-status').className='stance-status-txt done';
+    playComplete();
+  } else {
+    el('s-status',manual?'Stopped at '+secs+'s':'Complete!');
+    document.getElementById('s-status').className='stance-status-txt '+(manual?'idle':'done');
+    if(achieved||!manual) playBell(440,1);
+  }
+  el('s-best','Personal best: '+state.ironHorseBest+'s');
+  el_btn('s-start-btn','Try Again');
+  saveState();
+}
+
+function stanceReset(){
+  stance.running=false; cancelAnimationFrame(stance.animFrame);
+  stance.elapsed=0; stance.lastTs=null;
+  const ring=document.getElementById('s-ring'); if(ring) ring.setAttribute('stroke-dashoffset','477.5');
+  el('s-status','Ready — take your stance');
+  document.getElementById('s-status').className='stance-status-txt idle';
+  el('s-countdown','0s'); el_btn('s-start-btn','Start');
+  const t=stance.effectiveTarget||state.ironHorseTarget||30;
+  const txtEl=document.getElementById('s-target-txt'); if(txtEl) txtEl.textContent=t+'s';
+  el('s-target-info','Target: '+t+' seconds');
+}
+
+/* ═══════════════════════════════════════════════════════
+   FIVE ANIMALS
+═══════════════════════════════════════════════════════ */
+function renderAnimals(wrap){
+  wrap.innerHTML = `
+    <div class="animals-prompt">Which animal do you need today?</div>
+    <div class="animals-grid">
+      ${ANIMALS.map((a,i)=>`
+        <div class="animal-card" onclick="selectAnimal(${i})">
+          <span class="animal-em">${a.emoji}</span>
+          <div class="animal-nm">${a.name}</div>
+          <div class="animal-pw">${a.power}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div id="animal-detail-area"></div>
+  `;
+}
+
+function selectAnimal(idx){
+  document.querySelectorAll('.animal-card').forEach((c,i)=>c.classList.toggle('selected',i===idx));
+  const a = ANIMALS[idx];
+  const area = document.getElementById('animal-detail-area');
+  area.innerHTML = `
+    <div class="animal-detail">
+      <h4>${a.emoji} ${a.name} — ${a.power}</h4>
+      <p><strong style="color:var(--text-muted);font-size:.78rem;font-family:'Bangers',cursive">MOVEMENT: </strong>${a.movement}</p>
+      <p>${a.desc}</p>
+      <p class="animal-feel">${a.feel}</p>
+      <div style="margin-top:14px">
+        <button class="btn btn-primary btn-sm" onclick="practiseAnimal(${idx})">🐾 Practise This Animal</button>
+      </div>
+    </div>
+  `;
+  playBell(550,0.8);
+}
+
+function practiseAnimal(idx){
+  const a=ANIMALS[idx];
+  alert(`🔔 Monk Mode\n\n${a.emoji} ${a.name}\n\nSpend the next 5 minutes moving like a ${a.name}.\n\n${a.desc}\n\nWhen finished, return to continue.`);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MINDFULNESS BELL
+═══════════════════════════════════════════════════════ */
+const MINDFUL_PROMPTS = [
+  'Close your eyes. What sounds can you hear right now? Just listen — don\'t name them, just hear.',
+  'Open your eyes. Pick one object near you. Look at it as if you have never seen anything before.',
+  'Where is your mind right now? Is it here, in this room? Good. Stay.',
+  'Feel the weight of your body where you are sitting. That is real. That is now.',
+  'Take one slow breath. Feel it enter. Feel it leave. That is all there is.',
+  'Notice something you can see, something you can hear, something you can feel. You are here.'
+];
+let mindfulIdx=0;
+
+function renderMindfulness(wrap){
+  mindfulIdx=0;
+  wrap.innerHTML=`
+    <div class="mindful-section">
+      <div class="mindful-tap">TAP THE BELL TO BEGIN</div>
+      <button class="bell-btn" id="bell-btn" onclick="ringBell()">🔔</button>
+      <div class="mindful-guide" id="mindful-guide">Press the bell and the Abbot will call you to the present moment.</div>
+    </div>
+  `;
+}
+
+function ringBell(){
+  const btn=document.getElementById('bell-btn');
+  const guide=document.getElementById('mindful-guide');
+  if(btn){btn.classList.remove('ringing');void btn.offsetWidth;btn.classList.add('ringing');}
+  playBell(830,2.5);
+  if(guide) guide.textContent=MINDFUL_PROMPTS[mindfulIdx%MINDFUL_PROMPTS.length];
+  mindfulIdx++;
+}
+
+/* ═══════════════════════════════════════════════════════
+   KINDNESS / METTA
+═══════════════════════════════════════════════════════ */
+function renderKindness(wrap){
+  wrap.innerHTML=`
+    <div class="metta-section">
+      <p class="metta-intro">Metta means loving-kindness. Fill in the names below, then read the practice aloud.</p>
+      <div class="metta-input-row">
+        <span class="metta-lbl">A friend:</span>
+        <input class="metta-inp" id="metta-friend" type="text" placeholder="their name" oninput="updateMetta()">
+      </div>
+      <div class="metta-input-row">
+        <span class="metta-lbl">Someone difficult:</span>
+        <input class="metta-inp" id="metta-hard" type="text" placeholder="their name" oninput="updateMetta()">
+      </div>
+      <div class="metta-text-area" id="metta-text">
+        <div class="metta-line">May <span class="mname">I</span> be happy. May <span class="mname">I</span> be well. May <span class="mname">I</span> be at peace.</div>
+        <div class="metta-line">May <span class="mname" id="mf1">my friend</span> be happy. May <span class="mname" id="mf2">my friend</span> be well.</div>
+        <div class="metta-line">May <span class="mname" id="mh1">this person</span> be happy. May <span class="mname" id="mh2">this person</span> be at peace.</div>
+        <div class="metta-line">May all beings everywhere be free from suffering.</div>
+      </div>
+    </div>
+  `;
+}
+
+function updateMetta(){
+  const f=(document.getElementById('metta-friend')?.value||'').trim()||'my friend';
+  const h=(document.getElementById('metta-hard')?.value||'').trim()||'this person';
+  el('mf1',f); el('mf2',f); el('mh1',h); el('mh2',h);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FORM STEPPER
+═══════════════════════════════════════════════════════ */
+const formTimed = {running:false,elapsed:0,interval:null};
+
+function renderForm(wrap, lvl){
+  formStep=0;
+  if(lvl>=2){ renderFormTimed(wrap); return; }
+  if(lvl>=1){ renderFormMemory(wrap); return; }
+  wrap.innerHTML=`<div class="form-stepper"><div class="form-prog-bar"><div class="form-prog-fill" id="fp-fill" style="width:0%"></div></div><div id="fp-body"></div></div>`;
+  updateFormStep();
+}
+
+function renderFormMemory(wrap){
+  wrap.innerHTML=`<div class="form-stepper"><div class="form-prog-bar"><div class="form-prog-fill" id="fp-fill" style="width:0%"></div></div><div id="fp-body"></div></div>`;
+  updateFormMemoryStep();
+}
+
+function updateFormMemoryStep(){
+  const total=FORM_STEPS.length;
+  const fill=document.getElementById('fp-fill');
+  if(fill) fill.style.width=((formStep/total)*100)+'%';
+  const body=document.getElementById('fp-body');
+  if(!body) return;
+  if(formStep>=total){
+    body.innerHTML=`
+      <div class="form-step-body">
+        <span class="fs-em">🏆</span>
+        <div class="fs-name">Form Complete — From Memory!</div>
+        <div class="fs-desc">You performed all eight moves without being shown the instructions. That is warrior level.</div>
+        <div style="margin-top:8px"><button class="btn btn-gold" onclick="formStep=0;updateFormMemoryStep()">Practice Again</button></div>
+      </div>
+    `;
+    playComplete(); return;
+  }
+  const step=FORM_STEPS[formStep];
+  const dots=FORM_STEPS.map((_,i)=>`<span class="fsdot ${i<formStep?'done':i===formStep?'active':''}"></span>`).join('');
+  body.innerHTML=`
+    <div class="form-step-body">
+      <div class="fs-num">Move ${formStep+1} of ${total} — Memory Mode</div>
+      <span class="fs-em">${step.emoji}</span>
+      <div class="fs-name">${step.name}</div>
+      <details class="form-reveal"><summary class="btn btn-outline btn-sm" style="margin-top:8px">Show Instructions</summary><div class="fs-desc" style="margin-top:8px">${step.desc}</div></details>
+    </div>
+    <div class="form-nav">
+      <button class="btn btn-outline btn-sm" onclick="formStep--;updateFormMemoryStep()" ${formStep===0?'disabled':''}>← Back</button>
+      <div class="form-step-dots">${dots}</div>
+      <button class="btn btn-primary btn-sm" onclick="formStep++;updateFormMemoryStep()">${formStep===total-1?'Complete ✓':'Next Move →'}</button>
+    </div>
+  `;
+  if(formStep>0) playBell(550,0.6);
+}
+
+function renderFormTimed(wrap){
+  const best=state.formTimedBest||0;
+  wrap.innerHTML=`
+    <div class="form-timed">
+      <div class="ft-intro">Perform all 8 moves — opening bow to closing bow — as smoothly as you can. Press Start when ready.</div>
+      <ol class="ft-steps-list">${FORM_STEPS.map(s=>`<li>${s.emoji} ${s.name}</li>`).join('')}</ol>
+      <div class="ft-display" id="ft-display">0.0s</div>
+      ${best>0?`<div class="ft-best" id="ft-best">⭐ Best: ${best.toFixed(1)}s</div>`:'<div class="ft-best" id="ft-best"></div>'}
+      <div class="timer-ctrls">
+        <button class="btn btn-primary" id="ft-btn" onclick="formTimedToggle()">Start</button>
+      </div>
+    </div>
+  `;
+}
+
+function formTimedToggle(){
+  if(formTimed.running){
+    formTimed.running=false; clearInterval(formTimed.interval);
+    const secs=formTimed.elapsed;
+    if(!state.formTimedBest||secs<state.formTimedBest){ state.formTimedBest=secs; saveState(); }
+    el('ft-display',secs.toFixed(1)+'s — Done! 🏆');
+    const bestEl=document.getElementById('ft-best');
+    if(bestEl) bestEl.textContent='⭐ Best: '+state.formTimedBest.toFixed(1)+'s';
+    el_btn('ft-btn','Try Again');
+    playComplete();
+  } else {
+    formTimed.running=true; formTimed.elapsed=0;
+    el_btn('ft-btn','Stop — Done!');
+    clearInterval(formTimed.interval);
+    formTimed.interval=setInterval(()=>{ formTimed.elapsed+=0.1; el('ft-display',formTimed.elapsed.toFixed(1)+'s'); },100);
+  }
+}
+
+function updateFormStep(){
+  const total=FORM_STEPS.length;
+  const fill=document.getElementById('fp-fill');
+  if(fill) fill.style.width=((formStep/total)*100)+'%';
+  const body=document.getElementById('fp-body');
+  if(!body) return;
+
+  if(formStep>=total){
+    body.innerHTML=`
+      <div class="form-step-body">
+        <span class="fs-em">🏆</span>
+        <div class="fs-name">Form Complete</div>
+        <div class="fs-desc">You have performed all eight moves. Practice it again until it flows without thought — that is when it becomes yours.</div>
+        <div style="margin-top:8px"><button class="btn btn-gold" onclick="formStep=0;updateFormStep()">Practice Again</button></div>
+      </div>
+    `;
+    playComplete();
+    return;
+  }
+
+  const step=FORM_STEPS[formStep];
+  const dots=FORM_STEPS.map((_,i)=>`<span class="fsdot ${i<formStep?'done':i===formStep?'active':''}"></span>`).join('');
+
+  body.innerHTML=`
+    <div class="form-step-body">
+      <div class="fs-num">Move ${formStep+1} of ${total}</div>
+      <span class="fs-em">${step.emoji}</span>
+      <div class="fs-name">${step.name}</div>
+      <div class="fs-desc">${step.desc}</div>
+    </div>
+    <div class="form-nav">
+      <button class="btn btn-outline btn-sm" onclick="formStep--;updateFormStep()" ${formStep===0?'disabled':''}>← Back</button>
+      <div class="form-step-dots">${dots}</div>
+      <button class="btn btn-primary btn-sm" onclick="formStep++;updateFormStep()">${formStep===total-1?'Complete ✓':'Next Move →'}</button>
+    </div>
+  `;
+  if(formStep>0) playBell(550,0.6);
+}
+
+/* ═══════════════════════════════════════════════════════
+   VOW BUILDER
+═══════════════════════════════════════════════════════ */
+function renderVows(wrap){
+  const v=state.vows;
+  wrap.innerHTML=`
+    <div class="vow-builder">
+      <div class="vb-title">The Disciple's Three Vows</div>
+      <p class="vb-intro">Choose your monk name, then write your three vows — simple, from the heart, in your own words. Examples: "I vow to breathe before I react." "I vow to be kind even when it is hard."</p>
+      <div class="vow-field">
+        <span class="vow-lbl">Monk Name</span>
+        <input class="vow-inp" id="monk-alt-name" type="text" placeholder="Your monk name..." value="${esc(state.monkAltName||'')}" oninput="saveVows()" maxlength="40">
+      </div>
+      <div class="vow-field">
+        <span class="vow-lbl">First Vow</span>
+        <textarea class="vow-inp" id="vow1" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[1]||'')}</textarea>
+      </div>
+      <div class="vow-field">
+        <span class="vow-lbl">Second Vow</span>
+        <textarea class="vow-inp" id="vow2" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[2]||'')}</textarea>
+      </div>
+      <div class="vow-field">
+        <span class="vow-lbl">Third Vow</span>
+        <textarea class="vow-inp" id="vow3" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[3]||'')}</textarea>
+      </div>
+      <div class="sig-area">
+        <div class="sig-line-wrap"><span class="sig-line"></span><span class="sig-label">SIGNED BY THE DISCIPLE</span><span class="sig-line"></span></div>
+        <div class="monk-name-display" id="vow-monk-name-display">${esc(state.monkAltName||state.monkName||'_______________')}</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-style:italic">Witnessed by the Abbot of the Shaolin Temple</div>
+      </div>
+    </div>
+  `;
+}
+
+function saveVows(){
+  state.vows[1]=document.getElementById('vow1')?.value||'';
+  state.vows[2]=document.getElementById('vow2')?.value||'';
+  state.vows[3]=document.getElementById('vow3')?.value||'';
+  const altName=document.getElementById('monk-alt-name')?.value||'';
+  state.monkAltName=altName;
+  const disp=document.getElementById('vow-monk-name-display');
+  if(disp) disp.textContent=altName||state.monkName||'_______________';
+  saveState();
+}
+
+/* ═══════════════════════════════════════════════════════
+   MARK COMPLETE + CEREMONY
+═══════════════════════════════════════════════════════ */
+function handleAwardBelt(id){
+  if(!id) return;
+  const scroll=SCROLLS.find(s=>s.id===id);
+  const sp=state.scrollProgress[id];
+  if(!scroll||!sp) return;
+  const wb=getWorkingBelt(id);
+  const bm=BELT_META[wb];
+  const wbDays=(sp.beltDays?.[wb]||[]).length;
+  if(wbDays<BELT_SESSIONS){ alert(`Complete ${BELT_SESSIONS} practice sessions first before awarding this belt.`); return; }
+  if(!confirm(`Award the ${bm.emoji} ${bm.label} to ${state.monkName||'the monk'} for "${scroll.name}"?\n\nThe Abbot has witnessed the training.`)) return;
+
+  if(!sp.earnedBelts) sp.earnedBelts=[];
+  sp.earnedBelts.push(wb);
+
+  saveState();
+  logSession(id,'belt-'+wb);
+  renderBeltBar(id);
+  renderInlineActions(id);
+
+  const yellowCount=SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+  const isSashPromo=(yellowCount===4||yellowCount===8);
+  showCeremony(id, wb, isSashPromo);
+}
+
+function showCeremony(scrollId, beltAwarded, isSashPromo){
+  const scroll=SCROLLS.find(s=>s.id===scrollId);
+  if(!scroll) return;
+  const bm=BELT_META[beltAwarded]||BELT_META['yellow'];
+  const overlay=document.getElementById('ceremony-overlay');
+  overlay.classList.remove('hidden');
+
+  const canvas=document.getElementById('particles-canvas');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  if(stopParticles) stopParticles();
+  stopParticles=startParticles(canvas);
+  playCeremony();
+
+  const yellowCount=SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+  let promoHtml='';
+  if(isSashPromo && yellowCount>=8){
+    promoHtml=`
+      <div class="cer-promo" style="border-color:var(--orange-s)">
+        <div class="cer-promo-label" style="color:var(--orange-s)">🟠 Promotion</div>
+        <div class="cer-promo-title">Orange Sash Disciple</div>
+        <div class="cer-promo-desc">All eight skills mastered at Yellow Belt. Black Belt training is now unlocked across all scrolls.</div>
+      </div>
+    `;
+    const vowHtml=[1,2,3].filter(i=>state.vows[i]).map(i=>`<div class="cer-vow-line">"${esc(state.vows[i])}"</div>`).join('');
+    if(vowHtml) promoHtml+=`<div class="cer-vows">${vowHtml}</div>`;
+  } else if(isSashPromo && yellowCount>=4){
+    promoHtml=`
+      <div class="cer-promo">
+        <div class="cer-promo-label">🟡 Promotion</div>
+        <div class="cer-promo-title">Yellow Sash Student</div>
+        <div class="cer-promo-desc">Four skills mastered at Yellow Belt. Orange Belt training is now unlocked across all scrolls.</div>
+      </div>
+    `;
+  }
+
+  document.getElementById('ceremony-inner').innerHTML=`
+    <span class="cer-em">${bm.emoji}</span>
+    <div class="cer-label">${bm.label} Earned!</div>
+    <div class="cer-title">${scroll.name}</div>
+    <div class="cer-skill">${scroll.skill}</div>
+    ${promoHtml}
+    <button class="btn btn-gold btn-lg" onclick="hideCeremony()">Continue the Path →</button>
+  `;
+
+  updateNavSash();
+}
+
+function hideCeremony(){
+  if(stopParticles){stopParticles();stopParticles=null;}
+  document.getElementById('ceremony-overlay').classList.add('hidden');
+  goHome();
+}
+
+function startParticles(canvas){
+  const ctx=canvas.getContext('2d');
+  let active=true;
+  const particles=Array.from({length:70},()=>({
+    x:Math.random()*canvas.width,
+    y:canvas.height+Math.random()*80,
+    r:Math.random()*4+1.5,
+    speed:Math.random()*1.2+0.4,
+    opacity:Math.random()*0.7+0.2,
+    wobble:Math.random()*Math.PI*2,
+    ws:Math.random()*0.04+0.015
+  }));
+  function tick(){
+    if(!active) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.y-=p.speed; p.wobble+=p.ws; p.opacity-=0.002;
+      if(p.y<-20||p.opacity<=0){p.y=canvas.height+20;p.x=Math.random()*canvas.width;p.opacity=Math.random()*0.7+0.2;}
+      ctx.save();ctx.globalAlpha=Math.max(0,p.opacity);
+      ctx.fillStyle='#ffb800';ctx.beginPath();
+      ctx.arc(p.x+Math.sin(p.wobble)*18,p.y,p.r,0,Math.PI*2);ctx.fill();ctx.restore();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+  return ()=>{active=false;};
+}
+
+/* ═══════════════════════════════════════════════════════
+   SESSION LOG DRAWER
+═══════════════════════════════════════════════════════ */
+function toggleSessionLog(){
+  const drawer=document.getElementById('session-log-drawer');
+  drawer.classList.toggle('open');
+  if(drawer.classList.contains('open')) renderSessionLog();
+}
+
+function renderSessionLog(){
+  document.getElementById('streak-num').textContent=getStreak();
+  const container=document.getElementById('log-entries');
+  if(!state.sessions.length){
+    container.innerHTML='<div class="log-empty">No sessions yet.<br>Enter a scroll to begin your training.</div>';
+    return;
+  }
+  container.innerHTML=state.sessions.slice(0,40).map(s=>{
+    const scroll=SCROLLS.find(sc=>sc.id===s.scrollId);
+    return `
+      <div class="log-entry">
+        <div class="log-entry-top">
+          <span class="log-sname">${scroll?scroll.emoji+' '+scroll.name:('Scroll '+s.scrollId)}</span>
+          <span class="log-date">${formatDate(s.date)}</span>
+        </div>
+        <div class="log-type ${s.type}">${s.type==='belt-yellow'?'🟡 Yellow Belt Awarded':s.type==='belt-orange'?'🟠 Orange Belt Awarded':s.type==='belt-black'?'⚫ Black Belt Awarded':s.type==='practiced'?'✓ Practised':s.type==='completed'?'✓ Completed':'Started session'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   STOP ALL TIMERS
+═══════════════════════════════════════════════════════ */
+function stopAllTimers(){
+  if(breathing.running||breathing.paused){
+    breathing.running=false; breathing.paused=false;
+    cancelAnimationFrame(breathing.animFrame);
+  }
+  if(breathing478.running) breathing478Clear();
+  if(stance.running){
+    stance.running=false;
+    cancelAnimationFrame(stance.animFrame);
+  }
+  if(formTimed.running){
+    formTimed.running=false; clearInterval(formTimed.interval);
+  }
+  if(scrollTimer.interval){ clearInterval(scrollTimer.interval); scrollTimer.interval=null; }
+  document.getElementById('complete-bar')?.classList.add('hidden');
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTIL
+═══════════════════════════════════════════════════════ */
+function el(id,txt){ const e=document.getElementById(id); if(e) e.textContent=txt; }
+function el_btn(id,txt){ const e=document.getElementById(id); if(e) e.textContent=txt; }
+function esc(s){ const d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+function init(){
+  loadState();
+  if(state.monkName){
+    document.getElementById('top-nav').classList.remove('hidden');
+    updateNavSash();
+    showView('dashboard');
+    renderDashboard();
+  } else {
+    showView('welcome');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
