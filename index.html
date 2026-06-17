@@ -108,6 +108,15 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .path-summit-emoji{font-size:3rem;display:block;margin-bottom:8px}
 .path-summit-title{font-family:'Bangers',cursive;font-size:1.4rem;color:#ff8c40;letter-spacing:.06em}
 .path-summit-desc{font-size:.88rem;color:var(--text-muted);margin-top:6px}
+.path-prize{margin-top:10px;padding:12px 14px;border-radius:var(--r);border:1.5px dashed rgba(255,184,0,.35);background:rgba(255,184,0,.05)}
+.path-prize-header{font-family:'Bangers',cursive;font-size:.85rem;color:var(--gold);letter-spacing:.08em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.path-prize-row{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted);padding:4px 0}
+.path-prize-row+.path-prize-row{border-top:1px solid rgba(255,255,255,.05)}
+.path-prize-icon{font-size:1.1rem;flex-shrink:0}
+.cer-prize{margin:14px 0 4px;padding:14px 16px;border-radius:var(--r);background:rgba(255,184,0,.08);border:1.5px solid rgba(255,184,0,.4);text-align:left}
+.cer-prize-header{font-family:'Bangers',cursive;font-size:.9rem;color:var(--gold);letter-spacing:.08em;margin-bottom:8px}
+.cer-prize-row{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text);padding:5px 0}
+.cer-prize-row+.cer-prize-row{border-top:1px solid rgba(255,255,255,.07)}
 .nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Nunito',sans-serif;font-weight:700}
 .nav-journal-btn:hover{border-color:var(--jade);color:var(--text)}
 
@@ -836,6 +845,25 @@ const BELT_META = {
   black: { emoji:'⚫', label:'Black Belt',  color:'#333',    title:'Master' }
 };
 
+const SASH_PRIZES = {
+  yellow: {
+    emoji: '🎬',
+    title: 'White Sash Prize',
+    rewards: [
+      { icon:'🐼', text:'Watch Kung Fu Panda 1 with Dad' },
+      { icon:'🍣', text:'Special Shaolin Monk Meal — sushi or gyoza together' },
+    ]
+  },
+  orange: {
+    emoji: '🏆',
+    title: 'Yellow Sash Prize',
+    rewards: [
+      { icon:'🐼', text:'Watch Kung Fu Panda 2 with Dad' },
+      { icon:'🥟', text:'Make dumplings together — warrior\'s feast' },
+    ]
+  }
+};
+
 const DEFAULT_SCROLLS = {};
 SCROLLS.forEach((s,i) => {
   DEFAULT_SCROLLS[s.id] = {status:'active', earnedBelts:[], beltDays:{yellow:[],orange:[],black:[]}};
@@ -1036,9 +1064,9 @@ function renderPathView(){
   }
   const connector = `<div class="path-connector"></div>`;
   const zones = [
-    {rank:'white',emoji:'⚪',label:'White Sash — Novice of the Path',scrollIds:[1,2,3],req:'Begin your training — explore the first scrolls'},
-    {rank:'yellow',emoji:'🟡',label:'Yellow Sash — Student of the Way',scrollIds:[4,5,6],req:'Earn 4 Yellow Belts across any scrolls'},
-    {rank:'orange',emoji:'🟠',label:'Orange Sash — Disciple',scrollIds:[7,8],req:'Earn all 8 Yellow Belts'},
+    {rank:'white', nextRank:'yellow', emoji:'⚪',label:'White Sash — Novice of the Path',  scrollIds:[1,2,3],req:'Begin your training — explore the first scrolls'},
+    {rank:'yellow',nextRank:'orange', emoji:'🟡',label:'Yellow Sash — Student of the Way', scrollIds:[4,5,6],req:'Earn 4 Yellow Belts across any scrolls'},
+    {rank:'orange',nextRank:null,     emoji:'🟠',label:'Orange Sash — Disciple',           scrollIds:[7,8],  req:'Earn all 8 Yellow Belts'},
   ];
   const r = getRank();
   let html = `<div class="path-title">⛩️ THE PATH OF THE YOUNG MONK</div>
@@ -1046,9 +1074,16 @@ function renderPathView(){
       You are: <strong style="color:var(--jade)">${r.emoji} ${r.title}</strong>
     </div>`;
   zones.forEach((zone, zi) => {
+    const prize = SASH_PRIZES[zone.nextRank];
+    const prizeHtml = prize ? `<div class="path-prize">
+      <div class="path-prize-header">🎁 Complete this zone to unlock</div>
+      ${prize.rewards.map(r=>`<div class="path-prize-row"><span class="path-prize-icon">${r.icon}</span><span>${r.text}</span></div>`).join('')}
+    </div>` : '';
     html += `<div class="path-zone">
       <div class="path-zone-banner ${zone.rank}"><span>${zone.emoji}</span><span>${zone.label}</span></div>
-      <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px;padding-left:4px">${zone.req}</div>`;
+      <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px;padding-left:4px">${zone.req}</div>
+      ${prizeHtml}
+      <div style="height:10px"></div>`;
     zone.scrollIds.forEach((id, i) => {
       const scroll = SCROLLS.find(s=>s.id===id);
       if(!scroll) return;
@@ -2141,6 +2176,14 @@ function showCeremony(scrollId, beltAwarded, isSashPromo){
 
   const yellowCount=SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
   let promoHtml='';
+  function prizeBlock(sashKey){
+    const p = SASH_PRIZES[sashKey];
+    if(!p) return '';
+    return `<div class="cer-prize">
+      <div class="cer-prize-header">🎁 Your Prize — claim it with Dad!</div>
+      ${p.rewards.map(r=>`<div class="cer-prize-row"><span style="font-size:1.3rem">${r.icon}</span><span>${r.text}</span></div>`).join('')}
+    </div>`;
+  }
   if(isSashPromo && yellowCount>=8){
     promoHtml=`
       <div class="cer-promo" style="border-color:var(--orange-s)">
@@ -2148,6 +2191,7 @@ function showCeremony(scrollId, beltAwarded, isSashPromo){
         <div class="cer-promo-title">Orange Sash Disciple</div>
         <div class="cer-promo-desc">All eight skills mastered at Yellow Belt. Black Belt training is now unlocked across all scrolls.</div>
       </div>
+      ${prizeBlock('orange')}
     `;
     const vowHtml=[1,2,3].filter(i=>state.vows[i]).map(i=>`<div class="cer-vow-line">"${esc(state.vows[i])}"</div>`).join('');
     if(vowHtml) promoHtml+=`<div class="cer-vows">${vowHtml}</div>`;
@@ -2158,6 +2202,7 @@ function showCeremony(scrollId, beltAwarded, isSashPromo){
         <div class="cer-promo-title">Yellow Sash Student</div>
         <div class="cer-promo-desc">Four skills mastered at Yellow Belt. Orange Belt training is now unlocked across all scrolls.</div>
       </div>
+      ${prizeBlock('yellow')}
     `;
   }
 
