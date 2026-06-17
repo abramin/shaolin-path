@@ -77,8 +77,36 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .sash-badge.orange{background:rgba(255,109,0,.15);color:var(--orange-s);border:1px solid rgba(255,109,0,.35)}
 .sash-dot{width:8px;height:8px;border-radius:50%}
 .white .sash-dot{background:var(--white-s)}.yellow .sash-dot{background:var(--yellow-s)}.orange .sash-dot{background:var(--orange-s)}
+.nav-path-btn{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px 8px;border-radius:8px;color:var(--text-muted);font-family:'Bangers',cursive;letter-spacing:.05em;transition:color var(--tr)}
+.nav-path-btn:hover{color:var(--text)}
 .nav-sound-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:4px 6px;border-radius:8px;transition:opacity var(--tr);opacity:.75}
 .nav-sound-btn:hover{opacity:1}
+/* === PATH VIEW === */
+.path-inner{max-width:680px;margin:0 auto;padding:24px 20px 120px}
+.path-title{font-family:'Bangers',cursive;font-size:1.5rem;color:var(--jade);letter-spacing:.1em;text-align:center;margin-bottom:28px}
+.path-zone{margin-bottom:8px}
+.path-zone-banner{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:var(--r);font-family:'Bangers',cursive;font-size:1rem;letter-spacing:.07em;margin-bottom:12px}
+.path-zone-banner.white{background:rgba(224,224,224,.08);border:1px solid rgba(255,255,255,.12);color:var(--text-muted)}
+.path-zone-banner.yellow{background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.3);color:var(--gold)}
+.path-zone-banner.orange{background:rgba(255,109,0,.1);border:1px solid rgba(255,109,0,.3);color:#ff8c40}
+.path-connector{width:2px;height:28px;background:linear-gradient(to bottom,var(--jade),transparent);margin:0 auto 0 36px;opacity:.4}
+.path-node{display:flex;align-items:flex-start;gap:14px;padding:12px 14px;border-radius:var(--r);cursor:pointer;transition:background var(--tr);border:1.5px solid transparent;margin-bottom:4px}
+.path-node:hover{background:rgba(255,255,255,.04);border-color:var(--wood-l)}
+.path-node-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;position:relative;border:2px solid var(--wood-l)}
+.path-node-icon.reached{border-color:var(--jade);background:rgba(82,192,80,.1);box-shadow:0 0 12px rgba(82,192,80,.2)}
+.path-node-icon.current{border-color:var(--gold);background:rgba(255,184,0,.1);box-shadow:0 0 14px rgba(255,184,0,.3);animation:pulse-node 2s ease-in-out infinite}
+.path-node-icon.ahead{opacity:.4}
+@keyframes pulse-node{0%,100%{box-shadow:0 0 10px rgba(255,184,0,.3)}50%{box-shadow:0 0 20px rgba(255,184,0,.55)}}
+.path-node-icon.current::after{content:'🧘';font-size:.75rem;position:absolute;top:-8px;right:-8px;background:var(--bg-card);border-radius:50%;padding:1px 2px}
+.path-node-info{flex:1;min-width:0;padding-top:4px}
+.path-node-name{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--text);letter-spacing:.04em;margin-bottom:2px}
+.path-node-skill{font-size:.82rem;color:var(--text-muted)}
+.path-node-belts{display:flex;gap:4px;margin-top:6px}
+.path-node-belt{font-size:.7rem;padding:2px 6px;border-radius:8px;font-family:'Bangers',cursive}
+.path-summit{text-align:center;padding:28px 16px;border:2px solid rgba(255,109,0,.35);border-radius:var(--rl);background:rgba(255,109,0,.06);margin-top:12px}
+.path-summit-emoji{font-size:3rem;display:block;margin-bottom:8px}
+.path-summit-title{font-family:'Bangers',cursive;font-size:1.4rem;color:#ff8c40;letter-spacing:.06em}
+.path-summit-desc{font-size:.88rem;color:var(--text-muted);margin-top:6px}
 .nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Nunito',sans-serif;font-weight:700}
 .nav-journal-btn:hover{border-color:var(--jade);color:var(--text)}
 
@@ -361,6 +389,10 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .ft-best{font-family:'Bangers',cursive;font-size:1rem;color:var(--jade);margin-bottom:12px;letter-spacing:.04em}
 .form-reveal summary{cursor:pointer;margin-top:8px;display:inline-flex;align-items:center;gap:4px}
 .form-reveal .fs-desc{margin-top:8px}
+.video-toggle{background:none;border:1.5px solid rgba(255,184,0,.35);color:var(--gold);font-family:'Bangers',cursive;font-size:.88rem;letter-spacing:.05em;padding:5px 14px;border-radius:16px;cursor:pointer;margin-top:10px;display:inline-flex;align-items:center;gap:6px;transition:background var(--tr)}
+.video-toggle:hover{background:rgba(255,184,0,.1)}
+.video-wrap{margin-top:12px;border-radius:var(--r);overflow:hidden;background:#000;aspect-ratio:16/9}
+.video-wrap iframe{width:100%;height:100%;border:none;display:block}
 .st-yellow{background:rgba(255,184,0,.2);color:var(--gold);border:1.5px solid rgba(255,184,0,.5)}
 .st-orange{background:rgba(255,109,0,.2);color:#ff6d00;border:1.5px solid rgba(255,109,0,.5)}
 /* === RESPONSIVE === */
@@ -405,6 +437,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
       <span class="sash-dot"></span>
       <span id="nav-sash-text">White Sash Novice</span>
     </div>
+    <button class="nav-path-btn" onclick="showPath()">🗺 Path</button>
     <button class="nav-journal-btn" onclick="toggleSessionLog()">📜 Journal</button>
     <button class="nav-sound-btn" id="nav-sound-btn" onclick="toggleMusic()" title="Toggle music">🔊</button>
   </div>
@@ -432,6 +465,12 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
     </div>
     <div id="cbar-action"></div>
   </div>
+</div>
+
+
+<!-- ═══════════════ PATH VIEW ═══════════════ -->
+<div id="view-path" class="view hidden">
+  <div class="path-inner" id="path-content"></div>
 </div>
 
 
@@ -781,14 +820,14 @@ const ANIMALS = [
 ];
 
 const FORM_STEPS = [
-  {name:'Opening Bow',emoji:'🙏',desc:'Stand straight and tall. Place your right fist into your left open palm in front of your chest. Bow slowly and with intention. This signals the form has begun.'},
-  {name:'Horse Stance',emoji:'🐴',desc:'Step your feet wide apart — wider than your shoulders. Bend your knees as if sitting on an invisible horse. Back straight. Fists at your hips. Take three slow breaths. This is your foundation.'},
-  {name:'Tiger Punch — Right',emoji:'🐯',desc:'From horse stance — slowly draw your right fist back to your hip. Then drive it forward powerfully. Kiai (shout) if you feel it. Return slowly. Feel it in your whole body.'},
-  {name:'Tiger Punch — Left',emoji:'🐯',desc:'Return to horse stance. Draw your left fist back to your hip. Drive it forward with equal power. Equal strength on both sides. A balanced monk is a strong monk.'},
-  {name:'Crane Balance — Right',emoji:'🦅',desc:'Shift all your weight onto your right foot. Slowly lift your left knee. Spread both arms wide like great wings. Find your stillness. Hold for three slow breaths.'},
-  {name:'Snake Strike',emoji:'🐍',desc:'Lower your foot gently. Bring both hands together, then slowly extend your right hand forward — fingers together, palm sideways. The snake does not rush. Be precise.'},
-  {name:'Dragon Circle',emoji:'🐉',desc:'Both arms rise from your sides and flow in a slow, wide circle — like smoke in the wind. Breathe in as they rise. Breathe out as they fall. Repeat twice. This is the most powerful movement because it is the calmest.'},
-  {name:'Closing Bow',emoji:'🙏',desc:'Return to standing. Feet together. Right fist into left open palm. Bow slowly and deeply. The form is complete. You have earned this bow.'}
+  {name:'Opening Bow',emoji:'🙏',desc:'Stand straight and tall. Place your right fist into your left open palm in front of your chest. Bow slowly and with intention. This signals the form has begun.',video:'HTsBCFG2szU'},
+  {name:'Horse Stance',emoji:'🐴',desc:'Step your feet wide apart — wider than your shoulders. Bend your knees as if sitting on an invisible horse. Back straight. Fists at your hips. Take three slow breaths. This is your foundation.',video:'mT8FbCZOyFo'},
+  {name:'Tiger Punch — Right',emoji:'🐯',desc:'From horse stance — slowly draw your right fist back to your hip. Then drive it forward powerfully. Kiai (shout) if you feel it. Return slowly. Feel it in your whole body.',video:'9f8zb_QKZEo'},
+  {name:'Tiger Punch — Left',emoji:'🐯',desc:'Return to horse stance. Draw your left fist back to your hip. Drive it forward with equal power. Equal strength on both sides. A balanced monk is a strong monk.',video:'9f8zb_QKZEo'},
+  {name:'Crane Balance — Right',emoji:'🦅',desc:'Shift all your weight onto your right foot. Slowly lift your left knee. Spread both arms wide like great wings. Find your stillness. Hold for three slow breaths.',video:'inNVbsAyaRU'},
+  {name:'Snake Strike',emoji:'🐍',desc:'Lower your foot gently. Bring both hands together, then slowly extend your right hand forward — fingers together, palm sideways. The snake does not rush. Be precise.',video:'8bFSxWMkagY'},
+  {name:'Dragon Circle',emoji:'🐉',desc:'Both arms rise from your sides and flow in a slow, wide circle — like smoke in the wind. Breathe in as they rise. Breathe out as they fall. Repeat twice. This is the most powerful movement because it is the calmest.',video:'uhNaKJbFN4s'},
+  {name:'Closing Bow',emoji:'🙏',desc:'Return to standing. Feet together. Right fist into left open palm. Bow slowly and deeply. The form is complete. You have earned this bow.',video:'HTsBCFG2szU'}
 ];
 
 /* ═══════════════════════════════════════════════════════
@@ -961,6 +1000,75 @@ function goHome(){
   stopAllTimers();
   showView('dashboard');
   renderDashboard();
+}
+
+function showPath(){
+  showView('path');
+  renderPathView();
+}
+
+function renderPathView(){
+  const el = document.getElementById('path-content');
+  if(!el) return;
+  let markedCurrent = false;
+  function resolvedState(id){
+    const sp = state.scrollProgress[id]||{};
+    const earned = sp.earnedBelts||[];
+    if(earned.includes('yellow')) return 'reached';
+    if(!markedCurrent){ markedCurrent = true; return 'current'; }
+    return 'ahead';
+  }
+  function beltPips(id){
+    const sp = state.scrollProgress[id]||{};
+    const earned = sp.earnedBelts||[];
+    const wb = getWorkingBelt(id);
+    return BELT_ORDER.map(b=>{
+      let cls='card-belt-pip path-node-belt ';
+      cls += earned.includes(b)?'earned': b===wb?'working':'dim';
+      return `<span class="${cls}">${BELT_META[b].emoji}</span>`;
+    }).join('');
+  }
+  function nodeHTML(scroll){
+    const st = resolvedState(scroll.id);
+    return `<div class="path-node" onclick="goToScroll(${scroll.id});showView('scroll')">
+      <div class="path-node-icon ${st}">${scroll.emoji}</div>
+      <div class="path-node-info">
+        <div class="path-node-name">${scroll.name}</div>
+        <div class="path-node-skill">${scroll.skill}</div>
+        <div class="path-node-belts">${beltPips(scroll.id)}</div>
+      </div>
+    </div>`;
+  }
+  const connector = `<div class="path-connector"></div>`;
+  const zones = [
+    {rank:'white',emoji:'⚪',label:'White Sash — Novice of the Path',scrollIds:[1,2,3],req:'Begin your training — explore the first scrolls'},
+    {rank:'yellow',emoji:'🟡',label:'Yellow Sash — Student of the Way',scrollIds:[4,5,6],req:'Earn 4 Yellow Belts across any scrolls'},
+    {rank:'orange',emoji:'🟠',label:'Orange Sash — Disciple',scrollIds:[7,8],req:'Earn all 8 Yellow Belts'},
+  ];
+  const r = getRank();
+  let html = `<div class="path-title">⛩️ THE PATH OF THE YOUNG MONK</div>
+    <div style="text-align:center;margin-bottom:24px;font-size:.88rem;color:var(--text-muted)">
+      You are: <strong style="color:var(--jade)">${r.emoji} ${r.title}</strong>
+    </div>`;
+  zones.forEach((zone, zi) => {
+    html += `<div class="path-zone">
+      <div class="path-zone-banner ${zone.rank}"><span>${zone.emoji}</span><span>${zone.label}</span></div>
+      <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px;padding-left:4px">${zone.req}</div>`;
+    zone.scrollIds.forEach((id, i) => {
+      const scroll = SCROLLS.find(s=>s.id===id);
+      if(!scroll) return;
+      if(i > 0) html += connector;
+      html += nodeHTML(scroll);
+    });
+    html += `</div>`;
+    if(zi < zones.length-1) html += connector;
+  });
+  html += `<div class="path-summit">
+    <span class="path-summit-emoji">🏯</span>
+    <div class="path-summit-title">The Summit — Orange Sash Disciple</div>
+    <div class="path-summit-desc">All eight skills mastered at Yellow Belt.<br>The Shaolin path is yours.</div>
+  </div>`;
+  el.innerHTML = html;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1853,6 +1961,7 @@ function updateFormMemoryStep(){
       <span class="fs-em">${step.emoji}</span>
       <div class="fs-name">${step.name}</div>
       <details class="form-reveal"><summary class="btn btn-outline btn-sm" style="margin-top:8px">Show Instructions</summary><div class="fs-desc" style="margin-top:8px">${step.desc}</div></details>
+      ${step.video?`<button class="video-toggle" onclick="toggleFormVideo(this,'${step.video}')">▶ Watch how</button><div class="video-wrap" style="display:none"></div>`:''}
     </div>
     <div class="form-nav">
       <button class="btn btn-outline btn-sm" onclick="formStep--;updateFormMemoryStep()" ${formStep===0?'disabled':''}>← Back</button>
@@ -1861,6 +1970,20 @@ function updateFormMemoryStep(){
     </div>
   `;
   if(formStep>0) playBell(550,0.6);
+}
+
+function toggleFormVideo(btn, videoId){
+  const wrap = btn.nextElementSibling;
+  const open = wrap.style.display === 'none';
+  if(open){
+    wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1" allowfullscreen></iframe>`;
+    wrap.style.display = 'block';
+    btn.textContent = '✕ Close video';
+  } else {
+    wrap.innerHTML = '';
+    wrap.style.display = 'none';
+    btn.textContent = '▶ Watch how';
+  }
 }
 
 function renderFormTimed(wrap){
@@ -1925,6 +2048,7 @@ function updateFormStep(){
       <span class="fs-em">${step.emoji}</span>
       <div class="fs-name">${step.name}</div>
       <div class="fs-desc">${step.desc}</div>
+      ${step.video?`<button class="video-toggle" onclick="toggleFormVideo(this,'${step.video}')">▶ Watch how</button><div class="video-wrap" style="display:none"></div>`:''}
     </div>
     <div class="form-nav">
       <button class="btn btn-outline btn-sm" onclick="formStep--;updateFormStep()" ${formStep===0?'disabled':''}>← Back</button>
