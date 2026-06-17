@@ -28,7 +28,7 @@
   --r:10px;--rl:18px;--tr:0.3s ease;
   --white-s:#e8e8e8;--yellow-s:#ffb800;--orange-s:#ff6d00;
 }
-html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:17px;line-height:1.65;overflow-x:hidden}
+html,body{min-height:100vh;margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:17px;line-height:1.65;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 70%,rgba(82,192,80,0.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 10%,rgba(255,184,0,0.06) 0%,transparent 45%),radial-gradient(ellipse at 50% 90%,rgba(232,57,43,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--wood);border-radius:3px}
 .hidden{display:none!important}
@@ -39,17 +39,18 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .view.visible{opacity:1;transform:translateY(0);pointer-events:all}
 
 /* === WELCOME === */
-#view-welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px}
-.welcome-gate{max-width:480px;width:100%;text-align:center}
-.temple-sym{font-size:80px;display:block;margin-bottom:4px;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.welcome-gate h1{font-family:'Bangers',cursive;font-size:clamp(2rem,6vw,3rem);color:var(--gold);margin-bottom:4px;letter-spacing:.06em;text-shadow:0 0 30px rgba(255,184,0,.4)}
-.welcome-sub{color:var(--text-muted);font-style:italic;margin-bottom:32px;font-size:1.1rem;font-weight:600}
-.welcome-gate p{color:var(--text-muted);margin-bottom:16px;font-size:1.1rem;line-height:1.85;font-weight:400}
-.divider{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--jade),transparent);margin:24px auto}
+#view-welcome{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:100vh;min-height:100dvh;padding:0;position:relative;overflow:hidden}
+.welcome-bg{position:absolute;inset:0;background:url('assets/images/Gemini_Generated_Image_wd4nxtwd4nxtwd4n.png') center 8%/cover no-repeat;z-index:0}
+.welcome-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.08) 55%,rgba(10,20,10,.82) 80%,rgba(10,20,10,.95) 100%)}
+.welcome-gate{position:relative;z-index:1;max-width:480px;width:100%;text-align:center;padding:0 24px 48px}
+.temple-sym{display:none}
+.welcome-gate h1{display:none}
+.welcome-sub{display:none}
+.welcome-gate>p{display:none}
+.divider{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--jade),transparent);margin:16px auto}
 .name-form{display:flex;flex-direction:column;gap:14px;align-items:center}
-.name-form label{font-family:'Bangers',cursive;font-size:1rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
-.name-input{width:100%;padding:16px 22px;background:var(--bg-card);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
+.name-form label{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
+.name-input{width:100%;padding:16px 22px;background:rgba(18,28,18,.75);backdrop-filter:blur(8px);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
 .name-input:focus{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-glow)}
 .name-input::placeholder{color:var(--text-dim)}
 
@@ -410,18 +411,12 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 
 <!-- ═══════════════ WELCOME ═══════════════ -->
 <div id="view-welcome" class="view">
+  <div class="welcome-bg"></div>
   <div class="welcome-gate">
-    <span class="temple-sym">⛩️</span>
-    <h1>The Path of the Young Monk</h1>
-    <p class="welcome-sub">A Shaolin Temple Curriculum</p>
-    <div class="divider"></div>
-    <p>The gates of the Shaolin Temple stand before you. Beyond them lies a path of eight scrolls — each one a real skill you will carry for life.</p>
-    <p>Before you enter, the Abbot must know your name.</p>
-    <div class="divider"></div>
     <div class="name-form">
       <label for="monk-name-input">What shall the monks call you?</label>
       <input type="text" id="monk-name-input" class="name-input" placeholder="Enter your name..." maxlength="30" autocomplete="off">
-      <button class="btn btn-primary btn-lg" onclick="handleNameSubmit()">Enter the Temple</button>
+      <button class="btn btn-primary btn-lg" onclick="handleNameSubmit()">Start Your Journey!</button>
     </div>
   </div>
 </div>
