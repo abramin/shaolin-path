@@ -313,7 +313,13 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .vow-builder{background:var(--bg-card);border:2px solid rgba(255,184,0,.28);border-radius:var(--rl);padding:30px}
 .vb-title{font-family:'Bangers',cursive;color:var(--gold);font-size:1.2rem;letter-spacing:.06em;margin-bottom:6px}
 .vb-intro{color:var(--text-muted);font-size:1rem;margin-bottom:24px;line-height:1.8;font-weight:600}
-.vow-field{margin-bottom:20px}
+.vow-field{margin-bottom:24px}
+.vow-suggestions{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.vow-chip{background:var(--bg-panel);border:1.5px solid var(--wood-l);border-radius:var(--r);padding:10px 14px;font-size:.92rem;color:var(--text-muted);cursor:pointer;transition:all var(--tr);text-align:left;font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.4}
+.vow-chip:hover{border-color:var(--gold);color:var(--text);background:var(--bg-card-h)}
+.vow-chip.selected{border-color:var(--gold);color:var(--text);background:rgba(255,184,0,.18);box-shadow:0 0 0 3px var(--gold-glow)}
+.vow-chip.selected .vow-chip-prefix::before{content:'✓ ';}
+.vow-chip-prefix{color:var(--gold);font-family:'Bangers',cursive;letter-spacing:.04em;margin-right:4px}
 .vow-lbl{font-size:.88rem;color:var(--text-dim);font-family:'Bangers',cursive;letter-spacing:.08em;margin-bottom:7px;display:block}
 .vow-inp{width:100%;padding:12px 16px;background:var(--bg-panel);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;outline:none;transition:border-color var(--tr),box-shadow var(--tr);resize:none}
 .vow-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-glow)}
@@ -2142,35 +2148,81 @@ function updateFormStep(){
 /* ═══════════════════════════════════════════════════════
    VOW BUILDER
 ═══════════════════════════════════════════════════════ */
+const VOW_SUGGESTIONS = [
+  [
+    'breathe before I react when something makes me angry',
+    'use my mountain breath whenever I feel a storm coming',
+    'pause and count to three before I shout or storm off',
+  ],
+  [
+    'be kind to someone even when they have not been kind to me',
+    'look out for anyone who is left out or sitting alone',
+    'say sorry properly when I have done something wrong',
+  ],
+  [
+    'keep trying even when something feels too hard',
+    'be honest, even when the truth is uncomfortable',
+    'practise my scrolls every week and not give up',
+  ],
+];
+
 function renderVows(wrap){
   const v=state.vows;
+  function chipsHtml(n){
+    return `<div class="vow-suggestions">${VOW_SUGGESTIONS[n-1].map((s,i)=>`
+      <button class="vow-chip${(v[n]||'')==='I vow to '+s?' selected':''}" onclick="pickVow(${n},${i})" type="button">
+        <span class="vow-chip-prefix">I vow to</span>${s}
+      </button>`).join('')}</div>`;
+  }
   wrap.innerHTML=`
     <div class="vow-builder">
       <div class="vb-title">The Disciple's Three Vows</div>
-      <p class="vb-intro">Choose your monk name, then write your three vows — simple, from the heart, in your own words. Examples: "I vow to breathe before I react." "I vow to be kind even when it is hard."</p>
+      <p class="vb-intro">Tap a vow to choose it — or write your own below it. Then sign your monk name.</p>
       <div class="vow-field">
         <span class="vow-lbl">Monk Name</span>
         <input class="vow-inp" id="monk-alt-name" type="text" placeholder="Your monk name..." value="${esc(state.monkAltName||'')}" oninput="saveVows()" maxlength="40">
       </div>
       <div class="vow-field">
         <span class="vow-lbl">First Vow</span>
-        <textarea class="vow-inp" id="vow1" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[1]||'')}</textarea>
+        ${chipsHtml(1)}
+        <textarea class="vow-inp" id="vow1" rows="2" placeholder="Or write your own vow..." oninput="saveVows();updateChips(1)">${esc(v[1]||'')}</textarea>
       </div>
       <div class="vow-field">
         <span class="vow-lbl">Second Vow</span>
-        <textarea class="vow-inp" id="vow2" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[2]||'')}</textarea>
+        ${chipsHtml(2)}
+        <textarea class="vow-inp" id="vow2" rows="2" placeholder="Or write your own vow..." oninput="saveVows();updateChips(2)">${esc(v[2]||'')}</textarea>
       </div>
       <div class="vow-field">
         <span class="vow-lbl">Third Vow</span>
-        <textarea class="vow-inp" id="vow3" rows="2" placeholder="I vow to..." oninput="saveVows()">${esc(v[3]||'')}</textarea>
+        ${chipsHtml(3)}
+        <textarea class="vow-inp" id="vow3" rows="2" placeholder="Or write your own vow..." oninput="saveVows();updateChips(3)">${esc(v[3]||'')}</textarea>
       </div>
       <div class="sig-area">
         <div class="sig-line-wrap"><span class="sig-line"></span><span class="sig-label">SIGNED BY THE DISCIPLE</span><span class="sig-line"></span></div>
         <div class="monk-name-display" id="vow-monk-name-display">${esc(state.monkAltName||state.monkName||'_______________')}</div>
-        <div style="font-size:.7rem;color:var(--text-dim);font-style:italic">Witnessed by the Abbot of the Shaolin Temple</div>
+        <div style="font-size:.7rem;color:var(--text-dim)">Witnessed by the Abbot of the Shaolin Temple</div>
       </div>
     </div>
   `;
+}
+
+function pickVow(n, i){
+  const text = 'I vow to '+VOW_SUGGESTIONS[n-1][i];
+  const ta = document.getElementById('vow'+n);
+  if(ta){ ta.value = text; }
+  state.vows[n] = text;
+  saveState();
+  updateChips(n);
+}
+
+function updateChips(n){
+  const ta = document.getElementById('vow'+n);
+  const val = ta ? ta.value : state.vows[n]||'';
+  const field = ta?.closest('.vow-field');
+  if(!field) return;
+  field.querySelectorAll('.vow-chip').forEach((btn,i)=>{
+    btn.classList.toggle('selected', val==='I vow to '+VOW_SUGGESTIONS[n-1][i]);
+  });
 }
 
 function saveVows(){
