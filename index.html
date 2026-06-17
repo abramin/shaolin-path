@@ -5,31 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Path of the Young Monk — Shaolin Temple</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0e1c0a;
-  --bg-panel:#162812;
-  --bg-card:#1e3618;
-  --bg-card-h:#264520;
-  --text:#f4ead8;
-  --text-muted:#c8e0a8;
-  --text-dim:#7aaa60;
-  --red:#e8392b;
-  --red-glow:rgba(232,57,43,0.3);
-  --gold:#ffb800;
-  --gold-l:#ffd54f;
-  --gold-glow:rgba(255,184,0,0.3);
-  --jade:#52c050;
-  --jade-glow:rgba(82,192,80,0.25);
-  --wood:#2a4820;
-  --wood-l:#3a5a2e;
-  --r:10px;--rl:18px;--tr:0.3s ease;
-  --white-s:#e8e8e8;--yellow-s:#ffb800;--orange-s:#ff6d00;
+  --bg:#130a04;
+  --bg-panel:#1e1008;
+  --bg-card:#2b160a;
+  --bg-card-h:#391e0d;
+  --text:#fdf5e8;
+  --text-muted:#d4a87a;
+  --text-dim:#8a6040;
+  --red:#ff4422;
+  --red-glow:rgba(255,68,34,0.35);
+  --gold:#ffcc00;
+  --gold-l:#ffe566;
+  --gold-glow:rgba(255,204,0,0.35);
+  --jade:#3dd68c;
+  --jade-glow:rgba(61,214,140,0.25);
+  --wood:#3d2210;
+  --wood-l:#5c3418;
+  --r:12px;--rl:22px;--tr:0.3s ease;
+  --white-s:#e8e8e8;--yellow-s:#ffcc00;--orange-s:#ff7700;
 }
-html,body{min-height:100vh;margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:17px;line-height:1.65;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 70%,rgba(82,192,80,0.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 10%,rgba(255,184,0,0.06) 0%,transparent 45%),radial-gradient(ellipse at 50% 90%,rgba(232,57,43,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
+html,body{min-height:100vh;margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Fredoka',sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(255,100,0,0.07) 0%,transparent 50%),radial-gradient(ellipse at 85% 15%,rgba(255,204,0,0.07) 0%,transparent 45%),radial-gradient(ellipse at 50% 95%,rgba(255,68,34,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--wood);border-radius:3px}
 .hidden{display:none!important}
 h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
@@ -50,7 +50,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .divider{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--jade),transparent);margin:16px auto}
 .name-form{display:flex;flex-direction:column;gap:14px;align-items:center}
 .name-form label{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
-.name-input{width:100%;padding:16px 22px;background:rgba(18,28,18,.75);backdrop-filter:blur(8px);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
+.name-input{width:100%;padding:16px 22px;background:rgba(18,28,18,.75);backdrop-filter:blur(8px);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Fredoka',sans-serif;font-size:1.2rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
 .name-input:focus{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-glow)}
 .name-input::placeholder{color:var(--text-dim)}
 
@@ -117,7 +117,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .cer-prize-header{font-family:'Bangers',cursive;font-size:.9rem;color:var(--gold);letter-spacing:.08em;margin-bottom:8px}
 .cer-prize-row{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text);padding:5px 0}
 .cer-prize-row+.cer-prize-row{border-top:1px solid rgba(255,255,255,.07)}
-.nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Nunito',sans-serif;font-weight:700}
+.nav-journal-btn{background:none;border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text-muted);padding:6px 13px;font-size:.9rem;cursor:pointer;transition:all var(--tr);font-family:'Fredoka',sans-serif;font-weight:700}
 .nav-journal-btn:hover{border-color:var(--jade);color:var(--text)}
 
 /* === DASHBOARD === */
@@ -186,7 +186,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 /* === SCROLL DETAIL === */
 #view-scroll{min-height:100vh}
 .scroll-inner{max-width:700px;margin:0 auto;padding:30px 20px 110px}
-.scroll-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:.95rem;cursor:pointer;margin-bottom:26px;transition:color var(--tr);background:none;border:none;padding:0;font-family:'Nunito',sans-serif;font-weight:700}
+.scroll-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:.95rem;cursor:pointer;margin-bottom:26px;transition:color var(--tr);background:none;border:none;padding:0;font-family:'Fredoka',sans-serif;font-weight:700}
 .scroll-back:hover{color:var(--jade)}
 .scroll-hero{text-align:center;margin-bottom:36px}
 .scroll-hero .sh-emoji{font-size:4.5rem;display:block;margin-bottom:10px;animation:float 4s ease-in-out infinite}
@@ -274,7 +274,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .metta-intro{color:var(--text-muted);font-size:1rem;font-style:italic;margin-bottom:24px;line-height:1.8;font-weight:600}
 .metta-input-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
 .metta-lbl{font-size:.9rem;color:var(--text-dim);font-family:'Bangers',cursive;letter-spacing:.06em;min-width:110px;text-align:right}
-.metta-inp{background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;text-align:left;min-width:140px;outline:none;padding:3px 4px}
+.metta-inp{background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:700;text-align:left;min-width:140px;outline:none;padding:3px 4px}
 .metta-text-area{margin-top:22px;padding:20px;background:var(--bg-panel);border-radius:var(--r);text-align:left;border-left:3px solid rgba(255,184,0,.35)}
 .metta-line{font-size:1rem;color:var(--text-muted);line-height:2.3;font-style:italic;font-weight:600}
 .metta-line .mname{color:var(--gold);font-style:normal;font-family:'Bangers',cursive;letter-spacing:.04em}
@@ -300,7 +300,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
 .vb-intro{color:var(--text-muted);font-size:1rem;font-style:italic;margin-bottom:24px;line-height:1.8;font-weight:600}
 .vow-field{margin-bottom:20px}
 .vow-lbl{font-size:.88rem;color:var(--text-dim);font-family:'Bangers',cursive;letter-spacing:.08em;margin-bottom:7px;display:block}
-.vow-inp{width:100%;padding:12px 16px;background:var(--bg-panel);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:600;outline:none;transition:border-color var(--tr),box-shadow var(--tr);resize:none}
+.vow-inp{width:100%;padding:12px 16px;background:var(--bg-panel);border:2px solid var(--wood-l);border-radius:var(--r);color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;outline:none;transition:border-color var(--tr),box-shadow var(--tr);resize:none}
 .vow-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-glow)}
 .sig-area{margin-top:24px;text-align:center}
 .sig-line-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
