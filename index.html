@@ -452,6 +452,7 @@ h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.04em}
     <div id="rank-banner" class="rank-banner"></div>
     <div class="section-hdr"><span class="section-title">The Eight Scrolls</span></div>
     <div id="scrolls-grid" class="scrolls-grid"></div>
+    <div id="award-belt-banner" class="hidden" style="padding:16px 0 32px;text-align:center"></div>
   </div>
 </div>
 
@@ -844,32 +845,34 @@ const BELT_META = {
   black: { emoji:'⚫', label:'Black Belt',  color:'#333',    title:'Master' }
 };
 
-const SASH_PRIZES = {
+const BELT_PRIZES = {
   yellow: {
-    emoji: '🎬',
-    title: 'White Sash Prize',
     rewards: [
       { icon:'🐼', text:'Watch Kung Fu Panda 1 with a Parent' },
       { icon:'🍣', text:'Special Shaolin Monk Meal — sushi or gyoza together' },
     ]
   },
   orange: {
-    emoji: '🏆',
-    title: 'Yellow Sash Prize',
     rewards: [
       { icon:'🐼', text:'Watch Kung Fu Panda 2 with a Parent' },
       { icon:'🥟', text:'Make dumplings together — warrior\'s feast' },
+    ]
+  },
+  black: {
+    rewards: [
+      { icon:'🎌', text:'Watch all three Kung Fu Panda films in one sitting' },
+      { icon:'🍜', text:'Choose any restaurant for a special celebration dinner' },
     ]
   }
 };
 
 const DEFAULT_SCROLLS = {};
 SCROLLS.forEach((s,i) => {
-  DEFAULT_SCROLLS[s.id] = {status:'active', earnedBelts:[], beltDays:{yellow:[],orange:[],black:[]}};
+  DEFAULT_SCROLLS[s.id] = {beltDays:{yellow:[],orange:[],black:[]}};
 });
 
 let state = {
-  monkName:'', scrollProgress:{...DEFAULT_SCROLLS},
+  monkName:'', belt:null, scrollProgress:{...DEFAULT_SCROLLS},
   ironHorseBest:0, ironHorseTarget:30, formTimedBest:0,
   sessions:[], vows:{1:'',2:'',3:''}, monkAltName:''
 };
@@ -892,16 +895,16 @@ function loadState(){
     SCROLLS.forEach(s=>{
       const sp = state.scrollProgress[s.id];
       if(!sp){ state.scrollProgress[s.id] = {...DEFAULT_SCROLLS[s.id]}; return; }
-      // Migrate old 'complete' status to yellow belt earned
-      if(sp.status === 'complete'){
-        sp.status = 'active';
-        if(!sp.earnedBelts) sp.earnedBelts = ['yellow'];
-        if(!sp.beltDays) sp.beltDays = {yellow:sp.practiceDays||[],orange:[],black:[]};
-      }
-      if(sp.status==='locked') sp.status='active';
-      if(!sp.earnedBelts) sp.earnedBelts = [];
       if(!sp.beltDays) sp.beltDays = {yellow:sp.practiceDays||[],orange:[],black:[]};
       BELT_ORDER.forEach(b=>{ if(!sp.beltDays[b]) sp.beltDays[b]=[]; });
+      // Migrate old earnedBelts into global state.belt
+      if(sp.earnedBelts){
+        const eb = sp.earnedBelts;
+        if(eb.includes('black') && (!state.belt || BELT_ORDER.indexOf(state.belt)<2)) state.belt='black';
+        else if(eb.includes('orange') && (!state.belt || BELT_ORDER.indexOf(state.belt)<1)) state.belt='orange';
+        else if(eb.includes('yellow') && !state.belt) state.belt='yellow';
+        delete sp.earnedBelts;
+      }
     });
   } catch(e){}
 }
@@ -938,33 +941,33 @@ function playCeremony(){
 /* ═══════════════════════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════════════════════ */
-function getCurrentBeltIdx(id){
-  const earned = state.scrollProgress[id]?.earnedBelts||[];
-  for(let i=BELT_ORDER.length-1;i>=0;i--){ if(earned.includes(BELT_ORDER[i])) return i; }
-  return -1;
+function getWorkingBelt(){
+  if(state.belt==='black') return 'black';
+  if(state.belt==='orange') return 'black';
+  if(state.belt==='yellow') return 'orange';
+  return 'yellow';
 }
+function getWorkingBeltIdx(){ return BELT_ORDER.indexOf(getWorkingBelt()); }
 function getMaxBeltTier(){
-  const yc = SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
-  if(yc>=8) return 2;
-  if(yc>=4) return 1;
+  if(state.belt==='orange'||state.belt==='black') return 2;
+  if(state.belt==='yellow') return 1;
   return 0;
 }
-function getWorkingBeltIdx(id){
-  const next = Math.min(getCurrentBeltIdx(id)+1, BELT_ORDER.length-1);
-  return Math.min(next, getMaxBeltTier());
-}
-function getWorkingBelt(id){ return BELT_ORDER[getWorkingBeltIdx(id)]; }
 
 function getRank(){
-  const yellowCount = SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
-  if(yellowCount>=8) return {rank:'orange',title:'Orange Sash Disciple',emoji:'🟠',quote:'"The journey makes the master."'};
-  if(yellowCount>=4) return {rank:'yellow',title:'Yellow Sash Student',emoji:'🟡',quote:'"The cup is filling with wisdom."'};
-  return {rank:'white',title:'White Sash Novice',emoji:'⚪',quote:'"Every master was once a beginner."'};
+  if(state.belt==='black')  return {rank:'black', title:'Black Belt Master',    emoji:'⚫',quote:'"The journey makes the master."'};
+  if(state.belt==='orange') return {rank:'orange',title:'Orange Belt Disciple', emoji:'🟠',quote:'"Discipline is the highest form of self-respect."'};
+  if(state.belt==='yellow') return {rank:'yellow',title:'Yellow Belt Student',  emoji:'🟡',quote:'"The cup is filling with wisdom."'};
+  return                          {rank:'white', title:'Novice of the Path',   emoji:'⚪',quote:'"Every master was once a beginner."'};
 }
 
-function getCompletedCount(){
-  return SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
+function scrollsReadyAt(beltKey){
+  return SCROLLS.filter(s=>(state.scrollProgress[s.id]?.beltDays?.[beltKey]||[]).length>=BELT_SESSIONS).length;
 }
+function allReadyForBelt(){
+  return state.belt!=='black' && scrollsReadyAt(getWorkingBelt())===SCROLLS.length;
+}
+function getCompletedCount(){ return scrollsReadyAt(getWorkingBelt()); }
 
 function getCurrentScrollId(){
   const sp = SCROLLS.find(s=>state.scrollProgress[s.id]?.status==='active');
@@ -1032,40 +1035,44 @@ function showPath(){
 function renderPathView(){
   const el = document.getElementById('path-content');
   if(!el) return;
+  const wb = getWorkingBelt();
+  const bm = BELT_META[wb];
   let markedCurrent = false;
   function resolvedState(id){
     const sp = state.scrollProgress[id]||{};
-    const earned = sp.earnedBelts||[];
-    if(earned.includes('yellow')) return 'reached';
+    const days = (sp.beltDays?.[wb]||[]).length;
+    if(days >= BELT_SESSIONS) return 'reached';
     if(!markedCurrent){ markedCurrent = true; return 'current'; }
     return 'ahead';
   }
-  function beltPips(id){
+  function sessionPips(id){
     const sp = state.scrollProgress[id]||{};
-    const earned = sp.earnedBelts||[];
-    const wb = getWorkingBelt(id);
-    return BELT_ORDER.map(b=>{
-      let cls='card-belt-pip path-node-belt ';
-      cls += earned.includes(b)?'earned': b===wb?'working':'dim';
-      return `<span class="${cls}">${BELT_META[b].emoji}</span>`;
-    }).join('');
+    const days = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
+    return Array.from({length:BELT_SESSIONS},(_,i)=>
+      `<span style="font-size:.8rem">${i<days?'🌟':'⬜'}</span>`
+    ).join('');
   }
   function nodeHTML(scroll){
     const st = resolvedState(scroll.id);
+    const sp = state.scrollProgress[scroll.id]||{};
+    const days = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
     return `<div class="path-node" onclick="goToScroll(${scroll.id});showView('scroll')">
       <div class="path-node-icon ${st}">${scroll.emoji}</div>
       <div class="path-node-info">
         <div class="path-node-name">${scroll.name}</div>
         <div class="path-node-skill">${scroll.skill}</div>
-        <div class="path-node-belts">${beltPips(scroll.id)}</div>
+        <div class="path-node-belts" style="display:flex;align-items:center;gap:6px;margin-top:6px">
+          ${sessionPips(scroll.id)}
+          <span style="font-size:.75rem;color:var(--text-muted)">${days}/${BELT_SESSIONS} ${bm.emoji}</span>
+        </div>
       </div>
     </div>`;
   }
   const connector = `<div class="path-connector"></div>`;
   const zones = [
-    {rank:'white', nextRank:'yellow', emoji:'⚪',label:'White Sash — Novice of the Path',  scrollIds:[1,2,3],req:'Begin your training — explore the first scrolls'},
-    {rank:'yellow',nextRank:'orange', emoji:'🟡',label:'Yellow Sash — Student of the Way', scrollIds:[4,5,6],req:'Earn 4 Yellow Belts across any scrolls'},
-    {rank:'orange',nextRank:null,     emoji:'🟠',label:'Orange Sash — Disciple',           scrollIds:[7,8],  req:'Earn all 8 Yellow Belts'},
+    {rank:'white', nextRank:'yellow', emoji:'⚪',label:'Yellow Belt Training',  scrollIds:[1,2,3],req:'Complete 3 practice sessions in each scroll'},
+    {rank:'yellow',nextRank:'orange', emoji:'🟡',label:'Orange Belt Training',  scrollIds:[4,5,6],req:'Earn your Yellow Belt first'},
+    {rank:'orange',nextRank:'black',  emoji:'🟠',label:'Black Belt Training',   scrollIds:[7,8],  req:'Earn your Orange Belt first'},
   ];
   const r = getRank();
   let html = `<div class="path-title">⛩️ THE PATH OF THE YOUNG MONK</div>
@@ -1073,9 +1080,9 @@ function renderPathView(){
       You are: <strong style="color:var(--jade)">${r.emoji} ${r.title}</strong>
     </div>`;
   zones.forEach((zone, zi) => {
-    const prize = SASH_PRIZES[zone.nextRank];
+    const prize = BELT_PRIZES[zone.nextRank];
     const prizeHtml = prize ? `<div class="path-prize">
-      <div class="path-prize-header">🎁 Complete this zone to unlock</div>
+      <div class="path-prize-header">🎁 Earn ${BELT_META[zone.nextRank].emoji} ${BELT_META[zone.nextRank].label} to unlock</div>
       ${prize.rewards.map(r=>`<div class="path-prize-row"><span class="path-prize-icon">${r.icon}</span><span>${r.text}</span></div>`).join('')}
     </div>` : '';
     html += `<div class="path-zone">
@@ -1094,8 +1101,8 @@ function renderPathView(){
   });
   html += `<div class="path-summit">
     <span class="path-summit-emoji">🏯</span>
-    <div class="path-summit-title">The Summit — Orange Sash Disciple</div>
-    <div class="path-summit-desc">All eight skills mastered at Yellow Belt.<br>The Shaolin path is yours.</div>
+    <div class="path-summit-title">The Summit — ⚫ Black Belt Master</div>
+    <div class="path-summit-desc">All eight scrolls mastered at every level.<br>The Shaolin path is yours.</div>
   </div>`;
   el.innerHTML = html;
 }
@@ -1126,7 +1133,7 @@ function updateNavSash(){
   const badge = document.getElementById('nav-sash-badge');
   const txt = document.getElementById('nav-sash-text');
   badge.className = 'sash-badge '+r.rank;
-  txt.textContent = r.title;
+  txt.textContent = r.emoji+' '+r.title;
 }
 
 function renderDashboard(){
@@ -1142,36 +1149,31 @@ function renderDashboard(){
       <div class="rank-monk-name">${esc(state.monkName)}</div>
       <div class="rank-title-txt">${r.title}</div>
       <div class="prog-track"><div class="prog-fill ${progClass}" style="width:${pct}%"></div></div>
-      <div class="prog-label">${done} of 8 Yellow Belts earned</div>
+      <div class="prog-label">${done} of 8 scrolls ready for ${BELT_META[getWorkingBelt()].emoji} ${BELT_META[getWorkingBelt()].label}</div>
     </div>
     <div class="rank-quote">${r.quote}</div>
   `;
 
   const grid = document.getElementById('scrolls-grid');
   grid.innerHTML = '';
+  const wb = getWorkingBelt();
+  const bm = BELT_META[wb];
   SCROLLS.forEach(scroll=>{
-    const sp = state.scrollProgress[scroll.id] || {status:'active',earnedBelts:[],beltDays:{yellow:[],orange:[],black:[]}};
-    const earned = sp.earnedBelts||[];
-    const wbIdx = getWorkingBeltIdx(scroll.id);
-    const wb = BELT_ORDER[wbIdx];
-    const wbDays = (sp.beltDays?.[wb]||[]).length;
-    const allEarned = earned.length === BELT_ORDER.length;
-    const hasYellow = earned.includes('yellow');
-    const totalDays = BELT_ORDER.reduce((n,b)=>(sp.beltDays?.[b]||[]).length+n,0);
+    const sp = state.scrollProgress[scroll.id] || {beltDays:{yellow:[],orange:[],black:[]}};
+    const wbDays = Math.min((sp.beltDays?.[wb]||[]).length, BELT_SESSIONS);
+    const ready = wbDays >= BELT_SESSIONS;
+    const mastered = state.belt==='black' && ready;
 
     const card = document.createElement('div');
     let cardClass = 'scroll-card ';
     let statusEl = '';
-    if(allEarned){
+    if(mastered){
       cardClass += 'complete';
       statusEl = '<span class="card-status st-complete">⚫ Mastered</span>';
-    } else if(earned.includes('orange')){
+    } else if(ready){
       cardClass += 'complete';
-      statusEl = `<span class="card-status st-orange">🟠 Orange Belt</span>`;
-    } else if(hasYellow){
-      cardClass += 'complete';
-      statusEl = `<span class="card-status st-yellow">🟡 Yellow Belt</span>`;
-    } else if(totalDays>0){
+      statusEl = `<span class="card-status st-yellow" style="color:var(--jade)">✓ Ready!</span>`;
+    } else if(wbDays>0){
       cardClass += 'active';
       statusEl = '<span class="card-status st-active">IN PROGRESS</span>';
     } else {
@@ -1180,17 +1182,9 @@ function renderDashboard(){
     }
     card.className = cardClass;
 
-    const beltPips = BELT_ORDER.map(b=>{
-      let cls = 'card-belt-pip ';
-      if(earned.includes(b)) cls+='earned';
-      else if(b===wb) cls+='working';
-      else cls+='dim';
-      return `<span class="${cls}">${BELT_META[b].emoji}</span>`;
-    }).join('');
     const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>i<wbDays?'🌟':'⬜').join('');
     let progressEl = `
-      <div class="card-belts">${beltPips}</div>
-      ${!allEarned?`<div class="card-progress">${stamps} <span>${wbDays}/${BELT_SESSIONS} for ${BELT_META[wb].emoji}</span></div>`:''}
+      <div class="card-progress" style="margin-top:8px">${stamps} <span>${wbDays}/${BELT_SESSIONS} ${bm.emoji}</span></div>
     `;
 
     card.innerHTML = `
@@ -1203,6 +1197,23 @@ function renderDashboard(){
     card.addEventListener('click',()=>goToScroll(scroll.id));
     grid.appendChild(card);
   });
+
+  // Global belt award banner
+  const banner = document.getElementById('award-belt-banner');
+  if(banner){
+    if(allReadyForBelt()){
+      const wb = getWorkingBelt();
+      const bm = BELT_META[wb];
+      banner.classList.remove('hidden');
+      banner.innerHTML = `
+        <div style="font-size:.9rem;color:var(--jade);margin-bottom:10px">All 8 scrolls completed at ${bm.title} level!</div>
+        <button class="btn btn-gold btn-lg" onclick="handleAwardBelt()">🏅 Award ${bm.emoji} ${bm.label} (Abbot Only)</button>
+      `;
+    } else {
+      banner.classList.add('hidden');
+      banner.innerHTML = '';
+    }
+  }
 }
 
 function goToScroll(id){
@@ -1244,8 +1255,8 @@ function renderCurrentSlide(id, dir){
   const scroll = SCROLLS.find(s=>s.id===id);
   if(!scroll) return;
 
-  const wbIdx = getWorkingBeltIdx(id);
-  const wb = BELT_ORDER[wbIdx];
+  const wb = getWorkingBelt();
+  const wbIdx = BELT_ORDER.indexOf(wb);
   const bm = BELT_META[wb];
   const level = scroll.levels?.[wbIdx];
   const practices = level ? level.practices : scroll.practices;
@@ -1350,35 +1361,29 @@ function renderInlineActions(id){
   if(!el) return;
   const sp = state.scrollProgress[id];
   if(!sp) return;
-  const earned = sp.earnedBelts||[];
-  const allEarned = earned.length === BELT_ORDER.length;
-  const wb = getWorkingBelt(id);
+  const wb = getWorkingBelt();
   const bm = BELT_META[wb];
   const wbDays = sp.beltDays?.[wb]||[];
   const today = new Date().toISOString().split('T')[0];
   const practicedToday = wbDays.includes(today);
-  const count = wbDays.length;
+  const count = Math.min(wbDays.length, BELT_SESSIONS);
   const ready = count >= BELT_SESSIONS;
-
-  const pipIcons = BELT_ORDER.map(b=>{
-    const op = earned.includes(b)?'1': b===wb?'0.7':'0.2';
-    return `<span style="opacity:${op};font-size:1.15rem">${BELT_META[b].emoji}</span>`;
-  }).join('<span style="color:var(--wood-l);margin:0 3px">·</span>');
+  const mastered = state.belt==='black' && ready;
 
   const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>
     `<span class="practice-stamp ${i<count?'done':''}">${i<count?'🌟':'⬜'}</span>`
   ).join('');
 
   let html = `<div class="inline-progress-row">
-    ${pipIcons}
+    <span style="font-size:1.1rem">${bm.emoji}</span>
     <span class="practice-stamps">${stamps}</span>
-    <span class="practice-count">${count}/${BELT_SESSIONS} ${allEarned?'mastered':bm.emoji}</span>
+    <span class="practice-count">${count}/${BELT_SESSIONS} ${bm.label}</span>
   </div>`;
 
-  if(allEarned){
-    html += `<div class="practiced-today-badge" style="margin-top:10px">⚫ All belts mastered!</div>`;
+  if(mastered){
+    html += `<div class="practiced-today-badge" style="margin-top:10px">⚫ Black Belt mastered!</div>`;
   } else if(ready){
-    html += `<button class="btn btn-gold btn-lg" style="margin-top:12px" onclick="handleAwardBelt(${id})">🏅 Award ${bm.label} (Abbot only)</button>`;
+    html += `<div class="practiced-today-badge" style="margin-top:10px;color:var(--jade)">✓ This scroll is ready — complete all 8 to earn your ${bm.emoji} ${bm.label}!</div>`;
   } else if(practicedToday){
     html += `<div class="practiced-today-badge" style="margin-top:10px">✓ Practised today — come back tomorrow!</div>`;
   } else {
@@ -1408,17 +1413,10 @@ function startScrollTimer(){
 function renderBeltBar(id){
   const scroll = SCROLLS.find(s=>s.id===id);
   if(!scroll) return;
-  const sp = state.scrollProgress[id]||{};
-  const earned = sp.earnedBelts||[];
-  const wbIdx = getWorkingBeltIdx(id);
-  const wb = BELT_ORDER[wbIdx];
+  const wb = getWorkingBelt();
   const bm = BELT_META[wb];
-  const wbDays = sp.beltDays?.[wb]||[];
-  const today = new Date().toISOString().split('T')[0];
-  const practicedToday = wbDays.includes(today);
-  const count = wbDays.length;
-  const ready = count >= BELT_SESSIONS;
-  const allEarned = earned.length === BELT_ORDER.length;
+  const done = scrollsReadyAt(wb);
+  const total = SCROLLS.length;
 
   const bar = document.getElementById('complete-bar');
   bar.classList.remove('hidden');
@@ -1427,20 +1425,17 @@ function renderBeltBar(id){
   const hint = document.getElementById('cbar-hint');
   const action = document.getElementById('cbar-action');
 
-  const pipIcons = BELT_ORDER.map(b=>{
-    const op = earned.includes(b)?'1': b===wb?'0.65':'0.2';
+  const beltPips = BELT_ORDER.map(b=>{
+    const isCurrent = b===wb;
+    const isPast = state.belt && BELT_ORDER.indexOf(b) <= BELT_ORDER.indexOf(state.belt);
+    const op = isPast?'1': isCurrent?'0.75':'0.2';
     return `<span style="opacity:${op};font-size:1rem">${BELT_META[b].emoji}</span>`;
   }).join('<span style="color:var(--wood-l);margin:0 2px">·</span>');
 
-  const stamps = Array.from({length:BELT_SESSIONS},(_,i)=>
-    `<span class="practice-stamp ${i<count?'done':''}">${i<count?'🌟':'⬜'}</span>`
-  ).join('');
-
-  if(allEarned){
-    hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px">${pipIcons}<span style="color:var(--gold);font-family:'Bangers',cursive;letter-spacing:.04em">All belts mastered!</span></span>`;
-  } else {
-    hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap">${pipIcons}<span class="practice-stamps">${stamps}</span><span style="font-size:.82rem;color:var(--text-muted)">${count}/${BELT_SESSIONS} ${bm.emoji}</span></span>`;
-  }
+  hint.innerHTML = `<span style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap">
+    ${beltPips}
+    <span style="font-size:.82rem;color:var(--text-muted)">${bm.emoji} Training · ${done}/${total} scrolls ready</span>
+  </span>`;
   action.innerHTML = '';
 }
 
@@ -1448,7 +1443,7 @@ function logPracticeDay(id){
   const today = new Date().toISOString().split('T')[0];
   const sp = state.scrollProgress[id];
   if(!sp) return;
-  const wb = getWorkingBelt(id);
+  const wb = getWorkingBelt();
   if(!sp.beltDays) sp.beltDays = {yellow:[],orange:[],black:[]};
   if(sp.beltDays[wb].includes(today)) return;
   sp.beltDays[wb].push(today);
@@ -2136,81 +2131,47 @@ function saveVows(){
 /* ═══════════════════════════════════════════════════════
    MARK COMPLETE + CEREMONY
 ═══════════════════════════════════════════════════════ */
-function handleAwardBelt(id){
-  if(!id) return;
-  const scroll=SCROLLS.find(s=>s.id===id);
-  const sp=state.scrollProgress[id];
-  if(!scroll||!sp) return;
-  const wb=getWorkingBelt(id);
-  const bm=BELT_META[wb];
-  const wbDays=(sp.beltDays?.[wb]||[]).length;
-  if(wbDays<BELT_SESSIONS){ alert(`Complete ${BELT_SESSIONS} practice sessions first before awarding this belt.`); return; }
-  if(!confirm(`Award the ${bm.emoji} ${bm.label} to ${state.monkName||'the monk'} for "${scroll.name}"?\n\nThe Abbot has witnessed the training.`)) return;
+function handleAwardBelt(){
+  const wb = getWorkingBelt();
+  const bm = BELT_META[wb];
+  if(!allReadyForBelt()){ alert(`Complete all 8 scrolls with ${BELT_SESSIONS} practice sessions each before awarding the ${bm.label}.`); return; }
+  if(!confirm(`Award the ${bm.emoji} ${bm.label} to ${state.monkName||'the monk'}?\n\nThe Abbot has witnessed the training across all eight scrolls.`)) return;
 
-  if(!sp.earnedBelts) sp.earnedBelts=[];
-  sp.earnedBelts.push(wb);
-
+  state.belt = wb;
   saveState();
-  logSession(id,'belt-'+wb);
-  renderBeltBar(id);
-  renderInlineActions(id);
-
-  const yellowCount=SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
-  const isSashPromo=(yellowCount===4||yellowCount===8);
-  showCeremony(id, wb, isSashPromo);
+  logSession(0, 'belt-'+wb);
+  showCeremony(wb);
 }
 
-function showCeremony(scrollId, beltAwarded, isSashPromo){
-  const scroll=SCROLLS.find(s=>s.id===scrollId);
-  if(!scroll) return;
-  const bm=BELT_META[beltAwarded]||BELT_META['yellow'];
-  const overlay=document.getElementById('ceremony-overlay');
+function showCeremony(beltAwarded){
+  const bm = BELT_META[beltAwarded]||BELT_META['yellow'];
+  const overlay = document.getElementById('ceremony-overlay');
   overlay.classList.remove('hidden');
 
-  const canvas=document.getElementById('particles-canvas');
+  const canvas = document.getElementById('particles-canvas');
   canvas.width=window.innerWidth; canvas.height=window.innerHeight;
   if(stopParticles) stopParticles();
-  stopParticles=startParticles(canvas);
+  stopParticles = startParticles(canvas);
   playCeremony();
 
-  const yellowCount=SCROLLS.filter(s=>state.scrollProgress[s.id]?.earnedBelts?.includes('yellow')).length;
-  let promoHtml='';
-  function prizeBlock(sashKey){
-    const p = SASH_PRIZES[sashKey];
-    if(!p) return '';
-    return `<div class="cer-prize">
-      <div class="cer-prize-header">🎁 Your Prize — claim it with a Parent!</div>
-      ${p.rewards.map(r=>`<div class="cer-prize-row"><span style="font-size:1.3rem">${r.icon}</span><span>${r.text}</span></div>`).join('')}
-    </div>`;
-  }
-  if(isSashPromo && yellowCount>=8){
-    promoHtml=`
-      <div class="cer-promo" style="border-color:var(--orange-s)">
-        <div class="cer-promo-label" style="color:var(--orange-s)">🟠 Promotion</div>
-        <div class="cer-promo-title">Orange Sash Disciple</div>
-        <div class="cer-promo-desc">All eight skills mastered at Yellow Belt. Black Belt training is now unlocked across all scrolls.</div>
-      </div>
-      ${prizeBlock('orange')}
-    `;
-    const vowHtml=[1,2,3].filter(i=>state.vows[i]).map(i=>`<div class="cer-vow-line">"${esc(state.vows[i])}"</div>`).join('');
-    if(vowHtml) promoHtml+=`<div class="cer-vows">${vowHtml}</div>`;
-  } else if(isSashPromo && yellowCount>=4){
-    promoHtml=`
-      <div class="cer-promo">
-        <div class="cer-promo-label">🟡 Promotion</div>
-        <div class="cer-promo-title">Yellow Sash Student</div>
-        <div class="cer-promo-desc">Four skills mastered at Yellow Belt. Orange Belt training is now unlocked across all scrolls.</div>
-      </div>
-      ${prizeBlock('yellow')}
-    `;
-  }
+  const prize = BELT_PRIZES[beltAwarded];
+  const prizeHtml = prize ? `<div class="cer-prize">
+    <div class="cer-prize-header">🎁 Your Prize — claim it with a Parent!</div>
+    ${prize.rewards.map(r=>`<div class="cer-prize-row"><span style="font-size:1.3rem">${r.icon}</span><span>${r.text}</span></div>`).join('')}
+  </div>` : '';
+
+  const nextBelt = beltAwarded==='yellow'?'🟠 Orange Belt':beltAwarded==='orange'?'⚫ Black Belt':null;
+  const nextHtml = nextBelt ? `<div class="cer-promo-desc" style="margin-top:8px">${nextBelt} training is now unlocked across all scrolls.</div>` : '';
+
+  const vowHtml = beltAwarded==='black' ? [1,2,3].filter(i=>state.vows[i]).map(i=>`<div class="cer-vow-line">"${esc(state.vows[i])}"</div>`).join('') : '';
 
   document.getElementById('ceremony-inner').innerHTML=`
     <span class="cer-em">${bm.emoji}</span>
     <div class="cer-label">${bm.label} Earned!</div>
-    <div class="cer-title">${scroll.name}</div>
-    <div class="cer-skill">${scroll.skill}</div>
-    ${promoHtml}
+    <div class="cer-subtitle" style="color:var(--text-muted);font-size:.95rem;margin-bottom:4px">All eight scrolls mastered at ${bm.title} level</div>
+    ${nextHtml}
+    ${prizeHtml}
+    ${vowHtml ? `<div class="cer-vows">${vowHtml}</div>` : ''}
     <button class="btn btn-gold btn-lg" onclick="hideCeremony()">Continue the Path →</button>
   `;
 
